@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Architecture Atlas</title>
+<meta name="description" content="Architecture Atlas by Muthukumar Subramanian: named, specified enterprise architectures for the agent era, each with a definition, an open specification and industry walkthroughs.">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:description" content="Named, specified architectures for the agent era. First up: the Compile-Once Enterprise. The LLM builds. Code runs.">
+<meta property="og:url" content="https://muthu4all.github.io/">
+<meta property="og:image" content="https://muthu4all.github.io/assets/og/atlas.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.hero h1{max-width:16ch}
+.map{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.slot{border:1px dashed var(--line);border-radius:14px;padding:18px;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;color:var(--muted)}
+.slot b{font-family:var(--f-disp);font-size:1.05rem;color:var(--ink)}
+@media (max-width:960px){.map{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.map{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="./">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="#architectures">Architectures</a></li>
+    <li><a class="link" href="#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">Architecture Atlas · Muthukumar Subramanian</div>
+  <h1>Architectures for the <span class="b">agent era</span>, named and specified.</h1>
+  <p class="lede">AI is changing how enterprises are designed, governed and run. Each architecture here comes with a <strong>definition</strong>, an <strong>open specification</strong> and <em>industry walkthroughs</em>, free to use and adapt with attribution.</p>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="actions">
+    <a class="btn primary" href="compile-once-enterprise/">Explore the Compile-Once Enterprise</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+  </div>
+</section>
+
+<section class="block" id="architectures" aria-labelledby="arch-h">
+  <div class="head"><h2 id="arch-h">Architectures</h2><p>Each architecture lives in its own open repository with its own version history, so it can be cited, forked and improved.</p></div>
+  <article class="card feature">
+    <div>
+      <span class="tag live">Live · v0.1</span>
+      <h3 style="font-size:1.9rem;margin-top:12px">The Compile-Once Enterprise</h3>
+      <p style="font-size:1.05rem"><span class="b" style="font-weight:700">The LLM builds.</span> <span class="r" style="font-weight:700">Code runs.</span> A large language model builds small, tested programs for every business function; plain code runs them with zero model calls. Data Spheres, the Forge, Capsules, the Capsule Exchange and Constellations.</p>
+      <div class="actions">
+        <a class="btn primary" href="compile-once-enterprise/">Overview</a>
+        <a class="btn" href="compile-once-enterprise/architecture/">Definition</a>
+        <a class="btn" href="compile-once-enterprise/spec/">Spec</a>
+        <a class="btn" href="compile-once-enterprise/#film">Film</a>
+      </div>
+    </div>
+    <a href="compile-once-enterprise/industries/insurance/" aria-label="Open the interactive insurance walkthrough">
+      <img src="assets/og/compile-once-card.png" alt="The Compile-Once Enterprise: legacy systems, eight data spheres and the Forge, drawn as an architecture map" width="1200" height="627" style="border-radius:12px;border:1px solid var(--line)">
+    </a>
+  </article>
+
+  <div class="map" aria-label="Architectures in development">
+    <div class="slot"><b>In development</b><span>Trust and autonomy for AI agents</span></div>
+    <div class="slot"><b>In development</b><span>Accountable decisions at scale</span></div>
+    <div class="slot"><b>In development</b><span>Agent-to-agent commerce</span></div>
+  </div>
+</section>
+
+<section class="block" id="about" aria-labelledby="about-h">
+  <div class="head"><h2 id="about-h">About</h2><p>Why this atlas exists.</p></div>
+  <div class="prose">
+    <p>I've been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI.</p>
+    <p>Every big shift in computing brought patterns that later felt obvious: client-server, service-oriented, cloud-native, event-driven. AI agents are the next shift, and most of the patterns that will define it don't have names yet. This atlas is where I name them, specify them and test them against real industries, in the open.</p>
+    <p>Everything here is published under CC BY 4.0 (text) and MIT (code and schemas). Use it, adapt it, and credit the source. If you'd like to apply one of these architectures in your organisation, or challenge one, I'd like to hear from you.</p>
+    <div class="actions"><a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Talk to Muthukumar on LinkedIn &#8599;</a></div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> · <a href="https://github.com/muthu4all" target="_blank" rel="noopener">GitHub</a></div>
+</footer>
+</div>
+</body>
+</html>
