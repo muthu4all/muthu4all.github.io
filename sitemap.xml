@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://muthu4all.github.io/</loc><lastmod>2026-11-27</lastmod></url>
+  <url><loc>https://muthu4all.github.io/industries/</loc><lastmod>2026-11-27</lastmod></url>
   <url><loc>https://muthu4all.github.io/writing/</loc><lastmod>2026-11-27</lastmod></url>
   <url><loc>https://muthu4all.github.io/writing/ai-solution-exchange/</loc><lastmod>2026-11-27</lastmod></url>
   <url><loc>https://muthu4all.github.io/writing/agent-passport/</loc><lastmod>2026-11-27</lastmod></url>
@@ -74,10 +75,4 @@
   <url><loc>https://muthu4all.github.io/writing/keynes-15-hour-week/</loc><lastmod>2026-11-27</lastmod></url>
   <url><loc>https://muthu4all.github.io/writing/a-day32-computer-use/</loc><lastmod>2026-11-27</lastmod></url>
   <url><loc>https://muthu4all.github.io/writing/b-day24-app-sprawl/</loc><lastmod>2026-11-27</lastmod></url>
-  <url><loc>https://muthu4all.github.io/writing/a-day33-multi-model/</loc><lastmod>2026-11-27</lastmod></url>
-  <url><loc>https://muthu4all.github.io/writing/b-day25-month-end/</loc><lastmod>2026-11-27</lastmod></url>
-  <url><loc>https://muthu4all.github.io/writing/a-day34-guardrails/</loc><lastmod>2026-11-27</lastmod></url>
-  <url><loc>https://muthu4all.github.io/writing/brain-design-lessons/</loc><lastmod>2026-11-27</lastmod></url>
-  <url><loc>https://muthu4all.github.io/writing/a-day35-evals/</loc><lastmod>2026-11-27</lastmod></url>
-  <url><loc>https://muthu4all.github.io/writing/b-day26-cheapest-quote/</loc><lastmod>2026-11-27</lastmod></url>
 </urlset>
