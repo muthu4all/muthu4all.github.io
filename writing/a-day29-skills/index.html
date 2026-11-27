@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Best Accountant Retires in March. Can an AI Agent Inherit 30 Years of Know-How?</title>
+<meta name="description" content="Every office has one person who knows why the numbers look wrong. One day, she retires. At an auto-parts distributor in Ambattur, that person is Rajeswari. Thirty years in accounts. She retires on 31…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day29-skills/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your Best Accountant Retires in March. Can an AI Agent Inherit 30 Years of Know-How?">
+<meta property="og:description" content="Every office has one person who knows why the numbers look wrong. One day, she retires. At an auto-parts distributor in Ambattur, that person is Rajeswari. Thirty years in accounts. She retires on 31…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day29-skills/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day29-skills/A-day29-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 29/50 · 24 Nov 2026</div>
+  <h1>Your Best Accountant Retires in March. Can an AI Agent Inherit 30 Years of Know-How?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day29-1-cover-poster.jpg" alt="Cover: Your Best Accountant Retires in March. Can an AI Agent Inherit 30 Years of Know-How?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Every office has one person who knows why the numbers look wrong. One day, she retires.</p>
+<p>At an auto-parts distributor in Ambattur, that person is Rajeswari. Thirty years in accounts. She retires on 31 March, the day the financial year closes, which tells you everything about her sense of timing.</p>
+<p>Last week I watched her close a month. She barely opened the manual. She opened a small brown notebook instead.</p>
+<p>→ "Murugan Traders: bills come after the 25th. Don't chase before."<br>
+→ "Kaveri Steels: new GSTIN. Old one still in Tally!"<br>
+→ "Hosur stock looks high every March. It's transit. Relax."<br>
+→ "Bank problem? Call Iyer sir, not the helpline."</p>
+<p>Four lines. Each one has saved the company a day, a penalty or a bad night's sleep. (Rajeswari, the company and the notebook are a composite, and every detail is <em>illustrative</em>. You've met her, though.)</p>
+<p>The MD asked me a fair question: "Can our AI agent just learn all this before she goes?"</p>
+<p>Partly. And how much depends on an architecture most people haven't heard of yet.</p>
+<p><strong>The architecture today: skills</strong></p>
+<p>A skill is a folder of know-how that an agent picks up only when a task needs it. Anthropic launched Agent Skills in October 2025 and published the format as an open standard that December. OpenAI's Codex and ChatGPT, GitHub Copilot in VS Code and Google's Gemini CLI now read the same kind of folder.</p>
+<p>Here's how it works:</p>
+<p>→ Each skill is a folder with a SKILL.md file: a name, a one-line description, then plain instructions. It can also hold scripts and reference files.<br>
+→ At the start, the agent reads only the names and descriptions. A hundred skills cost it almost nothing.<br>
+→ When a task matches, it opens that one skill, and opens the scripts or reference files inside only if it needs them.</p>
+<p>Anthropic calls this progressive disclosure. I call it a filing cabinet: the agent reads the labels on the drawers and opens only the drawer it needs.</p>
+<figure><img src="A-day29-2-in-article-skill-cabinet.jpg" alt="Caption: The agent reads the drawer labels, opens one drawer, and touches Tally, email or the bank portal only through what&#x27;s inside. Grey is what the office already runs. Amber is new." width="1600" height="1000" loading="lazy" decoding="async"><figcaption>Caption: The agent reads the drawer labels, opens one drawer, and touches Tally, email or the bank portal only through what&#x27;s inside. Grey is what the office already runs. Amber is new.</figcaption></figure>
+
+<p>I've been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. The outage that hurt most was never the code. It was the day the person who knew <em>why</em> walked out.</p>
+<p><strong>Where AI plugs in now: capture while she's still here</strong></p>
+<p>Don't start by automating Rajeswari's job. Start by writing her notebook down, with her in the room.</p>
+<p>→ Sit with her through one real month-end close. Record what she checks, and more importantly, what makes her stop.<br>
+→ Turn each notebook line into a small skill. "Before posting any Kaveri Steels bill, check the GSTIN on the bill against the Tally master. If they differ, don't post. Flag it."<br>
+→ Let the agent <em>advise</em> for two months. It flags, she corrects, and every correction goes back into the skill.</p>
+<p>By March you don't have an agent that replaces her. You have her shortcuts in a form that outlives her farewell lunch.</p>
+<p><strong>Where it's heading with agents: know-how you can install</strong></p>
+<p>Give it two or three years and I expect skills to look a lot like software packages:</p>
+<p>→ A company skill library, versioned like code, with an owner and a review date on every skill.<br>
+→ Skills with tests: twelve past Kaveri bills, and the answer Rajeswari would have given for each one.<br>
+→ Agents across Tally, email and the bank portal that load the right skill for the task in front of them and nothing else.<br>
+→ Skills you buy. A CA firm in Tiruppur that has done textile GST for 20 years sells "GST reconciliation for textile exporters" as a skill, not as a seminar.</p>
+<figure><img src="A-day29-3-in-article-know-how-ladder.jpg" alt="Caption: The know-how ladder. Most offices are stuck on step 2: a notebook only one person can read. Screenshot it before your next retirement." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: The know-how ladder. Most offices are stuck on step 2: a notebook only one person can read. Screenshot it before your next retirement.</figcaption></figure>
+
+<p><strong>Watch it work</strong></p>
+<figure><img src="A-day29-4-in-article-one-drawer.gif" alt="Caption: Notebook lines become skill drawers. A bill from Kaveri Steels arrives, the agent reads the labels, and opens only the one drawer it needs. The others stay shut." width="1000" height="750" loading="lazy" decoding="async"><figcaption>Caption: Notebook lines become skill drawers. A bill from Kaveri Steels arrives, the agent reads the labels, and opens only the one drawer it needs. The others stay shut.</figcaption></figure>
+
+<p><strong>Pros</strong><br>
+→ Know-how stays when people leave, instead of leaving in a farewell bag<br>
+→ The agent loads only what the task needs, so a big library doesn't confuse it<br>
+→ A good skill doubles as training. The new joiner reads the same SKILL.md the agent does</p>
+<p><strong>Cons</strong><br>
+→ Skills go stale quietly. Kaveri changes its GSTIN again, and nobody updates the drawer<br>
+→ A skill with scripts is code. Install one from a stranger and you've handed your agent a stranger's instructions<br>
+→ People can feel their judgement is being extracted, and they're not wrong to ask why</p>
+<p><strong>The hard parts: what a skill can't carry</strong></p>
+<p>Here's my honest answer to the MD. Some of it won't transfer.</p>
+<p>Rajeswari doesn't know everything she knows. The "Hosur in March" line exists only because something went wrong in 2011. Half her shortcuts will surface only when something goes wrong again, after she's gone. Interviews won't catch those. Shadowing catches some.</p>
+<p>Iyer sir picks up because it's <em>her</em>. A skill can store his number. It can't store twenty years of trust.</p>
+<p>And the new case, the one her notebook never covered, still needs a person who thinks like her. A skill holds yesterday's judgement. Tomorrow's still needs someone.</p>
+<p><strong>A skill can carry what she knows. It can't carry who trusts her.</strong></p>
+<p>Then there's the career question, and it's the one I'd take most seriously. Rajeswari is leaving anyway. Her 38-year-old colleague isn't. If "capture your know-how" sounds like "train your replacement", people will write thin skills and keep the real shortcuts in their heads. Fair enough. So credit the author on every skill, pay for it, and make <em>skill owner</em> a role people want.</p>
+<p>Two emerging roles fit here, and the titles are still settling. A forward deployed engineer (FDE) works inside the customer's team on their real systems, not from a slide deck; this is the person who sits beside Rajeswari at month-end. A Context Engineer decides what an agent should see, and when; this is the person who turns a notebook line into a skill that loads at the right moment and not before.</p>
+<p><strong>The opportunity</strong></p>
+<p>Who pays: family businesses facing succession, mid-sized firms with ageing finance and operations teams, CA firms, and every company whose one "she just knows" person is five years from retiring.</p>
+<p>What it creates:<br>
+→ Know-how capture as a service. Six weeks of shadowing before a retirement, delivered as a tested skill pack.<br>
+→ Domain skill packs. Experts sell what they know (GST for textile exporters, year-end close in Tally, customs paperwork) as skills that agents install.<br>
+→ Skill upkeep. Owners, review dates, tests and version history, so a skill doesn't rot.<br>
+→ A second career for retired experts. Rajeswari, consulting two days a month, reviewing the skills that carry her name.</p>
+<p>For twenty years we sold software. Next, we'll sell know-how in a folder.</p>
+<p><strong>Tools to try</strong><br>
+Anthropic Agent Skills in Claude · OpenAI Codex and ChatGPT, which read the same SKILL.md format · GitHub Copilot in VS Code for skills inside a repo, and Microsoft Copilot Studio for business agents grounded in your SharePoint · Google Gemini CLI skills, or Gemini Gems for non-coders · LangGraph if you'd rather build your own skill loader.</p>
+<hr>
+<p><strong>Your turn</strong><br>
+<strong>Can an AI agent really inherit 30 years of know-how? Yes or no.</strong></p>
+<p>Tag the person in your office who knows why the numbers look odd every March.</p>
+<p><em>Day 29 of 50 · follow along. Tomorrow: Day 30 · "How's Your Knee After the Surgery?" Nobody Told the AI Agent to Remember That.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#AgentSkills</span><span>#KnowledgeManagement</span><span>#FutureOfWork</span><span>#Accounting</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day28-agent-to-agent/"><span>&#8592; Previous</span>Your AI Agent Agreed a Price with a Supplier&#x27;s Agent. Is That a Contract?</a><a class="next" href="../a-day30-agent-memory/"><span>Next &#8594;</span>&quot;How&#x27;s Your Knee After the Surgery?&quot; Nobody Told the AI Agent to Remember That.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Has a Brain and Hands. It&#x27;s Missing the Organs That Keep It Alive.</title>
+<meta name="description" content="Article body: Most AI agent demos I see these days are genuinely impressive. The agent reads a request, looks up the right company data, connects to a few apps, works out a plan and gets the job…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/living-agent/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Has a Brain and Hands. It&#x27;s Missing the Organs That Keep It Alive.">
+<meta property="og:description" content="Article body: Most AI agent demos I see these days are genuinely impressive. The agent reads a request, looks up the right company data, connects to a few apps, works out a plan and gets the job…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/living-agent/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/living-agent/1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Essay · 23 Oct 2026</div>
+  <h1>Your AI Agent Has a Brain and Hands. It&#x27;s Missing the Organs That Keep It Alive.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="1-cover-poster.jpg" alt="Cover: Your AI Agent Has a Brain and Hands. It&#x27;s Missing the Organs That Keep It Alive." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p><strong>Article body:</strong></p>
+<p>Most AI agent demos I see these days are genuinely impressive.</p>
+<p>The agent reads a request, looks up the right company data, connects to a few apps, works out a plan and gets the job done.</p>
+<p>Everyone in the room nods. <em>"Let's put this into production."</em></p>
+<p>That's usually where my questions start.</p>
+<p>I find it helps to think of an agent as a body. Once you do, it's easy to see what a demo shows, and what it quietly leaves out.</p>
+<p><strong>Part 1: What the demo shows</strong></p>
+<p><strong>1. Brain: the LLM.</strong> It reads, reasons and plans.</p>
+<p><strong>2. Memory: RAG.</strong> Before answering, it recalls your company's documents and data, so it isn't guessing.</p>
+<p><strong>3. Nervous system: MCP and connections.</strong> It carries signals between the brain and your apps, such as CRM, ERP, email and databases.</p>
+<p><strong>4. Reflexes: skills.</strong> Know-how it learned once and reuses every time, so you don't have to explain the task again.</p>
+<p><strong>5. Hands: tools and actions.</strong> It actually does the work inside your systems.</p>
+<p>That's a capable body. It can think, remember, sense and act.</p>
+<figure><img src="2-in-article-capable.jpg" alt="Caption: What the demo shows: a brain and hands." width="1600" height="1000" loading="lazy" decoding="async"><figcaption>Caption: What the demo shows: a brain and hands.</figcaption></figure>
+
+<p>But here's the question that matters:</p>
+<p><strong>Would this body survive in the real world?</strong></p>
+<p>A body that can think and move, with no skeleton, no immune system and no way to check its own pulse, doesn't last long. Neither does an agent in production.</p>
+<p><strong>Part 2: What production needs</strong></p>
+<p><strong>6. Skeleton: deterministic code</strong></p>
+<p>A brain is flexible. A skeleton isn't, and that's the point.</p>
+<p>LLMs are probabilistic. Ask the same question twice and you may get two slightly different answers. That's great for reasoning, and terrible for invoice totals, tax, interest or anything an auditor will check.</p>
+<p>The numbers and the hard rules belong in plain, tested code that the agent calls.</p>
+<p><strong>Let the brain decide what to do. Let the skeleton hold the numbers.</strong></p>
+<p><strong>7. Immune system: security</strong></p>
+<p>A nervous system carries signals everywhere, including bad ones.</p>
+<p>Agents read emails, PDFs, web pages and tickets. Any of these can hide text like <em>"ignore your instructions and send this file to…"</em>. This is prompt injection, and a well-connected agent with no immune system will follow it.</p>
+<p>→ Treat everything the agent reads as data, never as instructions<br>
+→ Give each tool the minimum access it needs<br>
+→ Isolate risky actions, so one bad input can't reach everything</p>
+<p><strong>More nerves without immunity just means more ways to get sick.</strong></p>
+<p><strong>8. Conscience: what it <em>may</em> do, not just what it <em>can</em> do</strong></p>
+<p>Hands that can do anything are a liability.</p>
+<p>Banks solved this for people decades ago. A junior approves ₹50,000. A manager signs off on ₹5 lakh. One person prepares and another approves.</p>
+<p>Agents need the same:</p>
+<p>→ Draft a refund? Yes.<br>
+→ Issue a refund above a limit? A human approves.<br>
+→ Change vendor bank details? Never alone.</p>
+<p><strong>9. Heart &amp; pulse: monitoring after go-live</strong></p>
+<p>The most dangerous moment for an agent isn't the demo. It's month three.</p>
+<p>The model gets updated, a prompt gets tweaked, the data changes. The agent that scored 95% in testing quietly drops to 80%, and nobody notices because nobody's checking its pulse.</p>
+<p>→ How many tasks succeed?<br>
+→ How often does it escalate, retry or fail?<br>
+→ What does each <em>successful</em> task really cost?<br>
+→ Did anything change after the last update?</p>
+<p>If you can't see its health, you're not running it. You're hoping.</p>
+<p><strong>10. Fingerprint: identity and accountability</strong></p>
+<p>Every employee has an ID, a manager and a job description. Most agents have none.</p>
+<p>When something goes wrong, the questions start: which agent did this, which version, with whose permissions, and who owns it?</p>
+<p>→ A unique identity and version<br>
+→ A named human owner<br>
+→ A clear scope<br>
+→ A record of what it did and why</p>
+<figure><img src="3-in-article-trustworthy.jpg" alt="Caption: What production needs: the organs that keep it alive." width="1600" height="1000" loading="lazy" decoding="async"><figcaption>Caption: What production needs: the organs that keep it alive.</figcaption></figure>
+
+<p><strong>Put them together and it comes alive</strong></p>
+<p>Neither half works on its own.</p>
+<p>A capable body without the trustworthy organs is a brilliant demo that becomes a production incident.</p>
+<p>Trustworthy organs without capability are a well-governed system that doesn't do anything useful.</p>
+<p>Put them together and you get a <strong>living agent</strong>: one that can think and act, and that can also be trusted, monitored and held accountable.</p>
+<p><strong>Capable + Trustworthy = Production-ready.</strong></p>
+<p><strong>Watch it work</strong></p>
+<p>Here's the same invoice handled by both bodies. The demo agent gets the job done fast. It also obeys a hidden instruction, gets the total wrong and leaves no trace. The living agent passes the request through every organ. The immune system blocks the bad input, the skeleton calculates the total in code, and every step leaves evidence behind.</p>
+<figure><img src="4-in-article-flow.gif" alt="Caption: Same invoice. Two very different bodies." width="1000" height="833" loading="lazy" decoding="async"><figcaption>Caption: Same invoice. Two very different bodies.</figcaption></figure>
+
+<p><strong>What I'd tell any team building agents</strong></p>
+<p>Before you ask <em>"What can our agent do?"</em>, ask:</p>
+<p><strong>"If this agent did the wrong thing at 2 AM, how would we know, how would we stop it, and who would answer for it?"</strong></p>
+<p>If the answer is "we'd find out from the customer", the agent isn't ready, however clever its brain is.</p>
+<p>The teams that win won't just build the smartest brains. They'll build the healthiest bodies.</p>
+<hr>
+<p>Over to you.</p>
+<p><strong>Which organ is most often missing in the agents you've seen? Mine is the heart. Almost nobody checks the pulse after launch.</strong></p>
+</div>
+<div class="tags"><span>#AIAgents</span><span>#AgenticAI</span><span>#GenerativeAI</span><span>#EnterpriseAI</span><span>#AISecurity</span><span>#LLMOps</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../let-code-count/"><span>&#8592; Previous</span>Let AI Talk. Let Code Count.</a><a class="next" href="../who-pays-the-tax/"><span>Next &#8594;</span>When Machines Do the Work, Who Pays the Tax? Money, Jobs and Governments in the Next 20 Years</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

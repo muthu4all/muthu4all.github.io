@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Two AI Agents Disagreed on a Refund. Who&#x27;s Responsible?</title>
+<meta name="description" content="A customer in Madurai asks for an ₹18,000 refund. The Refunds agent checks the order and says yes. It sends a message: &quot;Refund approved.&quot; Eleven seconds later, the Fraud agent sees three refunds on…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day08-agent-mesh/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Two AI Agents Disagreed on a Refund. Who&#x27;s Responsible?">
+<meta property="og:description" content="A customer in Madurai asks for an ₹18,000 refund. The Refunds agent checks the order and says yes. It sends a message: &quot;Refund approved.&quot; Eleven seconds later, the Fraud agent sees three refunds on…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day08-agent-mesh/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day08-agent-mesh/A-day08-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 8/50 · 3 Nov 2026</div>
+  <h1>Two AI Agents Disagreed on a Refund. Who&#x27;s Responsible?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day08-1-cover-poster.jpg" alt="Cover: Two AI Agents Disagreed on a Refund. Who&#x27;s Responsible?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>A customer in Madurai asks for an ₹18,000 refund.</p>
+<p>The Refunds agent checks the order and says yes. It sends a message: <em>"Refund approved."</em></p>
+<p>Eleven seconds later, the Fraud agent sees three refunds on the same account this week and says no. It sends a message: <em>"Refund blocked."</em></p>
+<p>The customer now has both messages on the same phone, and a screenshot of them on LinkedIn.</p>
+<p>(The story is illustrative. The design flaw isn't.)</p>
+<p>Both agents did their jobs. Both were right by their own rules. So who's responsible for the mess?</p>
+<p>Here's my contrarian take: <strong>agents disagreeing isn't the failure. Agents disagreeing with no referee is.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>If you run microservices at scale, you've probably met the service mesh. Istio and Linkerd are the common names. It puts a small proxy beside each service, or in the newer ambient style, in a shared layer underneath. Those proxies handle identity, encryption, retries, traffic rules and tracing, so the service code doesn't have to.</p>
+<p>Before the mesh, every team wrote that plumbing by hand, badly and differently. The mesh turned "who called whom, and were they allowed to?" into something you could answer.</p>
+<p>Now look at agents. Refunds calls Fraud. Fraud calls Payments. Payments calls a bank's agent. Each hop is a decision, and most companies have no record of the chain.</p>
+<p>👉 <strong>[IMAGE: A-day08-2-in-article-architecture.png]</strong><br>
+<em>Caption: An agent mesh sits above the service mesh you already run. Grey is existing. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: an agent mesh</strong></p>
+<p>Same idea, one level up. Instead of every agent team writing its own plumbing, every agent-to-agent call passes through a shared layer that does four things:</p>
+<p>→ <strong>Identity.</strong> Each agent has its own, so you know exactly who called. No shared API keys.<br>
+→ <strong>Policy.</strong> Who may call whom, and for what. The Support agent can ask Refunds a question. It can't ask Payments to pay.<br>
+→ <strong>Tracing.</strong> One trace ID across every hop, with each agent's input, decision and reason.<br>
+→ <strong>A tie-break rule.</strong> When two agents disagree, a written rule decides, and it names one human owner. A fraud hold beats a refund approval. Payments Ops owns that call. And only one agent speaks to the customer.</p>
+<p>The low-risk first step needs no new platform. Add one trace ID across your agents. Then write your top five conflicts on one page, with who wins and who owns each. That page will start more useful arguments than any tool.</p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>The plumbing is already moving this way. The agentgateway project, which came out of Istio's ambient work, is now under the Linux Foundation and speaks both MCP and A2A. Istio announced experimental support for it this year. OpenTelemetry has conventions for agent spans, though they're still marked as in development, so expect them to change.</p>
+<p>In two or three years, I think agent calls will be governed the way service calls are today: visible, policy-checked and boring.</p>
+<p>The hard part won't be technical. <strong>A mesh can show you what happened. It can't decide who should have won.</strong> That's a business decision, and it belongs to a person. Which means the tie-break table becomes as important as the code.</p>
+<p>👉 <strong>[IMAGE: A-day08-3-in-article-tie-break-table.png]</strong><br>
+<em>Caption: A tie-break table. Who wins each conflict, and which person owns it. Rules are illustrative: write your own.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>The same refund, with a referee.</p>
+<p>👉 <strong>[GIF: A-day08-4-in-article-one-trace.gif]</strong><br>
+<em>Caption: Two agents disagree. The mesh applies the rule, one owner gets the case, and the customer hears one voice.</em></p>
+<p><strong>Pros</strong><br>
+→ One trace across every agent, so "why did it do that?" has an answer<br>
+→ Teams stop rewriting identity, policy and logging for each agent<br>
+→ Conflicts get settled by a written rule, not by whichever agent spoke last</p>
+<p><strong>Cons</strong><br>
+→ Another layer to run, and most of this tooling is young. Expect alpha features and changing standards<br>
+→ Every hop adds latency and cost, and a mesh makes it tempting to add more agents than you need<br>
+→ Traces hold prompts and customer data, so your observability system now needs the same protection as your database</p>
+<p><strong>The opportunity</strong></p>
+<p>Every company that followed Day 4 and built one agent per domain will reach this problem within a year. More agents, more handoffs, and nobody can explain one decision end to end.</p>
+<p>That's the market: <strong>agent observability and policy enforcement.</strong> Products that trace and govern agent-to-agent calls across vendors, and services that map a company's conflicts and write its tie-break rules.</p>
+<p>Two roles are forming around it. A forward deployed engineer (FDE) is an engineer who sits with the customer's team and ships the agent on their real systems, so that's the person who finds out that Fraud and Refunds have never spoken to each other. Then someone inside has to own the rules and the 2 AM calls, and you'll see that person called an AI Agent Manager or AgentOps engineer. The titles are still settling. The job isn't.</p>
+<p><strong>Tools to try</strong><br>
+Istio if you already run a service mesh · agentgateway for MCP and A2A traffic · OpenTelemetry for one trace across agents, with Langfuse to read it · Microsoft Entra Agent ID or Amazon Bedrock AgentCore Identity to give each agent its own identity.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>When two agents disagree, who should decide: a written rule or a human every time? Pick one.</strong></p>
+<p>Tag the person in your company who'd get the call when both messages reach the customer.</p>
+<p><em>Day 8 of 50 · follow along. Tomorrow: ₹2 for every invoice your AI agent reads. ₹0 while it sleeps.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#AIAgents</span><span>#ServiceMesh</span><span>#ForwardDeployedEngineer</span><span>#AgentOps</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day07-ai-gateway/"><span>&#8592; Previous</span>One AI Agent. One Bad Loop. ₹6 Lakh Gone by Morning.</a><a class="next" href="../a-day09-serverless/"><span>Next &#8594;</span>₹2 for Every Invoice Your AI Agent Reads. ₹0 While It Sleeps.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

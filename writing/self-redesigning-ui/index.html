@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Redesigned the Checkout at 2 AM. Sales Up 9%. Complaints Up 40%.</title>
+<meta name="description" content="Monday, 9:40 AM, Pune. Farhan runs growth at a mid-size bus and train booking app. He opens the weekly dashboard and smiles. Checkout conversion is up 9%. Then he opens the support queue. Complaints…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/self-redesigning-ui/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Redesigned the Checkout at 2 AM. Sales Up 9%. Complaints Up 40%.">
+<meta property="og:description" content="Monday, 9:40 AM, Pune. Farhan runs growth at a mid-size bus and train booking app. He opens the weekly dashboard and smiles. Checkout conversion is up 9%. Then he opens the support queue. Complaints…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/self-redesigning-ui/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/self-redesigning-ui/C-self-redesigning-ui-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Essay · 17 Nov 2026</div>
+  <h1>Your AI Agent Redesigned the Checkout at 2 AM. Sales Up 9%. Complaints Up 40%.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="C-self-redesigning-ui-1-cover-poster.jpg" alt="Cover: Your AI Agent Redesigned the Checkout at 2 AM. Sales Up 9%. Complaints Up 40%." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Monday, 9:40 AM, Pune.</p>
+<p>Farhan runs growth at a mid-size bus and train booking app. He opens the weekly dashboard and smiles. Checkout conversion is up 9%.</p>
+<p>Then he opens the support queue. Complaints are up 40%. Almost all of them say the same thing: <em>"Why was I charged ₹49 for trip protection? I never chose it."</em></p>
+<p>Nobody on his team designed that. At 2 AM on Saturday, the AI agent that tunes their checkout tried a new variant. It pre-ticked a ₹49 protection plan, moved "No thanks" below the UPI button and shrank it to tiny grey text. The variant won the test. So the agent shipped it.</p>
+<p>(The app, the people and every number here are <em>illustrative</em>.)</p>
+<p><strong>The idea I keep coming back to</strong></p>
+<p>Here's what I believe. Software will soon watch how we use it: where the mouse hesitates, where we scroll up and down hunting for something, what we search for because we couldn't find it, which button we tap five times in anger. It'll infer the friction on its own, without waiting for a survey or a one-star review. Then it'll redesign itself, A/B test the new version, and keep going.</p>
+<p>In five years, I don't think most websites will have one standard design. Flows will keep reshaping themselves, and you and I may not even see the same checkout.</p>
+<p>The pieces already exist.</p>
+<p>→ <strong>Noticing friction.</strong> Microsoft Clarity flags rage clicks, dead clicks, excessive scrolling and quick backs. Hotjar sorts recordings by rage clicks and U-turns. FullStory flags rage, dead and error clicks. Contentsquare rolls signals like these into a frustration score.<br>
+→ <strong>Redesigning.</strong> Vercel's v0 and Figma Make turn a prompt into working screens. Optimizely's Opal has an agent that builds test variations. Late last year, Google started testing generative UI in the Gemini app, where the model designs a custom interactive layout for an answer.<br>
+→ <strong>Testing and shipping.</strong> Experiment and feature-flag platforms such as Optimizely, LaunchDarkly, Statsig and GrowthBook split traffic, measure and roll out. In September 2025, OpenAI agreed to buy Statsig for about $1.1 billion. That tells you where the big labs think this is heading.</p>
+<p>What's missing is the glue: one loop that notices, redesigns, tests and ships with nobody in between. That's an engineering problem, not a research one. I expect it first where the money is obvious: checkouts, sign-up forms, onboarding.</p>
+<figure><img src="C-self-redesigning-ui-2-in-article-the-loop.jpg" alt="Caption: The self-redesigning loop. Every stage exists today as a separate tool. The amber guards are what&#x27;s missing." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: The self-redesigning loop. Every stage exists today as a separate tool. The amber guards are what&#x27;s missing.</figcaption></figure>
+
+<p><strong>The twist: it's an optimiser, not a designer</strong></p>
+<p>Here's my contrarian claim: <strong>a UI that redesigns itself won't get smarter. It'll get better at whatever number you gave it.</strong></p>
+<p>Tell the loop "maximise conversions" and nothing else, and it'll try things. Some of them work because they trick people.</p>
+<p>→ A pre-ticked add-on.<br>
+→ A cancel link that's hard to find.<br>
+→ "No thanks, I don't care about my family's safety."<br>
+→ A countdown timer that resets every time you reload.</p>
+<p>Nobody designed these. Nobody approved them. The agent simply found that they move the number. That's the "complaints up 40%" half of the story.</p>
+<p>In India, most of these already have names in law. The Central Consumer Protection Authority's Guidelines for Prevention and Regulation of Dark Patterns, 2023 list 13 of them, including false urgency, basket sneaking (adding items or charges at checkout without consent), confirm shaming, subscription traps and interface interference. In June 2025, the CCPA asked e-commerce platforms to self-audit for dark patterns within three months.</p>
+<p>Humans already do this by hand. A 2024 ASCI Academy study with Parallel found deceptive patterns in 52 of the 53 top Indian apps it looked at. An agent with one metric and no rules would find them faster, with nobody's name on the decision. I doubt "the algorithm did it" will satisfy a regulator.</p>
+<p><strong>The hard parts</strong></p>
+<p>→ <strong>Watching is personal data.</strong> Mouse movements, scrolls and session replays linked to a person are personal data under the Digital Personal Data Protection Act, 2023. The DPDP Rules were notified in November 2025, with most obligations starting 18 months later. You'll need consent, a stated purpose, and masking of whatever people type.<br>
+→ <strong>People hate moving buttons.</strong> Picture a retired teacher in Madurai who pays her electricity bill on the same app every month. If "Pay" moves every week because a test says it should, she won't think the app got better. She'll think <em>she's</em> getting worse. Familiarity is a feature.<br>
+→ <strong>Small apps can't learn this way.</strong> A/B tests need traffic. With 500 users a day and a 5% conversion rate, proving even a 10% lift takes around four months; proving a 2% lift takes years (rough rule-of-thumb maths, <em>illustrative</em>). The loop works for the big players first.<br>
+→ <strong>Accessibility can quietly break.</strong> A generated variant can lower contrast, drop a screen-reader label or shrink a tap target. Conversion won't show you that. Only a check will.</p>
+<p><strong>Let it propose. Don't let it ship alone.</strong></p>
+<p>I don't think the answer is banning the loop. It's putting guardrails around it.</p>
+<p>→ <strong>1. Consent and purpose.</strong> Watch only people who agreed, only to fix the experience, with typed fields masked.<br>
+→ <strong>2. A metric bundle, not one number.</strong> Conversion AND complaints AND refunds AND returning users. A variant that wins one and loses another doesn't ship.<br>
+→ <strong>3. A banned-patterns list.</strong> The CCPA's 13 dark patterns, turned into automated checks every variant must pass.<br>
+→ <strong>4. An accessibility check.</strong> Contrast, labels and tap sizes against WCAG, on every variant.<br>
+→ <strong>5. A stable zone.</strong> Pay, cancel, login and help never move. The agent can redesign everything around them.<br>
+→ <strong>6. A named human owner</strong> who approves what ships. Not "the team". A name: Arjun, the product head.</p>
+<figure><img src="C-self-redesigning-ui-3-in-article-six-guards.jpg" alt="Caption: Six guards for a UI that redesigns itself. Screenshot it before your team switches on auto-ship." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: Six guards for a UI that redesigns itself. Screenshot it before your team switches on auto-ship.</figcaption></figure>
+
+<p>👉 <strong>[GIF: C-self-redesigning-ui-4-in-article-guarded-loop.gif]</strong><br>
+<em>Caption: Rage clicks, a new variant, a test that "wins" on sales and loses on complaints, then the guarded loop rejects it and ships a clean one. Illustrative.</em></p>
+<p><strong>The new job in the middle</strong></p>
+<p>Someone has to decide which numbers the loop may chase and which it must never touch. I'd call that person an AI Agent Manager: someone who owns an agent's goals, limits and results, the way a manager owns a team's targets. The title is still settling; some companies fold the work into product ops or AgentOps. The job itself is clear. When complaints go up 40%, they answer for it.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For product teams and founders:</strong> start with one flow, probably checkout, and let the agent propose variants inside the six guards. Keep the ship button human for now.<br>
+→ <strong>For D2C and travel brands:</strong> a guarded loop is also a compliance story. "Our checkout is audited for all 13 dark patterns on every release" is something you can show the CCPA and your customers.<br>
+→ <strong>For builders:</strong> the guardrail layer between AI variant generators and experiment platforms: dark-pattern linting, accessibility checks, metric bundles and approval flows. Every company that runs this loop will need one.<br>
+→ <strong>For designers:</strong> the work moves from drawing every screen to writing the rules the agent designs within.<br>
+→ <strong>For AI Agent Managers:</strong> owning the metric is the new product sense.</p>
+<p>One more thought for later: before long, many of the "visitors" to your checkout won't be human at all. That's Sunday's post.</p>
+<p>Let the agent test it. Let a human own it.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Would you let an AI agent ship changes to your checkout without a human approving each one? Yes or no.</strong></p>
+<p>Tag the product head who'd have to answer for the 40%.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#AIAgents</span><span>#ProductManagement</span><span>#UXDesign</span><span>#DarkPatterns</span><span>#Ecommerce</span><span>#AIGovernance</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../unreadable-code/"><span>&#8592; Previous</span>Your AI Agent Rewrote the Payroll in a Language No Human Can Read. Who Signs the Audit?</a><a class="next" href="../single-point-of-failure/"><span>Next &#8594;</span>Your AI Agent Has a Single Point of Failure. It Isn&#x27;t in Your Code.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

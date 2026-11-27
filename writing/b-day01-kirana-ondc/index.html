@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Every Kirana Store Could Have an AI Agent. ONDC Is the Missing Plumbing.</title>
+<meta name="description" content="The kirana at the end of your street knows your name. It knows your usual rice, keeps your favourite biscuits in stock, and gives you credit till the end of the month without a single form. It has…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day01-kirana-ondc/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Every Kirana Store Could Have an AI Agent. ONDC Is the Missing Plumbing.">
+<meta property="og:description" content="The kirana at the end of your street knows your name. It knows your usual rice, keeps your favourite biscuits in stock, and gives you credit till the end of the month without a single form. It has…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day01-kirana-ondc/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day01-kirana-ondc/B-day01-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 27 Oct 2026</div>
+  <h1>Every Kirana Store Could Have an AI Agent. ONDC Is the Missing Plumbing.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day01-1-cover-poster.jpg" alt="Cover: Every Kirana Store Could Have an AI Agent. ONDC Is the Missing Plumbing." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>The kirana at the end of your street knows your name.</p>
+<p>It knows your usual rice, keeps your favourite biscuits in stock, and gives you credit till the end of the month without a single form.</p>
+<p><strong>It has also probably never received an online order.</strong></p>
+<p>Meanwhile, a big app that doesn't know you at all gets your order in two taps.</p>
+<p>That isn't because the shopkeeper isn't smart enough. It's because selling online was designed for people who sit at computers, type product descriptions and manage dashboards. The shopkeeper has a counter full of customers and about forty seconds between each of them.</p>
+<p>👉 <strong>[IMAGE: B-day01-2-in-article-kirana-gap.png]</strong><br>
+<em>Caption: The kirana already wins on trust. It only loses online.</em></p>
+<p><strong>The plumbing exists. It just leaks.</strong></p>
+<p>India has built something remarkable: <strong>ONDC</strong>, an open, government-backed network where any seller can be discovered by any buyer app. It's very much alive. It handled 218 million transactions in FY 2025-26 and crossed 500 million in total this July. Combined with UPI for payments, the rails are in place.</p>
+<p>But let's be honest about where those transactions come from. Most of the growth is metro tickets, auto rides and logistics. Retail is the weak spot. Shopping orders peaked in late 2024 and fell once the discounts buyer apps were running on were cut back. Many sellers are listed but not really active, with half-filled catalogues and stock that's never updated.</p>
+<p>So why aren't kiranas flooding onto it?</p>
+<p>Because the last mile isn't technology. It's <strong>the shopkeeper's time and language.</strong> Listing products, updating prices, accepting orders and tracking stock all still assume typing, English and an app. That's where most small sellers stop.</p>
+<p><strong>The fix: an AI agent that works like a shop assistant</strong></p>
+<p>Imagine this instead.</p>
+<p>At 9 AM, the shopkeeper sends a WhatsApp voice note in Tamil: <em>"Wheat flour, 10 kg, 480 rupees, 20 packets."</em></p>
+<p>The agent understands it, creates the listing and puts it on ONDC. Buyers across the city can now see it.</p>
+<p>At 11:30, an order arrives. The agent asks: <em>"2 packets, ₹960, Anna Nagar. Accept?"</em> The shopkeeper replies <em>"Sari, anuppunga"</em> (OK, send it), and the agent handles the packing list, the rider and the UPI confirmation.</p>
+<p>At 4 PM: <em>"Only 3 packets of flour left. Reorder from your usual supplier?"</em></p>
+<p>At closing time, a voice note in Tamil: today's online orders, sales and what to reorder.</p>
+<p>No app to learn. No typing. The shopkeeper never leaves the counter.</p>
+<p>👉 <strong>[GIF: B-day01-4-in-article-a-day-at-the-shop.gif]</strong><br>
+<em>Caption: A day with the Kirana Agent. The shopkeeper never types.</em></p>
+<p><strong>How it works under the hood</strong></p>
+<p>→ <strong>Speech to text in Indian languages</strong>, using models like those available through Bhashini<br>
+→ <strong>An LLM that understands</strong> messy speech and turns it into structured items<br>
+→ <strong>Plain code for anything that counts</strong>: stock, prices and totals. Prices change only when the owner confirms.<br>
+→ <strong>A seller app on ONDC</strong> that the agent works through<br>
+→ <strong>UPI</strong> so the money goes straight to the shop</p>
+<p>👉 <strong>[IMAGE: B-day01-3-in-article-how-it-works.png]</strong><br>
+<em>Caption: A voice note goes in. An ONDC order comes out.</em></p>
+<p><strong>What the agent should NOT do</strong></p>
+<p>This matters. The agent never changes prices on its own, never gives credit, and never accepts orders it isn't sure the shop can fulfil. Credit, relationships and judgement stay with the shopkeeper. The agent handles the clicking; the owner keeps the trust.</p>
+<p><strong>The hard parts</strong></p>
+<p>I'd be selling you a fantasy if I stopped there.</p>
+<p>→ <strong>Listing isn't selling.</strong> Putting a kirana on ONDC doesn't bring buyers. The buyer apps still have to win customers, and some have pulled back from retail.<br>
+→ <strong>Delivery has to make sense.</strong> A ₹960 order across town needs a rider at a price that leaves the shop some margin. Returns and complaints need an owner too.<br>
+→ <strong>The agent will mishear.</strong> Noisy shops, mixed Tamil and English, "two" versus "too". Every order still needs a one-tap confirmation from the owner.<br>
+→ <strong>Builders will feel the friction.</strong> If you've tried developing on ONDC, you know the test environment and documentation lag behind the live network.</p>
+<p><strong>ONDC seems to be heading the same way</strong></p>
+<p>Here's what makes me more confident, not less. In February, ONDC launched DigiDukaan, which has already brought 10,000+ kiranas onto the network to order stock from brands and distributors. And in its own FY 2025-26 report, ONDC says it's building "Vyapar LM", a commerce AI for a future "beyond apps", for people regardless of digital literacy or language.</p>
+<p>That's exactly the agent this article describes. The network is starting to admit what kiranas have always known: the interface was the problem, not the shopkeeper.</p>
+<p><strong>The opportunity</strong></p>
+<p>This is one of the biggest "AI for Bharat" opportunities I can see:<br>
+→ <strong>Seller apps</strong> that add a voice agent will win the next wave of small sellers<br>
+→ <strong>Indian-language AI startups</strong> have a real, paying use case<br>
+→ <strong>FMCG distributors</strong> get live demand data from thousands of shops<br>
+→ <strong>Banks and NBFCs</strong> can offer working capital based on real order history</p>
+<p>The big platforms brought kiranas a competitor. AI agents on open rails can bring them customers.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Would the shopkeeper on your street use this? What's the real blocker: trust, delivery, or habit?</strong></p>
+<p>If you know a founder building for Bharat, tag them. This one is wide open.</p>
+</div>
+<div class="tags"><span>#ONDC</span><span>#AIforBharat</span><span>#Kirana</span><span>#AgenticAI</span><span>#DigitalIndia</span><span>#Startups</span><span>#RetailTech</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../freshers/"><span>&#8592; Previous</span>We&#x27;re Still Training Freshers for Jobs AI Already Does. Here&#x27;s What They Should Learn Instead.</a><a class="next" href="../b-day02-who-pays/"><span>Next &#8594;</span>Who Pays When the AI Agent Gets It Wrong?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

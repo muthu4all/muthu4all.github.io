@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Approved Loans on a Stale Credit Score. Who Pays for the Bad Debt?</title>
+<meta name="description" content="10 November, 11:40 AM. A small NBFC in Coimbatore gets a ₹6 lakh personal loan application. Its new lending agent reads the payslips, checks the bank statement, calls the credit model and gets back a…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day20-feature-store/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Approved Loans on a Stale Credit Score. Who Pays for the Bad Debt?">
+<meta property="og:description" content="10 November, 11:40 AM. A small NBFC in Coimbatore gets a ₹6 lakh personal loan application. Its new lending agent reads the payslips, checks the bank statement, calls the credit model and gets back a…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day20-feature-store/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day20-feature-store/A-day20-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 20/50 · 15 Nov 2026</div>
+  <h1>Your AI Agent Approved Loans on a Stale Credit Score. Who Pays for the Bad Debt?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day20-1-cover-poster.jpg" alt="Cover: Your AI Agent Approved Loans on a Stale Credit Score. Who Pays for the Bad Debt?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>10 November, 11:40 AM. A small NBFC in Coimbatore gets a ₹6 lakh personal loan application. Its new lending agent reads the payslips, checks the bank statement, calls the credit model and gets back a score: 782. Approved in nine minutes. The customer is delighted.</p>
+<p>The score was real. It was also from 1 October.</p>
+<p>Between 3 and 9 November the same borrower had taken three new loans: a gold loan, a buy-now-pay-later line and another personal loan. None of it was in the features the model saw. By February, the EMIs had stopped.</p>
+<p>Over that quarter the agent approved 61 loans the same way. ₹2.4 crore of them are now overdue. (The NBFC, the borrower and every number here are <em>illustrative</em>. The pattern is not.)</p>
+<p><strong>The model wasn't wrong. It was answering a question about October.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>Most lenders already run a classical credit model, and it's usually a good one. Gradient-boosted trees on a few hundred features: bureau score, days past due, number of recent enquiries, income stability, existing EMIs.</p>
+<p>The plumbing around it is the weak part. A monthly batch job builds the features from the warehouse. A data scientist trained the model in a notebook on a CSV from last year. At serving time, a different piece of code recomputes the same features for one applicant, slightly differently. Nobody notices that the training "days past due" counted grace days and the live one doesn't. That gap has a name, training-serving skew, and it quietly bends every score.</p>
+<p>Now we've put an LLM agent on top. It's fast, it's polite, it reads documents brilliantly, and it trusts whatever number the score API returns.</p>
+<p>👉 <strong>[IMAGE: A-day20-2-in-article-architecture.png]</strong><br>
+<em>Caption: The credit model you already have, plus three new parts: a feature store that timestamps every value, a freshness gate in plain code, and an LLM agent that explains but never scores. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: a feature store and a freshness gate</strong></p>
+<p>The first fix isn't a better model. It's a <strong>feature store</strong>: one place where every feature is defined once, computed once, and served the same way to training and to live decisions.</p>
+<p>→ <strong>One definition per feature.</strong> "Days past due" is written once, as code, with an owner in credit risk. Training and serving read the same definition, so the skew disappears.<br>
+→ <strong>Every value carries its time.</strong> Not just "bureau score 782", but "782, as of 1 Oct". The online store serves the latest value in milliseconds; the offline store keeps history so you can train on what was known at the time, not on what you know now.<br>
+→ <strong>Every feature has a freshness SLA.</strong> For a lending decision, recent enquiries must be under 24 hours old. The bureau score under 7 days. If a value is older, the system knows it.<br>
+→ <strong>A freshness gate in plain code.</strong> Before the agent uses a score, a small function checks the timestamps. Too old? It triggers a fresh bureau pull, or sends the file to an officer. The agent can't skip it.</p>
+<p>And one rule that holds the whole thing together: <strong>the LLM never produces the score.</strong> The governed model does. The agent gathers documents, explains the reason codes to the officer and the customer, and asks for what's missing. On Day 14 we put a fast model on the payment stream and the agent on the case. Same split here: models score, code checks, agents explain.</p>
+<p>India makes the freshness question sharper, not easier. Since 1 January 2025, RBI has required lenders to report credit information to the bureaus every fortnight, not monthly, within seven days of each fortnight. That's better. It also means a bureau record can still be a few weeks behind real life. <strong>A feature store doesn't make data fresh. It makes staleness visible.</strong></p>
+<p>👉 <strong>[IMAGE: A-day20-3-in-article-freshness-table.png]</strong><br>
+<em>Caption: A freshness SLA for every feature the agent relies on, and what happens when it's missed. Screenshot it for your next credit-model review. SLAs are illustrative.</em></p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>Today one agent calls one credit model. In two or three years, a lender will run a dozen agents: onboarding, collections, pricing, renewal offers, fraud. Every one of them will ask the same facts: income, exposure, repayment behaviour, risk score.</p>
+<p>That turns the feature store into the facts layer for agents. Not a data-science tool hidden in the ML team, but the place every agent goes for numbers, with versions, owners and timestamps. The model registry becomes the list of which models an agent may call, in which version, for which decision.</p>
+<p>The vendors see it. Databricks bought the feature-store company Tecton in 2025 and talked about it as real-time data for AI agents. Expect every platform to pitch "features as agent tools".</p>
+<p><strong>Watch it work</strong></p>
+<p>Same application, same agent. First without the freshness gate, then with it.</p>
+<p>👉 <strong>[GIF: A-day20-4-in-article-freshness-gate.gif]</strong><br>
+<em>Caption: Features flow into the store with timestamps. One goes stale, the gate holds the agent, a fresh pull arrives, and the score changes from 782 to 641. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ The same feature definitions feed training and live decisions, so scores stop drifting for silly reasons<br>
+→ Every score carries an "as of" time, which credit officers and auditors can actually check<br>
+→ The agent gets faster and safer at once: it reads fresh, governed numbers and explains them, instead of guessing</p>
+<p><strong>Cons</strong><br>
+→ A feature store is real platform work: pipelines, an online store, backfills, monitoring<br>
+→ Fresh data costs money. Every extra bureau pull has a price, so you need rules for when it's worth it<br>
+→ Freshness SLAs need someone to agree them with credit risk, and to keep them current as products change</p>
+<p><strong>The hard part</strong></p>
+<p>It's ownership, and it sits between three teams. Data engineering runs the pipelines. Credit risk owns the model and its cut-offs. The new agent team owns the workflow. When the October score approved a November loan, each of them could point at another.</p>
+<p>So name the owners. An <strong>AgentOps engineer</strong>, the person who runs agents in production the way an SRE runs services, owns the freshness gate and its alerts. An <strong>ML platform engineer</strong> owns the feature store and the model registry. And a <strong>forward deployed engineer (FDE)</strong>, an engineer who works inside the customer's team and ships on their real systems, sits with the credit officers for two weeks and learns which features they actually trust, and which ones they quietly recheck by phone. These titles are still settling. The bad-debt report isn't.</p>
+<p>There's a regulatory edge too. A lender has to explain a rejection. "The model said 641" isn't an explanation. Reason codes from the model, put into plain words by the agent and checked by a person, can be.</p>
+<p><strong>The opportunity</strong></p>
+<p>Most NBFCs, co-operative banks and small finance banks bought or built a credit model years ago. Very few have the platform around it: a feature store, a registry, freshness SLAs. Now they're adding agents on top.</p>
+<p>That's the market: <strong>hybrid AI platforms that join classical ML and LLM agents.</strong> A packaged "decision stack" for mid-size lenders: governed features, versioned models, a freshness gate, and agents that explain. A "feature freshness audit" is the easy first sale: take last quarter's approvals and show how many were scored on data older than a week, and what those loans are doing now. The same pattern sells beyond lending: insurance pricing, collections, demand forecasting for distributors.</p>
+<p><strong>Tools to try</strong><br>
+Feast, the open-source feature store · Databricks feature engineering, now with Tecton · Vertex AI Feature Store on Google Cloud · Amazon SageMaker Feature Store · MLflow for the model registry and versions · any LLM for the explaining agent: Claude, GPT, Gemini or an open model.</p>
+<p>That's Phase 2 done: ten data architectures for AI agents. Phase 3, agent patterns, starts tomorrow.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>If the bureau data is a week old, should an AI agent still approve the loan: yes or no? One word.</strong></p>
+<p>Tag the person in your company who'd get the call when the bad-debt report lands.</p>
+<p><em>Day 20 of 50 · follow along. Tomorrow: Day 21 · One AI Agent. One Job. ₹80,000 a Month Saved. Why Most Teams Start Too Big.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#FeatureStore</span><span>#MLOps</span><span>#CreditRisk</span><span>#NBFC</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day19-data-mesh/"><span>&#8592; Previous</span>Your AI Agent Paid ₹27 Lakh on Bad Sales Data. Which Team Owns the Mistake?</a><a class="next" href="../a-day21-single-agent/"><span>Next &#8594;</span>One AI Agent. One Job. ₹80,000 a Month Saved. Why Most Teams Start Too Big.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

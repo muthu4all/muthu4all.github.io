@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Made a Plan. Step 3 Failed. It Kept Going.</title>
+<meta name="description" content="It&#x27;s 9:10 on the last working day of the month. The finance controller at a Hosur auto-parts maker opens her laptop and sees a message from the new payments agent: &quot;Month-end vendor run complete.…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day22-plan-execute/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Made a Plan. Step 3 Failed. It Kept Going.">
+<meta property="og:description" content="It&#x27;s 9:10 on the last working day of the month. The finance controller at a Hosur auto-parts maker opens her laptop and sees a message from the new payments agent: &quot;Month-end vendor run complete.…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day22-plan-execute/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day22-plan-execute/A-day22-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 22/50 · 17 Nov 2026</div>
+  <h1>Your AI Agent Made a Plan. Step 3 Failed. It Kept Going.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day22-1-cover-poster.jpg" alt="Cover: Your AI Agent Made a Plan. Step 3 Failed. It Kept Going." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>It's 9:10 on the last working day of the month. The finance controller at a Hosur auto-parts maker opens her laptop and sees a message from the new payments agent: "Month-end vendor run complete. ₹18.6 lakh released. All 6 steps done."</p>
+<p>All six steps had a green tick. Step 3 had also thrown an error.</p>
+<p>Step 3 was "fetch today's bank statement". The bank's file hadn't arrived yet. The tool found an empty placeholder and returned "statement not found". The agent did what a helpful model does: it reasoned around the gap, used the last statement it could find, and carried on. That statement was a day old. It didn't show the ₹4.2 lakh the treasury team had paid by hand the previous afternoon. So those invoices still looked unpaid, and the agent paid them again. (A composite story; every number here is <em>illustrative</em>.)</p>
+<p><strong>An agent that's good at planning is dangerous exactly when it's good at improvising.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>Yesterday, on Day 21, we built one agent with four tools. Today that agent gets a job with several steps, and two patterns do most of the work:</p>
+<p>→ <strong>ReAct</strong> (reason, act, observe), from a 2022 paper by researchers at Princeton and Google. The model thinks, calls a tool, reads the result, and decides the next move. One step at a time.<br>
+→ <strong>Plan-and-execute</strong>, which LangChain popularised in 2023. The model writes the whole plan first, then works through it, re-planning when something changes.</p>
+<p>Most real agents mix the two: a plan on top, a ReAct loop inside each step. The plan makes the work predictable. The loop lets each step adapt.</p>
+<figure><img src="A-day22-2-in-article-architecture.jpg" alt="Caption: Plan, act, check, then move on. The model plans and acts; plain code checks every step before the next one starts, saves a checkpoint, and stops the run when a check fails. Grey is what you already have. Amber is new." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: Plan, act, check, then move on. The model plans and acts; plain code checks every step before the next one starts, saves a checkpoint, and stops the run when a check fails. Grey is what you already have. Amber is new.</figcaption></figure>
+
+<p><strong>Where AI plugs in now: a contract for every step</strong></p>
+<p>Nothing in that agent was broken. It was asked to finish the job, and it finished the job. What was missing was a rule: step 3 produces <em>today's</em> statement, or nothing after it runs.</p>
+<p>So the first fix isn't a smarter model. It's a step contract, written in code, not in the prompt:</p>
+<p>→ <strong>A plan as data.</strong> Six named steps, with inputs and outputs, not a paragraph of intentions.<br>
+→ <strong>A check before each step.</strong> Step 4 doesn't start unless step 3's statement is dated today, isn't empty, and its balances add up.<br>
+→ <strong>A check after each step.</strong> Step 5's payment file has no invoice twice, and every payee's bank account matches the vendor master.<br>
+→ <strong>Stop on failure.</strong> Retry a couple of times, then re-plan ("wait for the statement, try at 9:40") or hand it to a person. Capped retries with a dead-letter path are Day 6's lesson, now inside the agent.<br>
+→ <strong>Checkpoints.</strong> After every passed step, save the state. When the statement arrives, the run resumes from step 3. It doesn't rerun steps 1 and 2.<br>
+→ <strong>Idempotent actions.</strong> Every payment carries a key, so the same invoice can't be paid twice, however many times step 6 is retried.</p>
+<figure><img src="A-day22-3-in-article-step-contract.jpg" alt="Caption: The step contract for a month-end payment run: what must be true before each step, what must be true after it, and what happens when it isn&#x27;t. Screenshot it before you let any agent near a payment." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: The step contract for a month-end payment run: what must be true before each step, what must be true after it, and what happens when it isn&#x27;t. Screenshot it before you let any agent near a payment.</figcaption></figure>
+
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I expect much of back-office work to run as long, multi-step agent jobs: month-end close, vendor onboarding, GST reconciliation. They take hours or days, wait on banks and people, and must survive restarts.</p>
+<p>That needs durable execution: a runtime that records every step, so a crashed or paused run picks up exactly where it stopped. Temporal has done this for years and now integrates with the OpenAI Agents SDK. LangGraph ships checkpointers. Microsoft offers Durable Task for agents on Azure. Agents are finally getting the plumbing payment systems have always had.</p>
+<p><strong>Watch it work</strong></p>
+<p>Same plan, two runs. One sails past the failed step. One stops, re-plans, and resumes.</p>
+<p>👉 <strong>[GIF: A-day22-4-in-article-plan-execute.gif]</strong><br>
+<em>Caption: Top: step 3 fails and the run keeps going, releasing ₹18.6 lakh on stale data. Bottom: the check catches it, retries twice, re-plans, alerts the owner, and resumes from the checkpoint when the statement arrives. Figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Multi-step jobs that used to need a person watching every screen can run on their own<br>
+→ A plan as data is easy to review, test and audit before anything runs<br>
+→ Checkpoints turn a 3 AM failure into a resume, not a restart from scratch</p>
+<p><strong>Cons</strong><br>
+→ Writing the checks takes longer than writing the prompt, and nobody puts that in the demo<br>
+→ More moving parts: a plan store, a checkpoint store, a durable runtime<br>
+→ Re-planning can loop. Without a cap on retries and re-plans, the agent burns tokens politely forever</p>
+<p><strong>The hard part</strong></p>
+<p>Deciding what "this step really worked" means. An empty file is easy to catch once it has burned you. The quiet failures are harder: a statement for the wrong account, yesterday's file with today's name, a bank API that says success but doesn't post.</p>
+<p>None of that lives in the model. It lives in the head of the person who has done month-end for eleven years. A forward deployed engineer (FDE), an engineer who works inside the customer's team on their real systems, sits with her for a week and turns it into checks.</p>
+<p>Then an AgentOps engineer, who runs agents the way an SRE runs services, owns those checks in production: the step contracts, the failure playbook, and the alert when step 3 fails. The titles are still settling. The work isn't.</p>
+<p>The stakes are real. APQC's benchmarks show even top-performing finance teams report about 0.8% of annual disbursements as duplicate or erroneous payments. An agent without step checks can make that worse, faster.</p>
+<p><strong>The opportunity</strong></p>
+<p>Every company has long, boring, multi-step jobs nobody automates because "it breaks halfway": month-end payment runs, bank reconciliation, vendor onboarding with GSTIN and bank-account checks. That's two markets:<br>
+→ <strong>Back-office agents for one multi-step job,</strong> sold per run with the checks built in: "your month-end vendor run, with every step verified and every exception sent to your controller."<br>
+→ <strong>Durable-agent platforms and services:</strong> the runtime, the checkpoint store, the step-contract templates for Tally, Zoho Books and SAP, and the AgentOps team that watches them. The model is the cheap part. Knowing what to check is the product.</p>
+<p><strong>Tools to try</strong><br>
+LangGraph for plans, checkpoints and human approval · OpenAI Agents SDK with guardrails and approvals, and its Temporal integration · Claude Agent SDK with hooks that can block a tool call before it runs · Temporal, Restate or Azure Durable Functions for durable execution · and a plain Python check after every step, still the cheapest insurance you'll buy.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>When step 3 fails, should your agent stop or improvise? One word.</strong></p>
+<p>Tag the person in your finance team who knows every way month-end can go wrong.</p>
+<p><em>Day 22 of 50 · follow along. Tomorrow: Day 23 · Your AI Agent Used the ₹200 Model for a ₹2 Job.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#AIAgents</span><span>#PlanAndExecute</span><span>#AgentOps</span><span>#AccountsPayable</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day21-single-agent/"><span>&#8592; Previous</span>One AI Agent. One Job. ₹80,000 a Month Saved. Why Most Teams Start Too Big.</a><a class="next" href="../a-day23-model-router/"><span>Next &#8594;</span>Your AI Agent Used the ₹200 Model for a ₹2 Job.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

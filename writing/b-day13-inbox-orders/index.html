@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A ₹12 Lakh Order Sat in an Inbox for 9 Days. An AI Agent Would Have Seen It.</title>
+<meta name="description" content="It was a Thursday in October, three weeks before Diwali. A dealer in Tirunelveli emailed a purchase order to a Chennai lighting distributor: 1,800 LED panels and 600 tube lights, ₹12,40,000 with GST.…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day13-inbox-orders/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="A ₹12 Lakh Order Sat in an Inbox for 9 Days. An AI Agent Would Have Seen It.">
+<meta property="og:description" content="It was a Thursday in October, three weeks before Diwali. A dealer in Tirunelveli emailed a purchase order to a Chennai lighting distributor: 1,800 LED panels and 600 tube lights, ₹12,40,000 with GST.…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day13-inbox-orders/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day13-inbox-orders/B-day13-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 9 Nov 2026</div>
+  <h1>A ₹12 Lakh Order Sat in an Inbox for 9 Days. An AI Agent Would Have Seen It.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day13-1-cover-poster.jpg" alt="Cover: A ₹12 Lakh Order Sat in an Inbox for 9 Days. An AI Agent Would Have Seen It." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>It was a Thursday in October, three weeks before Diwali.</p>
+<p>A dealer in Tirunelveli emailed a purchase order to a Chennai lighting distributor: 1,800 LED panels and 600 tube lights, ₹12,40,000 with GST. He sent it to sales@, as he always did. The PDF was attached to an old thread called "Re: Fwd: Diwali stock".</p>
+<p>The sales@ inbox had 1,284 unread emails. Five people could open it. Each of them thought someone else was watching it.</p>
+<p>Nine days later the dealer called to ask where his stock was. By then he'd placed the same order with a competitor in Madurai, who had answered in two hours. (The firms are a composite, and the numbers are <em>illustrative</em>.)</p>
+<p>Nobody in Chennai had done anything wrong. That's exactly the problem.</p>
+<p><strong>The problem: email is where orders go to wait</strong></p>
+<p>Ask any SME owner where the business actually happens, and the honest answer isn't the ERP. It's the inbox.</p>
+<p>→ Purchase orders arrive as PDFs, sometimes as phone photos of a printed page.<br>
+→ Payment confirmations come as UTR numbers buried in a reply.<br>
+→ Complaints arrive as long, angry threads with the manager in CC.<br>
+→ Approvals sit in "Please see below" chains of 14 messages.</p>
+<p>Then someone reads each one and types it into Tally or the ERP by hand. Usually. When they have time.</p>
+<p>A shared inbox feels like a system because everybody can see it. It isn't one. It has no owner, no queue and no clock. <strong>A shared inbox is a place where everyone can see the work and nobody has to do it.</strong></p>
+<p>Here's my contrarian bit. Most companies think the fix is a better email client, or a rule that says "check sales@ twice a day". It isn't. The fix is to stop treating email as the place where work lives. Email should be the front door, not the warehouse.</p>
+<p><strong>The solution: a triage agent that turns mail into tracked work</strong></p>
+<p>This is one of the most practical jobs for an AI agent today, because the hard part was always reading messy text, and that's what today's models do well.</p>
+<p>The agent sits on the shared mailbox and does five things:</p>
+<p>→ <strong>1. Read everything,</strong> including the PDF, the Excel attachment and the phone photo of the PO.<br>
+→ <strong>2. Sort it into a lane:</strong> order, payment, complaint, query or noise.<br>
+→ <strong>3. Pull out the fields:</strong> PO number, items, quantities, amount, GSTIN, delivery date.<br>
+→ <strong>4. Create a tracked item</strong> in the system you already run: a sales order draft in Tally or the ERP, a ticket in the helpdesk, a payment to match in accounts. Each one gets a named owner and a clock.<br>
+→ <strong>5. Draft the reply,</strong> and wait for a person to send it.</p>
+<p>That last step matters. <strong>Let the agent read everything. Don't let it promise anything.</strong> On anything involving money (a price, a discount, a delivery date, a refund) the agent drafts and a human sends. Above a limit, say ₹5 lakh, it also needs a named approver.</p>
+<p>In our story, the PO is read in under a minute. A sales order draft appears with ₹12,40,000 on it, Karthik from sales is its owner, and a four-hour clock starts. If the clock runs out, his manager hears about it, not the competitor.</p>
+<p>This is the same lesson as my piece on AI notetakers, "The AI Agent Wrote Down the Task. Nobody Did It.": capture is easy, but a task without an owner is a wish.</p>
+<figure><img src="B-day13-2-in-article-triage-flow.jpg" alt="Caption: The triage agent sits between the shared inbox and the systems you already run. It reads and routes; people approve anything involving money." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: The triage agent sits between the shared inbox and the systems you already run. It reads and routes; people approve anything involving money.</figcaption></figure>
+
+<figure><img src="B-day13-3-in-article-five-lanes.jpg" alt="Caption: Five lanes for every shared inbox: what the agent may do, what a person must do, and how fast. Screenshot it and argue about the SLAs with your team." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: Five lanes for every shared inbox: what the agent may do, what a person must do, and how fast. Screenshot it and argue about the SLAs with your team.</figcaption></figure>
+
+<p>👉 <strong>[GIF: B-day13-4-in-article-sorting-the-inbox.gif]</strong><br>
+<em>Caption: Mail drops in, the agent sorts it, and the ₹12 lakh PO becomes an order with an owner and a clock. All details illustrative.</em></p>
+<p><strong>The tools are already here, across vendors</strong></p>
+<p>You don't need to build this from scratch. Copilot Studio can run an agent off a shared Outlook mailbox and act through connectors. Gemini in Gmail summarises threads and drafts replies. Freshdesk's Freddy AI suggests the priority and group for incoming tickets, and Zoho Desk has Zia for summaries and replies. For a smaller firm, a workflow tool like n8n can join any inbox to any model (OpenAI, Claude, Gemini or an open model) and to Tally or Zoho Books.</p>
+<p>The tool is the easy choice. The lanes are the hard one.</p>
+<p><strong>Who sets it up: the forward deployed engineer</strong></p>
+<p>Every company says its inbox gets "orders, payments and complaints". Then you sit with the team for a week and find 23 kinds of email: dealer POs, distributor POs, scheme claims, credit-note requests, transporter LR copies, GST notices, CA queries.</p>
+<p>That's the job of a <strong>forward deployed engineer (FDE)</strong>: an engineer who works inside the customer's team and ships on their real systems. They read three months of real mail with the people who handle it, agree the lanes, and find the one dealer who always sends POs as WhatsApp screenshots forwarded to email.</p>
+<p>After go-live, someone owns the rules: which lanes exist, who owns each, what the money limit is, and what the agent must never send. Some companies call that person an <strong>AI Agent Manager</strong>. The titles are still settling. In a 30-person SME it's usually the operations head, with two hours a week.</p>
+<p><strong>The hard parts</strong></p>
+<p>→ <strong>Fake POs and payment-change emails.</strong> Business email compromise is one of the costliest frauds in the FBI's 2025 internet crime report, about $3 billion in reported losses. An agent that turns emails into orders can also turn a forged "please update our bank account" mail into a payment. Never let the agent change bank details or release money because an email said so.<br>
+→ <strong>Wrong lane, quiet failure.</strong> A complaint filed as a query sits for days. Watch the misroutes weekly, especially in the first month.<br>
+→ <strong>Scanned and handwritten attachments.</strong> Faded thermal prints and phone photos still trip up extraction. Keep the original attached, and have a person check any amount above the limit.<br>
+→ <strong>Privacy.</strong> Customer emails hold names, phone numbers and addresses. Under India's DPDP Act, be clear what you process and where, and use a company-approved AI service, not a free tool someone found.<br>
+→ <strong>The inbox isn't the only door.</strong> Half the dealers will still send orders on WhatsApp or to a salesperson's personal Gmail. Fix the main door first, then bring the side doors into it.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For operations heads:</strong> count the orders that came by email last month, then count the ones that reached the ERP the same day. The gap is your number.<br>
+→ <strong>For SME owners:</strong> start with one inbox and one lane. Orders first, because that's where the money is.<br>
+→ <strong>For CA firms and Tally partners:</strong> "inbox to Tally" is a service you can sell to every distributor you already audit.<br>
+→ <strong>For IT services firms and founders:</strong> triage agents with Indian rules built in (GSTIN checks, UTR matching, dealer schemes, Tamil and Hindi mail) are a market the global tools only half serve.</p>
+<p>An inbox isn't a system. An owner is.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Should an AI agent ever send a reply about money without a human pressing send: yes or never?</strong></p>
+<p>Tag the person in your company who secretly checks sales@ at 11 PM because nobody else does.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#AIAgents</span><span>#Operations</span><span>#SME</span><span>#EmailAutomation</span><span>#ForwardDeployedEngineer</span><span>#Tally</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../b-day12-indian-languages/"><span>&#8592; Previous</span>Your AI Agent Speaks English. Your Next Crore Customers Don&#x27;t.</a><a class="next" href="../b-day14-refund-queue/"><span>Next &#8594;</span>The AI Agent Approved the Refund in 2 Seconds. The Core Banking System Took 4 Days.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

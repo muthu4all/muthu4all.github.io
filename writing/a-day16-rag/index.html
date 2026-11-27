@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Read the 2022 Price List. It Cost You ₹6 Lakh.</title>
+<meta name="description" content="A dealer in Salem sends a WhatsApp message to a valve manufacturer in Chennai: &quot;Rate for 2-inch brass ball valves, 500 units?&quot; The company&#x27;s new sales agent replies in six seconds. ₹1,240 per unit.…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day16-rag/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Read the 2022 Price List. It Cost You ₹6 Lakh.">
+<meta property="og:description" content="A dealer in Salem sends a WhatsApp message to a valve manufacturer in Chennai: &quot;Rate for 2-inch brass ball valves, 500 units?&quot; The company&#x27;s new sales agent replies in six seconds. ₹1,240 per unit.…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day16-rag/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day16-rag/A-day16-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 16/50 · 11 Nov 2026</div>
+  <h1>Your AI Agent Read the 2022 Price List. It Cost You ₹6 Lakh.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day16-1-cover-poster.jpg" alt="Cover: Your AI Agent Read the 2022 Price List. It Cost You ₹6 Lakh." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>A dealer in Salem sends a WhatsApp message to a valve manufacturer in Chennai: "Rate for 2-inch brass ball valves, 500 units?"</p>
+<p>The company's new sales agent replies in six seconds. ₹1,240 per unit. It even attaches the source: <code>price_list_2022.pdf</code>.</p>
+<p>The current list says ₹1,410. It has since 1 April. Both files sit in the same folder, and the agent's search found both. The 2022 one just looked a little more similar to the question.</p>
+<p>Over three weeks, 19 dealer orders went out at old prices, about 3,500 valves. Roughly ₹6 lakh under-billed before anyone in accounts noticed. (The company and every number here are <em>illustrative</em>. The pattern isn't.)</p>
+<p><strong>The agent didn't hallucinate. It retrieved, faithfully, the wrong truth.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>RAG, retrieval-augmented generation, is how most companies give an AI agent their own knowledge without retraining a model. It has four simple steps:</p>
+<p>→ <strong>Chunk.</strong> Split every document into small pieces: a page, a paragraph, a table row.<br>
+→ <strong>Embed.</strong> Turn each piece into a vector, a list of numbers that captures its meaning. Yesterday's Day 15 was about where those vectors live.<br>
+→ <strong>Retrieve.</strong> When a question comes in, find the pieces whose meaning is closest to it.<br>
+→ <strong>Answer with a citation.</strong> Hand those pieces to the model and ask it to answer from them, showing the source.</p>
+<p>It works remarkably well. That's exactly why it's dangerous. Retrieval ranks by <em>similarity</em>. It has no idea which file is current, which one was withdrawn, or which one was meant only for retail customers. A 2022 price list and a 2026 price list are, to a vector index, almost the same document.</p>
+<p>👉 <strong>[IMAGE: A-day16-2-in-article-architecture.png]</strong><br>
+<em>Caption: Classic RAG plus two new amber parts: a document register that tags every chunk, and a lifecycle filter before the agent answers. Grey is what you already have.</em></p>
+<p><strong>Where AI plugs in now: a register, not a smarter model</strong></p>
+<p>The first fix isn't a better model or a bigger index. It's boring, and it's cheap: a <strong>document register</strong>.</p>
+<p>→ Every file that goes into the index gets five tags: owner, effective from, superseded by, audience, and review by.<br>
+→ Retrieval filters on those tags before it ranks on similarity. Superseded files don't compete. They simply aren't in the race.<br>
+→ Every answer shows its source <em>and its date</em>. "₹1,410 · price_list_2026.pdf · effective 1 Apr 2026." A dealer, or your own sales head, can spot a wrong year in one glance.<br>
+→ If no current source exists, the agent says so and pings the owner. "I don't have a current list for this item. I've asked pricing." That's a better answer than a confident old one.</p>
+<p>Most vector stores already support this kind of metadata filtering: Amazon Bedrock Knowledge Bases, Azure AI Search and OpenAI's file search all let you filter on attributes before the similarity search. The feature exists. What's missing in most companies is someone who fills in the tags.</p>
+<p>👉 <strong>[IMAGE: A-day16-3-in-article-five-tags.png]</strong><br>
+<em>Caption: Five tags on every file before an agent reads it. Screenshot this for your next RAG review.</em></p>
+<p>I wrote about the business side of this on Day 8 of Track B, when an agent quoted a policy that had expired in 2023. Today's point is architectural: <strong>freshness has to be a field in your index, not a hope in your prompt.</strong></p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>Today RAG mostly answers questions. In two or three years, it'll feed agents that <em>act</em>: quote, order, approve a claim, reply to a regulator. Retrieval stops being a search feature and becomes a control point, with the same seriousness as a payment limit.</p>
+<p>I expect three things to become normal:<br>
+→ <strong>Knowledge owners sign effective dates</strong>, the way a pricing circular is signed today.<br>
+→ <strong>Nightly evaluation sets.</strong> Fifty real customer questions, run every night against the index and checked against the owner's answers. If the score drops, someone gets a message before a customer does.<br>
+→ <strong>Agents that notice conflicts.</strong> Two current files that disagree should go to a human, not to the higher similarity score.</p>
+<p>Tomorrow, Day 17, goes further into the advanced parts: reranking, hybrid search and checking that every citation actually exists.</p>
+<p><strong>Watch it work</strong></p>
+<p>Same question, same index. First without the register, then with it.</p>
+<p>👉 <strong>[GIF: A-day16-4-in-article-stale-chunk.gif]</strong><br>
+<em>Caption: The 2022 chunk wins on similarity. The lifecycle filter takes it out of the race, and the answer changes, with its date. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Your existing RAG stack stays. You add metadata and a filter, not a new platform<br>
+→ Every answer carries a source and a date, so people can check it in seconds<br>
+→ "I don't have a current source" turns silent errors into visible ones</p>
+<p><strong>Cons</strong><br>
+→ Someone has to tag thousands of old files. That's real effort, and nobody's job yet<br>
+→ Filters can hide the truth too. Tag a file wrong and the right answer disappears<br>
+→ Evaluation sets need maintaining. Prices change, and yesterday's right answer becomes today's test failure</p>
+<p><strong>The hard part</strong></p>
+<p>It's ownership, again. IT owns the index. Sales owns the price list. Nobody owns the gap between them, which is exactly where the 2022 file sat for six months.</p>
+<p>That gap is a role now. Some call it a <strong>Context Engineer</strong>: the person who decides what an agent may read, how it's split, and when it expires. In smaller firms it's simply the <strong>knowledge owner</strong>, the pricing manager who also signs off what goes into the index. On the delivery side, a forward deployed engineer (FDE), an engineer who sits with the customer's team and ships on their real systems, is usually the one who finds the 2022 file in the first week. These titles are still settling. The work isn't.</p>
+<p><strong>The opportunity</strong></p>
+<p>Every department wants its own knowledge assistant: sales, HR, legal, the service desk, the dealer helpline. Most will be built on RAG in a weekend. Most will drift within a quarter.</p>
+<p>That's two markets. First, <strong>enterprise knowledge assistants</strong> built properly, with a register from day one. Second, <strong>knowledge freshness as a service</strong>: audit the index, tag what's current, retire what isn't, run the nightly evals, and send the owner one report a week with which answers came from which dates. For Indian manufacturers and distributors, where price lists change with every budget, GST revision and metal price swing, that report is worth real money.</p>
+<p><strong>Tools to try</strong><br>
+LlamaIndex or LangChain to build the pipeline · Azure AI Search, Amazon Bedrock Knowledge Bases or Google's Vertex AI Search with metadata filters · OpenAI file search with attribute filtering · Claude with search-result citations · pgvector if you'd rather keep it in Postgres.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>When your agent can't find a current source, should it answer from the old one with a warning, or refuse? One word.</strong></p>
+<p>Tag the person in your company who'd know, today, which price list is the current one.</p>
+<p><em>Day 16 of 50 · follow along. Tomorrow: Day 17 · Your AI Agent Cited Clause 14. Clause 14 Doesn't Exist. Who Signed Off?</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#RAG</span><span>#GenerativeAI</span><span>#KnowledgeManagement</span><span>#ContextEngineering</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day15-vector-database/"><span>&#8592; Previous</span>Your AI Agent Found the Wrong Contract. It Looked Similar Enough.</a><a class="next" href="../a-day17-advanced-rag/"><span>Next &#8594;</span>Your AI Agent Cited Clause 14. Clause 14 Doesn&#x27;t Exist. Who Signed Off?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

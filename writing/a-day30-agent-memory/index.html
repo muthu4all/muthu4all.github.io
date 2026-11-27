@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>&quot;How&#x27;s Your Knee After the Surgery?&quot; Nobody Told the AI Agent to Remember That.</title>
+<meta name="description" content="Priya is in a meeting in Coimbatore when her phone rings. A cheerful voice from the furniture store she bought a recliner from last month. &quot;Hi Priya! How&#x27;s your knee after the surgery? We&#x27;ve got a…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day30-agent-memory/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="&quot;How&#x27;s Your Knee After the Surgery?&quot; Nobody Told the AI Agent to Remember That.">
+<meta property="og:description" content="Priya is in a meeting in Coimbatore when her phone rings. A cheerful voice from the furniture store she bought a recliner from last month. &quot;Hi Priya! How&#x27;s your knee after the surgery? We&#x27;ve got a…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day30-agent-memory/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day30-agent-memory/A-day30-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 30/50 · 25 Nov 2026</div>
+  <h1>&quot;How&#x27;s Your Knee After the Surgery?&quot; Nobody Told the AI Agent to Remember That.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day30-1-cover-poster.jpg" alt="Cover: &quot;How&#x27;s Your Knee After the Surgery?&quot; Nobody Told the AI Agent to Remember That." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Priya is in a meeting in Coimbatore when her phone rings. A cheerful voice from the furniture store she bought a recliner from last month.</p>
+<p>"Hi Priya! How's your knee after the surgery? We've got a new orthopaedic mattress you'll love."</p>
+<p>She goes quiet. She'd mentioned the surgery once, three weeks ago, in a support chat, while asking whether the recliner was easy to get out of. She never told a salesperson. She never told anyone to remember it.</p>
+<p>Nobody hacked anything. The store's AI assistant did exactly what it was built to do: it remembered. (Priya and the store are a composite, and the details are <em>illustrative</em>. The pattern isn't.)</p>
+<p>Priya didn't buy the mattress. She also stopped trusting the store.</p>
+<p><strong>The architecture today</strong></p>
+<p>Most assistants now have some kind of memory, and it usually comes in four layers:</p>
+<p>→ <strong>Working context:</strong> what the model sees right now, this turn. Gone when the turn ends.<br>
+→ <strong>Session memory:</strong> the whole conversation so far. Gone when the chat closes, or soon after.<br>
+→ <strong>Long-term memory:</strong> facts the agent pulls out of conversations and keeps across sessions, usually in a vector or graph store. "Prefers Tamil." "Has a dog." "Had knee surgery."<br>
+→ <strong>The system of record:</strong> your CRM. Orders, addresses, consent flags, the stuff the business has always kept and governed.</p>
+<p>The CRM has had rules for years: who can see what, how long it's kept, what marketing may use. The long-term memory store often has none. It sits beside the CRM, fills itself from every chat, and any agent with access can read it. That's where the knee went.</p>
+<figure><img src="A-day30-2-in-article-memory-rings.jpg" alt="Caption: Four layers of agent memory, from the turn you&#x27;re in to the CRM that&#x27;s been there for years. Grey is what you already run. Amber is new: the memory layers and the consent gate every fact must pass before it&#x27;s kept." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: Four layers of agent memory, from the turn you&#x27;re in to the CRM that&#x27;s been there for years. Grey is what you already run. Amber is new: the memory layers and the consent gate every fact must pass before it&#x27;s kept.</figcaption></figure>
+
+<p><strong>Where AI plugs in now: remember less, on purpose</strong></p>
+<p>The low-risk start isn't "turn memory on". It's an allow-list.</p>
+<p>→ Let the agent keep only a short list of things that help the customer: preferred language, preferred time to call, delivery floor, "no calls on Sundays".<br>
+→ Everything else stays in the session and dies with it.<br>
+→ Show the customer what's remembered, in plain words, with a delete button next to each line.</p>
+<p>That alone would have saved Priya's afternoon. A recliner question goes in the session. "Prefers WhatsApp in Tamil" goes in memory. A surgery goes nowhere unless she says so.</p>
+<p><strong>An assistant that remembers everything isn't helpful. It's a liability with good manners.</strong></p>
+<p><strong>Where it's heading with agents: memory with a gate</strong></p>
+<p>In two or three years I expect long-term memory to look less like a notebook and more like a governed store, with a gate in front of it. Every fact that wants in gets sorted into one of three bins:</p>
+<ol>
+<li><strong>Remember:</strong> low-risk, useful, expected. Language, preferences, sizes.</li>
+<li><strong>Ask first:</strong> useful but personal. Health, family events, money worries. The agent asks "Shall I remember this for next time?" and stores the answer along with the fact.</li>
+<li><strong>Never store:</strong> card numbers, OTPs, Aadhaar numbers, passwords. These get masked before they reach any memory layer, including the logs.</li>
+</ol>
+<p>And every remembered fact carries four tags: where it came from, what it may be used for, who agreed, and when it expires. Support memory doesn't quietly become sales memory.</p>
+<figure><img src="A-day30-3-in-article-remember-ask-forget.jpg" alt="Caption: Remember, ask first, never store. A sorting chart for every fact your assistant hears. Screenshot it before your next CX review." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: Remember, ask first, never store. A sorting chart for every fact your assistant hears. Screenshot it before your next CX review.</figcaption></figure>
+
+<p><strong>Why this matters more in India from next May</strong></p>
+<p>I'm not a lawyer, and this isn't legal advice. But the timing is worth knowing.</p>
+<p>India's Digital Personal Data Protection Act, 2023 got its Rules on 13 November 2025, with a phased start. The consent manager provisions began this month, a year after notification. Most of the substantive duties, including notice, consent and the rights to correction and erasure, apply from 13 May 2027.</p>
+<p>Two parts of that land squarely on agent memory. A business has to erase personal data once consent is withdrawn or the purpose is no longer being served. And a customer can ask for her data to be erased.</p>
+<p>Now picture Priya asking. The CRM team deletes her record. But the knee is also in the memory store, in two chat summaries, in an embedding, in a nightly backup, and in a call brief a sales agent already generated. Forgetting has to reach all of them.</p>
+<p>Even the big consumer assistants show how tricky this is. OpenAI's own help page says deleting a chat doesn't delete the saved memories that came from it. You remove those separately.</p>
+<p><strong>Remembering is a feature. Forgetting is architecture.</strong></p>
+<p><strong>Watch it work</strong></p>
+<figure><img src="A-day30-4-in-article-memory-gate.gif" alt="Caption: A chat runs. Facts drop towards memory. &quot;Prefers Tamil&quot; passes the gate and stays. &quot;Knee surgery&quot; stops at the consent gate, nobody said yes, and it fades out. The card number never gets that far." width="1000" height="667" loading="lazy" decoding="async"><figcaption>Caption: A chat runs. Facts drop towards memory. &quot;Prefers Tamil&quot; passes the gate and stays. &quot;Knee surgery&quot; stops at the consent gate, nobody said yes, and it fades out. The card number never gets that far.</figcaption></figure>
+
+<p><strong>Pros</strong><br>
+→ Customers don't repeat themselves. That's real kindness at scale<br>
+→ Agents get better context, so fewer wrong answers and faster resolutions<br>
+→ A governed memory store is easier to audit than chat logs scattered across tools</p>
+<p><strong>Cons</strong><br>
+→ Every remembered fact is something you can leak, misuse or be asked to erase<br>
+→ "Ask first" adds friction, and some teams will quietly switch it off<br>
+→ Memory makes agents feel personal, which makes a wrong memory feel like a betrayal</p>
+<p><strong>The hard parts</strong></p>
+<p>The agent decides what counts as a fact. Extraction is done by a model reading the chat, so "my mother had knee surgery" can become "Priya had knee surgery". Wrong memories are worse than none.</p>
+<p>Copies multiply. Summaries, embeddings, logs, analytics exports, backups. If you can't list every place a fact lives, you can't promise to erase it.</p>
+<p>Memory can be poisoned. Anyone who can talk to the agent can try to plant a "fact" that changes how it treats them, or someone else, later.</p>
+<p>Memory and the CRM will disagree. The CRM says Chennai; the memory says "moved to Bengaluru". Pick one rule: the system of record wins until a person confirms the change.</p>
+<p>And I honestly don't know where the line between "helpful" and "creepy" sits for every customer. It moves with age, region and context. That's why "ask first" exists.</p>
+<p>A new role fits here. A context engineer decides what goes into an agent's context window and memory, and what never should. It overlaps with prompt engineering and data governance, and the titles are still settling. In practice it's often a forward deployed engineer (FDE), someone who works inside the customer's team, sitting with support and compliance for two weeks and turning "we'd never use that for sales" into a written memory policy.</p>
+<p><strong>The opportunity</strong></p>
+<p>Who pays: every company putting an assistant in front of customers. Banks, insurers, hospitals, telecoms, retailers, edtechs. And they need it before May 2027, not after.</p>
+<p>What it creates:<br>
+→ <strong>Memory governance as a service:</strong> what to remember, what to ask, what to forget, written as policy and enforced in code<br>
+→ <strong>Consent-aware memory layers:</strong> every fact tagged with source, purpose, consent and expiry, with a gate in front<br>
+→ <strong>Memory audits:</strong> "show me everything your agents remember about this customer, and why", in one screen<br>
+→ <strong>Erasure that actually propagates:</strong> one request, cleared from the memory store, summaries, embeddings and logs, with proof<br>
+→ <strong>Context engineering and FDE-led rollouts:</strong> a few weeks inside a CX team, leaving behind a memory policy and the tests that check it</p>
+<p>Day 29 was about an agent inheriting 30 years of an accountant's know-how. That's memory a company wants to keep. Today is the other half: memory a customer never agreed to give.</p>
+<p><strong>Tools to try</strong><br>
+Mem0 and Zep for long-term memory layers · LangGraph's memory store (with LangMem) if you already build on LangGraph · Amazon Bedrock AgentCore Memory for short- and long-term memory on AWS · ChatGPT memory, Claude memory and Gemini's personal context as reference designs: try their "show me what you remember" and delete controls, and copy what works.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Should an AI assistant remember anything you didn't ask it to? Yes or no.</strong></p>
+<p>Tag the person in your company who owns the CRM. They'll want to know what the assistant is keeping beside it.</p>
+<p><em>Day 30 of 50 · follow along. Tomorrow: Day 31 · I Was Wrong About Autonomous AI Agents. Most Jobs Need a Checklist.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#AgentMemory</span><span>#DPDP</span><span>#DataPrivacy</span><span>#CustomerExperience</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day29-skills/"><span>&#8592; Previous</span>Your Best Accountant Retires in March. Can an AI Agent Inherit 30 Years of Know-How?</a><a class="next" href="../a-day31-workflow-vs-agent/"><span>Next &#8594;</span>I Was Wrong About Autonomous AI Agents. Most Jobs Need a Checklist.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

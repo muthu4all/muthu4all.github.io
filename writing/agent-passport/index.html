@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Has No CV. Would You Still Hire It?</title>
+<meta name="description" content="Imagine hiring a finance executive like this. No CV. No references. No background check. Just a brilliant 20-minute demo, and then you hand over access to the company&#x27;s accounts. Nobody would do…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/agent-passport/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Has No CV. Would You Still Hire It?">
+<meta property="og:description" content="Imagine hiring a finance executive like this. No CV. No references. No background check. Just a brilliant 20-minute demo, and then you hand over access to the company&#x27;s accounts. Nobody would do…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/agent-passport/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/agent-passport/1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Essay · 20 Oct 2026</div>
+  <h1>Your AI Agent Has No CV. Would You Still Hire It?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="1-cover-poster.jpg" alt="Cover: Your AI Agent Has No CV. Would You Still Hire It?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Imagine hiring a finance executive like this.</p>
+<p>No CV. No references. No background check.<br>
+Just a brilliant 20-minute demo, and then you hand over access to the company's accounts.</p>
+<p>Nobody would do that.</p>
+<p><strong>Yet this is exactly how many companies are choosing AI agents today.</strong></p>
+<p>The vendor runs a slick demo. The agent reads an invoice, fills a form, answers a customer, and the room is impressed. A few weeks later it's in production, with access to real data, real money and real customers.</p>
+<p>Then someone asks the uncomfortable question:<br>
+<em>"How do we actually know this thing is reliable?"</em></p>
+<p>Usually, nobody has a good answer.</p>
+<p><strong>A demo is a performance, not evidence</strong></p>
+<p>Traditional software is fairly predictable: same input, same output, and you can test it against a spec.</p>
+<p>AI agents don't work like that. The same agent can:</p>
+<p>→ Get a task right today and wrong tomorrow when the input changes slightly<br>
+→ Pick the wrong tool with complete confidence<br>
+→ Quietly go beyond what it was supposed to do<br>
+→ Give a beautifully written answer with nothing behind it</p>
+<p>Its behaviour also depends on much more than the model: the prompt, the tools, the memory, the permissions and the infrastructure around it. Change one of those and you effectively have a different agent.</p>
+<p>So when a vendor says <em>"our agent is reliable"</em>, the honest follow-up questions are:</p>
+<p>Reliable at what? Under which conditions? Tested by whom? And when?</p>
+<p>A model benchmark can't answer any of them.</p>
+<p><strong>We rate everything, except the things we're giving the keys to</strong></p>
+<p>Restaurants get ratings. Borrowers get credit scores. Doctors and chartered accountants need certifications. Even a used car comes with a service history.</p>
+<p>AI agents are about to approve payments, change records and talk to our customers, and they come with a marketing deck.</p>
+<p><strong>I think every AI agent should carry a passport.</strong></p>
+<p><strong>The AI Agent Performance Passport</strong></p>
+<p>The idea is a machine-readable record of independently verified evidence that travels with the agent. Before you deploy it, the passport answers five questions:</p>
+<p><strong>1. Can it do the job?</strong> Task completion, accuracy and correct tool use, measured on <em>your kind</em> of work, not a generic benchmark.</p>
+<p><strong>2. Can it do it consistently?</strong> Repeated runs, edge cases, messy inputs. A 97% score that drops to 70% on the second run isn't 97%.</p>
+<p><strong>3. Is it safe to give it access?</strong> How it handles data and permissions, and whether it resists malicious instructions hidden in a document or an email.</p>
+<p><strong>4. What does a <em>correct</em> result actually cost?</strong> Not price per token. Cost per successful task, including retries, failures and clean-up.</p>
+<p><strong>5. Can I verify all this?</strong> Who tested it, which version, which tests, and when the evidence expires.</p>
+<p>The passport doesn't say "trusted". It says <em>what has actually been demonstrated</em>. That's a big difference.</p>
+<p><strong>Here's where it gets interesting</strong></p>
+<p>Say three vendors pitch invoice-processing agents. Instead of picking the best demo, you run all three through the same test: 1,000 real-world invoices, including scanned copies, missing fields, duplicates, totals that don't add up, and a few deliberately sneaky instructions.</p>
+<p>The (hypothetical) results:</p>
+<p>🟢 <strong>Agent A:</strong> 97% completion, ₹4 per invoice<br>
+🟡 <strong>Agent B:</strong> 94% completion, ₹1.50 per invoice<br>
+🔴 <strong>Agent C:</strong> 99% completion, but fails several security tests</p>
+<p>Most people's instinct is to pick C. It's the "best", after all.</p>
+<p>But C shouldn't get anywhere near production until those security gaps are fixed. A is your choice for routine work. B could be excellent for low-risk volume with a human check on top.</p>
+<p><strong>The best agent isn't the smartest, the cheapest or the most popular one. It's the one whose <em>proven</em> abilities match the job, with risks you can live with.</strong></p>
+<p>The passport also makes permissions specific. An agent can be <strong>approved</strong> for drafting customer emails and <strong>denied</strong> for issuing refunds. That's how we treat new employees, and agents deserve the same.</p>
+<p><strong>How it would work (the short version)</strong></p>
+<p>Five building blocks:</p>
+<ol>
+<li><strong>Identity:</strong> every agent version gets a unique ID tied to its operator, model, tools and declared capabilities.</li>
+<li><strong>Independent testing:</strong> standardised and task-specific evaluations in a controlled environment.</li>
+<li><strong>Evidence trail:</strong> test definitions, environment, timestamps and evaluator, all kept and auditable.</li>
+<li><strong>The passport itself:</strong> a versioned profile showing capability by task, known weaknesses and an expiry date.</li>
+<li><strong>Policy check:</strong> your organisation compares the passport against its own rules before granting access.</li>
+</ol>
+<p>The registry informs the decision. Your organisation still enforces permissions at runtime and still owns the outcome.</p>
+<p><strong>Is anyone already doing this?</strong></p>
+<p>In pieces, yes, and that's good news.</p>
+<p>IEEE has an active standards project (P3777) on benchmarking and performance metrics for AI agents. NIST's National Cybersecurity Center of Excellence has published a concept paper on identity and authorization for software and AI agents. Plenty of teams are building evaluation tools.</p>
+<p>What's missing is the connection between them: a practical, independent record that links <strong>what an agent claims, what it has proven and what it's allowed to do</strong>, and keeps that record current as the agent changes.</p>
+<p>The goal isn't yet another universal "AI score". It's evidence you can actually use when choosing an agent for a specific job.</p>
+<p><strong>The hard questions (I don't have all the answers)</strong></p>
+<p>🤔 <strong>Who checks the checkers?</strong> Vendors will always want to look good, so independence, open methods and reproducible tests are non-negotiable.</p>
+<p>🤔 <strong>Can one number capture trust?</strong> I doubt it. One score hides the one weakness that matters. Capability, reliability, security and cost need to stay separately visible.</p>
+<p>🤔 <strong>How fast does a passport go stale?</strong> Change the model, the prompt or the tools and the old evidence is out of date. Passports need versions and expiry dates.</p>
+<p>🤔 <strong>Do test results predict real life?</strong> Not perfectly. A good registry admits what it didn't test, and you should still pilot in your own environment.</p>
+<p>🤔 <strong>Who's accountable when it fails?</strong> Still you. A passport improves decisions. It doesn't transfer responsibility.</p>
+<p><strong>Why this matters now</strong></p>
+<p>Right now most companies are <em>experimenting</em> with agents. Soon they'll be <em>depending</em> on them, for finance, code, operations and customers.</p>
+<p>When that happens, "it looked great in the demo" won't survive the first audit, the first incident or the first board question.</p>
+<p>We spent decades building trust systems for people and companies. AI agents need one too, built before something goes badly wrong rather than after.</p>
+<hr>
+<p>So here's my question to you 👇</p>
+<p><strong>Would you trust an AI agent more if it came with an independently verified passport? Or is your demo-and-pilot approach working just fine?</strong></p>
+<p>I'd really like to hear how your team decides today.</p>
+<hr>
+<p>Sources:<br>
+- <a href="https://standards.ieee.org/ieee/3777/12350/">IEEE P3777: Standard for Benchmarking and Performance Metrics of AI Agents</a><br>
+- <a href="https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization">NIST NCCoE: Software and AI Agent Identity and Authorization</a></p>
+</div>
+<div class="tags"><span>#AIAgents</span><span>#AgenticAI</span><span>#GenerativeAI</span><span>#EnterpriseAI</span><span>#AITrust</span><span>#AIGovernance</span><span>#ResponsibleAI</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../ai-solution-exchange/"><span>&#8592; Previous</span>We Pay AI for Effort. We Should Be Paying for Results.</a><a class="next" href="../idea-backlog/"><span>Next &#8594;</span>100 Ideas. 10 Got Built. AI Just Changed What Happens to the Other 90.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

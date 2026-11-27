@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Found the Wrong Contract. It Looked Similar Enough.</title>
+<meta name="description" content="A freight bill from Sri Balaji Logistics lands in the accounts inbox of an auto-components maker in Hosur. The company&#x27;s new payments agent does what it was built to do. It looks up the rate contract…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day15-vector-database/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Found the Wrong Contract. It Looked Similar Enough.">
+<meta property="og:description" content="A freight bill from Sri Balaji Logistics lands in the accounts inbox of an auto-components maker in Hosur. The company&#x27;s new payments agent does what it was built to do. It looks up the rate contract…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day15-vector-database/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day15-vector-database/A-day15-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 15/50 · 10 Nov 2026</div>
+  <h1>Your AI Agent Found the Wrong Contract. It Looked Similar Enough.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day15-1-cover-poster.jpg" alt="Cover: Your AI Agent Found the Wrong Contract. It Looked Similar Enough." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>A freight bill from Sri Balaji Logistics lands in the accounts inbox of an auto-components maker in Hosur. The company's new payments agent does what it was built to do. It looks up the rate contract before approving.</p>
+<p>It searches by meaning: "rate contract for Sri Balaji Logistics". The top hit scores 0.94. It's a contract with <strong>Sri Balaji Logistics &amp; Movers</strong>, a different vendor, signed in 2023 and expired since. Rate: ₹42 per km. The right contract, ₹35 per km and valid till 2027, scored 0.91. Second place.</p>
+<p>The agent approved every freight bill that quarter at ₹42. About 2.4 lakh km later, the internal auditor found the gap: ₹16.8 lakh overpaid. (The company, the vendors and every number here are <em>illustrative</em>. In India, every vendor master has five Sri Balajis.)</p>
+<p>The agent didn't hallucinate. It did exactly what similarity search does. It found the closest thing.</p>
+<p><strong>Similar isn't the same. And money needs the same.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>On Day 12 we turned a dark data lake into something an agent can read. Today is about where that reading usually ends up: a vector database.</p>
+<p>Every document gets split into chunks. An embedding model turns each chunk into a long list of numbers that captures its meaning. Chunks that mean similar things end up close together. A question gets turned into numbers the same way, and the database returns the nearest chunks.</p>
+<p>That's brilliant for meaning. Ask "what's the penalty for late delivery?" and it finds the clause that says "liquidated damages", even though no word matches. Keyword search never could.</p>
+<p>But it has a blind spot. It has no idea that "Sri Balaji Logistics" and "Sri Balaji Logistics &amp; Movers" are two different legal entities with two different GSTINs. To an embedding, they're nearly the same thing. A vendor ID, an expiry date or a GSTIN isn't a meaning. It's a fact. Facts need exact answers.</p>
+<p>👉 <strong>[IMAGE: A-day15-2-in-article-architecture.png]</strong><br>
+<em>Caption: Contracts get embedded and tagged. A search gateway sits between the agent and the stores: exact match first, filters always, meaning second. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: a search gateway, not a raw index</strong></p>
+<p>Don't let the agent query the vector index directly. Put a small gateway in between, with three rules:</p>
+<p>→ <strong>Exact match first.</strong> If the invoice carries a vendor ID or GSTIN, look that up in the ERP's vendor master. No similarity involved.<br>
+→ <strong>Filters always.</strong> Every chunk carries its labels: vendor ID, valid-till date, status, and who's allowed to see it. The search only runs inside the chunks that pass. The expired "&amp; Movers" contract never even competes.<br>
+→ <strong>Then meaning, with keywords.</strong> For the real questions, combine keyword search and vector search (hybrid search) and merge the two rankings. Names with near-twins get caught by the keywords. Paraphrases get caught by the vectors.</p>
+<p>Most vector stores now support this. pgvector sits inside Postgres, next to the full-text search you may already run. Qdrant and Weaviate have filters and hybrid queries built in.</p>
+<p><strong>A 0.94 match is a guess with a decimal point.</strong></p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>Today, a person asks and reads the result. In two or three years, agents will query these stores thousands of times a day, as their working memory. Contracts, policies, past tickets, even their own notes from yesterday.</p>
+<p>At that scale the vector index stops being a search feature. It becomes a system of record, and it'll need what every system of record needs: access control on every chunk, expiry dates, owners, and a log of what each agent retrieved before it acted. That log is the replay we talked about on Day 10. If the auditor asks why the agent paid ₹42, you want to show which chunk it read.</p>
+<p>👉 <strong>[IMAGE: A-day15-3-in-article-search-rules.png]</strong><br>
+<em>Caption: Five search rules for any agent that touches money. Screenshot it before your next design review.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>Same query, same meaning space. First by nearest dot only, then with filters.</p>
+<p>👉 <strong>[GIF: A-day15-4-in-article-meaning-space.gif]</strong><br>
+<em>Caption: Without filters, the closest contract wins, even an expired one from another vendor. With filters, only valid, active, same-vendor chunks compete. All details illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Search finally works on meaning: paraphrases, synonyms, Tamil-English mixed notes<br>
+→ It reuses the documents you've already parsed, and it can live inside the Postgres you already run<br>
+→ With filters and hybrid search, the agent gets fewer, better chunks, which also cuts model cost</p>
+<p><strong>Cons</strong><br>
+→ A similarity score isn't a confidence score. A 0.94 can still be wrong, and nothing in the number tells you<br>
+→ Change the embedding model and old and new vectors don't mix. You re-embed the whole index and test again<br>
+→ Tuning the keyword-versus-meaning balance is trial and error on your own data. There's no universal setting</p>
+<p><strong>The hard parts</strong></p>
+<p>The labels are the real work, not the database. Somebody has to decide that every chunk carries a vendor ID, a valid-till date and a status, and then keep them right when a contract is amended by email.</p>
+<p>Filters have a trap too. In some setups the filter runs after the nearest-neighbour search, so a narrow filter can quietly return fewer results than you asked for. Test with your messiest vendor, not the demo one.</p>
+<p>And permissions don't survive embedding by default. An HR letter turned into a vector is still an HR letter. Copy the access rule onto every chunk.</p>
+<p>That labelling job is becoming a role. Some teams call it a Context Engineer: the person who decides what the agent may retrieve, with which labels, and how fresh it must be. The title is still settling. The job is already there in every company that put an agent on top of documents.</p>
+<p><strong>The opportunity</strong></p>
+<p>Two markets, both open.</p>
+<p>First, search and recommendation rebuilt on meaning. Indian e-commerce, insurance and government portals still run on keyword search that fails on "silk saree for Pongal under ₹5,000" or a query typed half in Tamil. Meaning-based search, with filters for price, stock and region, is a clear upgrade businesses will pay for.</p>
+<p>Second, "vector hygiene" as a service. Audit the indexes behind every agent: missing labels, expired chunks still live, near-twin vendors, mixed embedding models, chunks without access rules. Fix them, then run it monthly. Every company that rushed an agent into production last year has this debt, and few know it.</p>
+<p><strong>Tools to try</strong><br>
+pgvector inside Postgres, with its full-text search for hybrid · Qdrant or Weaviate for filters and hybrid queries · Pinecone or Milvus for managed scale · Elasticsearch or OpenSearch if you already run them · embedding models from OpenAI, Cohere, Google or an open model you host yourself.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Would you let an AI agent pay against a 0.94 match? Yes or no.</strong></p>
+<p>Tag the person who maintains your vendor master and knows how many Sri Balajis are in it.</p>
+<p><em>Day 15 of 50 · follow along. Tomorrow: Day 16 · Your AI Agent Read the 2022 Price List. It Cost You ₹6 Lakh.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#VectorDatabase</span><span>#HybridSearch</span><span>#ContextEngineering</span><span>#AIAgents</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day14-streaming/"><span>&#8592; Previous</span>Fraud Takes 3 Seconds. Your AI Agent Is Reading Yesterday&#x27;s Data.</a><a class="next" href="../a-day16-rag/"><span>Next &#8594;</span>Your AI Agent Read the 2022 Price List. It Cost You ₹6 Lakh.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Connected to One New Tool. Now It Can Reach Your Customer Database.</title>
+<meta name="description" content="It took Sandeep twenty minutes on a Friday evening. He runs sales operations at a consumer-finance company in Madurai. His reps wanted the sales agent to tell them which customers were due for a…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day27-mcp/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Connected to One New Tool. Now It Can Reach Your Customer Database.">
+<meta property="og:description" content="It took Sandeep twenty minutes on a Friday evening. He runs sales operations at a consumer-finance company in Madurai. His reps wanted the sales agent to tell them which customers were due for a…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day27-mcp/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day27-mcp/A-day27-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 27/50 · 22 Nov 2026</div>
+  <h1>Your AI Agent Connected to One New Tool. Now It Can Reach Your Customer Database.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day27-1-cover-poster.jpg" alt="Cover: Your AI Agent Connected to One New Tool. Now It Can Reach Your Customer Database." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>It took Sandeep twenty minutes on a Friday evening.</p>
+<p>He runs sales operations at a consumer-finance company in Madurai. His reps wanted the sales agent to tell them which customers were due for a top-up loan. So he found a CRM connector online, an MCP server with a tidy README. The read-only database user threw an error, so he pasted in the admin connection string instead. It worked first time. The sales agent could now read all 4,80,000 customers.</p>
+<p>On Monday a rep typed: "Export every customer in Tamil Nadu with a loan above ₹2 lakh." The agent did it. A spreadsheet of 38,000 rows, with PAN numbers and phone numbers, sitting in a chat window. Nobody hacked anything. Every step was allowed. (Sandeep and his company are a composite, and every number here is <em>illustrative</em>.)</p>
+<p><strong>Your agent can reach whatever its tools can reach. Not what you meant it to reach.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>MCP, the Model Context Protocol, is how agents plug into tools now. Anthropic released it in November 2024, and in December 2025 it was donated to the Agentic AI Foundation, a fund under the Linux Foundation co-founded with OpenAI and Block.</p>
+<p>→ You wrap a tool or data source once, as an MCP server: your CRM, Tally, a database, a GST lookup.<br>
+→ Any MCP client can then use it: Claude, ChatGPT's developer mode, Microsoft Copilot Studio, Cursor, or your own agent.<br>
+→ The agent reads each tool's name and description, decides when to call it, and gets the result back.</p>
+<p>That's the magic, and it's real. But "every agent can use it" also means every agent gets whatever access the connector was built with.</p>
+<p>👉 <strong>[IMAGE: A-day27-2-in-article-architecture.png]</strong><br>
+<em>Caption: Any agent on the left, your existing systems on the right. The new part is the middle: a registry of approved MCP servers, one gateway, a login for each user, and a log of every call. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: connect narrow, not wide</strong></p>
+<p>The first, low-risk step isn't a smarter agent. It's a narrower connection. Five rules before the next MCP server goes live:</p>
+<p>→ <strong>An approved list.</strong> Only MCP servers from a company registry, at a pinned version. Nothing installed from a search result on a Friday evening.<br>
+→ <strong>The smallest scope that does the job.</strong> Not "the CRM database". A read-only view of this rep's own 212 customers, with PAN and phone masked.<br>
+→ <strong>Each user logs in as themselves.</strong> MCP's authorisation spec is built on OAuth, so the agent can act with the rep's own permissions instead of one shared admin key.<br>
+→ <strong>One gateway, every call logged.</strong> Who asked, which tool, what went in, how many rows came out.<br>
+→ <strong>Someone reads the tool descriptions.</strong> This one surprises people.</p>
+<p>In April 2025, Invariant Labs described what they called <strong>tool poisoning</strong>: hidden instructions inside a tool's description, which the model reads and the user usually never sees. A harmless-looking tool can tell the agent to fetch a file or send data somewhere else. Then in September 2025, Koi Security found a fake "postmark-mcp" package on npm. It copied the real email connector and added one line that quietly BCC'd every email to the attacker.</p>
+<p><strong>One line of code. Every email. That's the size of the risk in a connector nobody reviewed.</strong></p>
+<p>I've been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. The shared admin password is the oldest mistake I know. MCP didn't invent it. It made it twenty minutes long.</p>
+<p>👉 <strong>[IMAGE: A-day27-3-in-article-connection-checklist.png]</strong><br>
+<em>Caption: Seven questions to ask before you connect an MCP server. Screenshot it for the next time someone says "it's just a connector".</em></p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I expect every serious software product to ship an MCP server the way it ships an API today, and companies to run an internal catalog of approved servers, like an app store for agents.</p>
+<p>That's when a new role becomes normal. Some teams call it a Context Engineer: the person who decides which tools and data each agent can reach, and how much of each. A forward deployed engineer (FDE), who works inside the customer's team on their real systems, builds the first connectors and finds out why the "read-only" user never worked. These titles are still settling. The job isn't going away.</p>
+<p>Two related problems get their own days: prompt injection (Day 38) and giving each agent its own identity (Day 39). Today is about the connection and its scope.</p>
+<p><strong>Watch it work</strong></p>
+<p>👉 <strong>[GIF: A-day27-4-in-article-scope-beam.gif]</strong><br>
+<em>Caption: First, a connector with an admin key reaches every table. Then the same connector behind a gateway: one read-only view, every call logged, and the request for the full customer table blocked. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Build a connector once and every agent and assistant in the company can use it<br>
+→ An open standard under a neutral foundation, so you're not locked to one vendor<br>
+→ One gateway gives you one place to log, limit and switch off agent access</p>
+<p><strong>Cons</strong><br>
+→ Easy to connect means easy to over-connect. Convenience is the default, not least privilege<br>
+→ Many connectors found online are small hobby projects, with no review and no one accountable<br>
+→ Tool descriptions are instructions the user rarely sees, and they can change after you approve them</p>
+<p><strong>The hard part</strong></p>
+<p>The safe setup is slower, and somebody has to pay for it. Read-only views need a DBA. Per-user login is hard when an old core system only knows one service account. The gateway is one more thing that can go down.</p>
+<p>Then there's the law. India's DPDP Rules were notified in November 2025, and the main obligations apply from May 2027. Among them: reasonable security safeguards for personal data, with penalties of up to ₹250 crore for failing at that. I honestly don't know yet how the Data Protection Board will view "the agent could read it, but nobody looked". I wouldn't want to be the test case.</p>
+<p><strong>The opportunity</strong></p>
+<p>Two markets are opening.</p>
+<p>The first is <strong>MCP servers for Indian systems</strong>: Tally, GST returns, e-invoicing, ONDC catalogues, core banking. Every agent will need them, and a good, scoped one sells to every company on that system. Price it per company per month, with the scopes already designed.</p>
+<p>The second is <strong>MCP security and gateways</strong>: audits of which connectors a company runs, registry and gateway setup, per-user login for legacy systems, and DPDP-ready logs. Banks, NBFCs, insurers and hospitals will pay first, because they hold the most PAN numbers and health records. A Context Engineer to design the scopes plus an FDE to build the connectors is a small, sellable team.</p>
+<p><strong>Tools to try</strong><br>
+The MCP SDKs (Python, TypeScript and more) · the official MCP Registry · Claude · ChatGPT developer mode · Microsoft Copilot Studio · Cursor · and an MCP gateway such as Docker MCP Gateway, AWS Bedrock AgentCore Gateway or Kong AI Gateway.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Be honest: does your agent's database connector log in with an admin key? Yes or no.</strong></p>
+<p>Tag the person in your team who'd be the first to find out if an agent exported the customer table.</p>
+<p><em>Day 27 of 50 · follow along. Tomorrow: Day 28 · Your AI Agent Agreed a Price with a Supplier's Agent. Is That a Contract?</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#MCP</span><span>#AISecurity</span><span>#DPDP</span><span>#ContextEngineering</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day26-human-in-loop/"><span>&#8592; Previous</span>Your AI Agent Asks Before Paying. Your Team Clicks &quot;Approve&quot; 400 Times a Day.</a><a class="next" href="../a-day28-agent-to-agent/"><span>Next &#8594;</span>Your AI Agent Agreed a Price with a Supplier&#x27;s Agent. Is That a Contract?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

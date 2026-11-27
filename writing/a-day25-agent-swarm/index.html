@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Five AI Agents Held a Meeting. It Cost ₹40,000 and Decided Nothing.</title>
+<meta name="description" content="Saturday, 9:40 PM. Arul in Tirunelveli types one line into an appliance brand&#x27;s WhatsApp support: &quot;You charged me installation twice. ₹1,850. Please refund.&quot; Monday, 9 AM. The support head opens the…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day25-agent-swarm/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Five AI Agents Held a Meeting. It Cost ₹40,000 and Decided Nothing.">
+<meta property="og:description" content="Saturday, 9:40 PM. Arul in Tirunelveli types one line into an appliance brand&#x27;s WhatsApp support: &quot;You charged me installation twice. ₹1,850. Please refund.&quot; Monday, 9 AM. The support head opens the…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day25-agent-swarm/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day25-agent-swarm/A-day25-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 25/50 · 20 Nov 2026</div>
+  <h1>Five AI Agents Held a Meeting. It Cost ₹40,000 and Decided Nothing.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day25-1-cover-poster.jpg" alt="Cover: Five AI Agents Held a Meeting. It Cost ₹40,000 and Decided Nothing." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Saturday, 9:40 PM. Arul in Tirunelveli types one line into an appliance brand's WhatsApp support: "You charged me installation twice. ₹1,850. Please refund."</p>
+<p>Monday, 9 AM. The support head opens the case. Nobody has replied to Arul. The trace has 1,140 messages in it.</p>
+<p>The support agent passed it to billing, because it was a charge. Billing saw an EMI order and passed it to credit. Credit saw "installation" and passed it to logistics. Logistics said sales had booked the slot. Sales said refunds belong to billing. Round it went, each agent politely asking the last one for the order number again.</p>
+<p>The model bill for one ₹1,850 complaint: about ₹40,000. Decision: none. (Arul, the brand and every number here are <em>illustrative</em>.)</p>
+<p><strong>Five agents with no owner aren't a team. They're a meeting.</strong></p>
+<p>Yesterday, on Day 24, the agents had a boss. Today's pattern has none.</p>
+<p><strong>The architecture today</strong></p>
+<p>In an agent swarm, each agent is a specialist with its own instructions and tools, and any agent can hand the case straight to another. No supervisor in the middle.</p>
+<p>→ An agent decides "this isn't mine" and calls a handoff, which is just a tool, something like <code>transfer_to_billing</code>.<br>
+→ The next agent takes over the conversation, often with the whole history attached.<br>
+→ It ends when some agent answers the customer. If none does, it doesn't end.</p>
+<p>That last line is the whole article.</p>
+<p>OpenAI's Swarm, an experimental, educational library from 2024, made the pattern popular; its production successor, the OpenAI Agents SDK, is built around handoffs. LangGraph, AWS's Strands Agents and Microsoft Agent Framework all ship their own versions.</p>
+<figure><img src="A-day25-2-in-article-architecture.jpg" alt="Caption: A swarm with rules. Five agents hand the case to each other, everyone reads one shared case record, and plain code around them sets the map, the limits, the decider and the exit. Grey is what you already have. Amber is new." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: A swarm with rules. Five agents hand the case to each other, everyone reads one shared case record, and plain code around them sets the map, the limits, the decider and the exit. Grey is what you already have. Amber is new.</figcaption></figure>
+
+<p><strong>Why good agents loop</strong></p>
+<p>Here's the part people don't like hearing: none of the five agents was wrong. Each one made a reasonable call. The architecture let five reasonable calls go in a circle.</p>
+<p>Researchers at UC Berkeley studied multi-agent failures across seven frameworks and named 14 failure modes. Three read like Arul's weekend: step repetition, loss of conversation history, and agents unaware of when to stop. Cost grows quietly too. Anthropic has said its multi-agent research system uses about 15 times the tokens of a normal chat, and that's when it works. When it loops, every handoff carries a longer transcript.</p>
+<p><strong>A swarm without a decider is a WhatsApp group with a credit card.</strong></p>
+<p><strong>Where AI plugs in now: a handoff contract</strong></p>
+<p>You don't fix this with a better prompt. You fix it with six rules, in plain code:</p>
+<ol>
+<li><strong>A handoff map.</strong> Who may hand to whom. Billing may pass to credit. Credit may not pass the same question back to billing.</li>
+<li><strong>A case card.</strong> What travels with the handoff: order, amount, the ask, what's already checked. Not forty pages of transcript.</li>
+<li><strong>One shared case record.</strong> Every agent reads it before asking anything. Nobody asks for the order number twice.</li>
+<li><strong>A turn limit and a budget per case.</strong> Say, eight handoffs and ₹100. Code counts them, not the model. (Day 7's AI gateway holds the money side.)</li>
+<li><strong>A decider for each case type.</strong> A refund under ₹5,000? Billing decides. Others can advise. One agent closes.</li>
+<li><strong>A trace and a human exit.</strong> Every hop logged with its reason. When a limit is hit, the case goes to a named person, not a sixth agent.</li>
+</ol>
+<p>Same complaint, with the contract: support → billing with the case card. Billing asks logistics one question: "Installed twice?" Logistics: "Once." Billing refunds ₹1,850 and notifies the owner. Four turns. About ₹38. Decided by: the billing agent.</p>
+<figure><img src="A-day25-3-in-article-handoff-contract.jpg" alt="Caption: The handoff contract. Six rules to agree before your agents talk to each other. Screenshot it for your next design review." width="1600" height="940" loading="lazy" decoding="async"><figcaption>Caption: The handoff contract. Six rules to agree before your agents talk to each other. Screenshot it for your next design review.</figcaption></figure>
+
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I expect long customer journeys to run this way: a home loan, a car purchase, an insurance claim. Each crosses five or six departments, each with its own agent. A swarm fits because real journeys aren't straight lines; the customer jumps from price to EMI to delivery and back. The shared case record becomes the product, and handoffs will cross company lines too, which is where Day 28 goes.</p>
+<p><strong>Watch it work</strong></p>
+<p>👉 <strong>[GIF: A-day25-4-in-article-swarm-loop.gif]</strong><br>
+<em>Caption: Five agents pass one complaint around while the bill climbs. Then the same case with a map, a turn limit and a decider: closed in four turns. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Flexible: the case goes wherever the customer's problem goes, with no supervisor bottleneck<br>
+→ Each department owns and improves its own agent<br>
+→ Simple cases can be fast and cheap, with no extra hop through a central boss</p>
+<p><strong>Cons</strong><br>
+→ Nobody owns the outcome unless you name one<br>
+→ Costs grow quietly, because every handoff can drag the whole history along<br>
+→ Hard to debug: the failure isn't in any single agent, it's in the pattern between them</p>
+<p><strong>The hard parts</strong></p>
+<p>The honest tension: a swarm is great when the path is unpredictable and each department really is different. It's bad when the outcome needs one accountable owner, like a refund or a loan decision. For those, use Day 24's supervisor, or a swarm with a hard decider.</p>
+<p>Naming the decider is an org-chart fight, not a model problem. Settle it with people before you settle it in code.</p>
+<p>And I don't think anyone has a proven formula for turn limits yet. Start tight, read the traces for two weeks, then loosen.</p>
+<p>This is where new roles show up. An AgentOps engineer, who runs agents in production the way an SRE runs services, owns the budgets, the turn limits and a weekly "loop report". An AI Agent Manager, the business person who answers for what the agents decide, signs off the decider map. The titles are still settling. The angry Monday call isn't.</p>
+<p><strong>The opportunity</strong></p>
+<p>Who pays? Banks, NBFCs, insurers, telecoms and appliance brands: anyone whose customers already complain about being bounced between departments.</p>
+<p>Two products:</p>
+<p>→ <strong>Cross-department journey agents with the contract built in.</strong> Sell the outcome: "refund cases closed in under five turns, with a named decider and a full trace."<br>
+→ <strong>Agent conversation audits.</strong> Contact centres already pay for call-quality audits. This is the same for agent-to-agent talk: find the loops, the re-asks and the cost per decision, and report it monthly. India's BPO industry already has the people and the habit. The new skill is reading traces.</p>
+<p><strong>Tools to try</strong><br>
+OpenAI Agents SDK (handoffs, input filters, a max-turns limit) · LangGraph Swarm · Strands Agents Swarm from AWS (handoff limits, timeouts, repetitive-handoff detection) · Microsoft Agent Framework (handoff and group-chat orchestration, the successor to AutoGen and Semantic Kernel) · CrewAI (iteration limits, delegation off by default).</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>For a refund case: swarm or supervisor? One word.</strong></p>
+<p>Tag the person who gets the angry call on Monday when the weekend bot went in circles.</p>
+<p><em>Day 25 of 50 · follow along. Tomorrow: Day 26 · Your AI Agent Asks Before Paying. Your Team Clicks "Approve" 400 Times a Day.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#MultiAgentSystems</span><span>#AIAgents</span><span>#AgentOps</span><span>#CustomerExperience</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day24-supervisor-workers/"><span>&#8592; Previous</span>Your Manager AI Agent Delegated the Job. The ₹38 Lakh Mistake Is Still Yours.</a><a class="next" href="../a-day26-human-in-loop/"><span>Next &#8594;</span>Your AI Agent Asks Before Paying. Your Team Clicks &quot;Approve&quot; 400 Times a Day.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

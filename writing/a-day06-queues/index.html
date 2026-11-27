@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Model API Went Down at Month-End. Where Did 12,000 Invoices Go?</title>
+<meta name="description" content="It&#x27;s the last working day of the month. Your invoice agent is flying through vendor bills, and the finance team has finally stopped working late. At 11:58 PM the model API starts returning errors. By…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day06-queues/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="The Model API Went Down at Month-End. Where Did 12,000 Invoices Go?">
+<meta property="og:description" content="It&#x27;s the last working day of the month. Your invoice agent is flying through vendor bills, and the finance team has finally stopped working late. At 11:58 PM the model API starts returning errors. By…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day06-queues/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day06-queues/A-day06-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 6/50 · 1 Nov 2026</div>
+  <h1>The Model API Went Down at Month-End. Where Did 12,000 Invoices Go?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day06-1-cover-poster.jpg" alt="Cover: The Model API Went Down at Month-End. Where Did 12,000 Invoices Go?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>It's the last working day of the month. Your invoice agent is flying through vendor bills, and the finance team has finally stopped working late.</p>
+<p>At 11:58 PM the model API starts returning errors.</p>
+<p>By the time someone wakes up, the job has died halfway. Which invoices went through? Which didn't? Did any get half-posted to the ERP? Nobody can say, because the only record of the work was in the memory of a process that no longer exists.</p>
+<p>Twelve thousand invoices (<em>illustrative</em>), and the honest answer is "let's start again and check for duplicates".</p>
+<p>Here's my contrarian take: <strong>your AI agent doesn't have a model problem. It has a waiting problem.</strong> It has no way to say "not now, I'll do this later".</p>
+<p><strong>The architecture today</strong></p>
+<p>Message queues are one of the oldest ideas in enterprise IT. Your bank, your payroll and your ERP have run on them for decades. A producer drops a message on a queue, a consumer picks it up when it's ready, and the message stays put until the work is confirmed. Pub/sub is the same idea with many subscribers listening to one topic.</p>
+<p>The two sides don't need to be up at the same time. That one property is why batch payroll still runs after a server reboot.</p>
+<p>Then AI arrived, and many teams wrote this instead: a loop that calls the model directly, invoice after invoice, and hopes.</p>
+<p>👉 <strong>[IMAGE: A-day06-2-in-article-architecture.png]</strong><br>
+<em>Caption: A queue in front of the agent. Nothing is lost when the model isn't there. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: put a queue in front of the agent</strong></p>
+<p>You don't need a new platform. You probably run a queue already. The first, low-risk move is to stop calling the model from a loop:</p>
+<p>→ <strong>Every invoice becomes a message.</strong> It stays on the queue until an agent worker confirms it's done. If a worker dies, the message comes back.<br>
+→ <strong>Retries with backoff.</strong> When the API fails or rate-limits you, wait 2 seconds, then 4, then 8. Month-end traffic is exactly when you hit the limits.<br>
+→ <strong>A dead-letter queue for humans.</strong> After a few failed attempts, the invoice stops retrying and lands in a list for a person. A blurry scan shouldn't block 11,000 clean ones.<br>
+→ <strong>Idempotent workers.</strong> Yesterday's lesson again: queues can deliver a message twice, so posting to the ERP must check an invoice key first.<br>
+→ <strong>A batch lane for work that can wait.</strong> OpenAI and Anthropic both advertise batch APIs at 50% off with a 24-hour window. Overnight reconciliation doesn't need a live answer at live prices.</p>
+<p>And keep the rule from earlier in this series: the model reads the invoice, and plain code does the posting.</p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>Today the queue protects the agent. In two or three years, I expect the queue to become how agents work with each other.</p>
+<p>A multi-step agent job (read the invoice, match the PO, check GST, seek approval) won't run as one long call that can die at step three. Each step will be a message, so the job can pause for a week waiting for a manager's approval and pick up exactly where it stopped. Long-running agents need a place to wait, and queues are that place.</p>
+<p>The dead-letter queue changes too. It stops being an error bin and becomes the agent's inbox for humans: "I couldn't do these 60, here's why." That list is the most honest report any agent will ever give you.</p>
+<p>It also needs an owner, and that's creating new jobs. A forward deployed engineer (FDE) is an engineer who sits with the customer's team and ships the agent on their real systems. The title started at Palantir, and it's the person who learns at month-end how the invoice run really works, including the vendor who always sends scanned PDFs at 11 PM. Once the agent is live, someone has to own that list of 60 every morning. Some companies call that person an AgentOps engineer. The titles are still settling, but the work isn't going away.</p>
+<p>👉 <strong>[IMAGE: A-day06-3-in-article-failure-table.png]</strong><br>
+<em>Caption: Five failures that happen at month-end, with and without a queue.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>An outage hits at the worst moment. Watch the queue hold the work, and watch what happens when the API comes back.</p>
+<p>👉 <strong>[GIF: A-day06-4-in-article-outage-drain.gif]</strong><br>
+<em>Caption: The model goes down, invoices wait, retries drain the queue, and 60 land with a human. Nothing is lost.</em></p>
+<p><strong>Pros</strong><br>
+→ An outage becomes a delay instead of a loss<br>
+→ You control the pace, so rate limits stop being a crisis and overnight work can go to cheaper batch lanes<br>
+→ Every invoice has a state: waiting, done, or with a human. Finance can finally get an answer</p>
+<p><strong>Cons</strong><br>
+→ It isn't real-time. A customer chatting with an agent can't wait in a queue for an hour, so this suits back-office work best<br>
+→ You now run retries, duplicates and message ordering, and each one has bitten every queue team at some point<br>
+→ A neglected dead-letter queue is a silent failure. If nobody owns it, those 60 invoices stay unpaid until the vendor calls</p>
+<p><strong>The opportunity</strong></p>
+<p>Every company putting agents into finance, claims or KYC will learn this at its first month-end. Most of them won't want to build it themselves.</p>
+<p>That's the market: <strong>AI job orchestration.</strong> Platforms that handle queues, retries, dead-letter review screens and batch routing for agent workloads, with a live view of every job's state. For integrators, "make your agent survive month-end" is a clean, fixed-scope engagement, delivered by FDEs on the customer's own systems. The buyer is the CFO who has already been burned once, and the pitch writes itself: not one invoice lost, and a smaller bill for the work that can wait.</p>
+<p>If you're an engineer who knows queues and has lived through a month-end close, that's a real career opening. Indeed's data, reported in the Indian press, shows FDE postings in India rose nearly 19-fold from June 2025 to June 2026. That's a fast rise from a small base, not a guarantee, but people who can make an agent survive real operations are getting noticed.</p>
+<p><strong>Tools to try</strong><br>
+Amazon SQS for a managed queue with built-in dead-letter queues · RabbitMQ if you want to run your own · Azure Service Bus or Google Cloud Pub/Sub on those clouds · the OpenAI and Anthropic batch APIs for overnight work.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>At your next month-end, would you rather have a fast agent or a recoverable one? Pick one.</strong></p>
+<p>Tag the person in finance who'd get the call when 12,000 invoices go missing.</p>
+<p><em>Day 6 of 50 · follow along. Tomorrow: one AI agent, one bad loop, ₹6 lakh gone by morning. The API gateway, rebuilt for agents.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#MessageQueues</span><span>#FinanceAI</span><span>#Invoices</span><span>#SoftwareArchitecture</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day05-event-driven/"><span>&#8592; Previous</span>Your AI Agent Just Paid the Same Invoice Twice.</a><a class="next" href="../a-day07-ai-gateway/"><span>Next &#8594;</span>One AI Agent. One Bad Loop. ₹6 Lakh Gone by Morning.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>We Pay AI for Effort. We Should Be Paying for Results.</title>
+<meta name="description" content="Here&#x27;s something every heavy AI user has done. You take one problem to three or four different LLMs. One gets you 70% of the way. Another gets you 85%. One is confidently wrong. You pay for all of…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/ai-solution-exchange/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="We Pay AI for Effort. We Should Be Paying for Results.">
+<meta property="og:description" content="Here&#x27;s something every heavy AI user has done. You take one problem to three or four different LLMs. One gets you 70% of the way. Another gets you 85%. One is confidently wrong. You pay for all of…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/ai-solution-exchange/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/ai-solution-exchange/1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Essay · 19 Oct 2026</div>
+  <h1>We Pay AI for Effort. We Should Be Paying for Results.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="1-cover-poster.jpg" alt="Cover: We Pay AI for Effort. We Should Be Paying for Results." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Here's something every heavy AI user has done.</p>
+<p>You take one problem to three or four different LLMs.<br>
+One gets you 70% of the way. Another gets you 85%. One is confidently wrong.</p>
+<p><strong>You pay for all of them.</strong></p>
+<p>That's the odd economics of AI today. We pay for tokens burned, not problems solved. The meter runs whether the answer is right or wrong.</p>
+<p>I think that's about to flip.</p>
+<h2>The supply side is exploding</h2>
+<p>New models arrive almost every week: frontier models, open-weight models, small specialised ones, fine-tuned ones. Dozens of providers host each of them at different prices.</p>
+<p>Right now demand outruns supply, so everyone charges per token and we all pay.</p>
+<p>But when supply catches up, the question changes. It stops being "which model is smartest?" and becomes:</p>
+<p><strong>"Who will solve <em>my</em> problem, to <em>my</em> standard, for the lowest price, and can they prove it?"</strong></p>
+<p>No benchmark answers that. Benchmarks measure someone else's problem.</p>
+<h2>So here's the idea: an AI Solution Exchange</h2>
+<p>Think of freelancing marketplaces, where a client posts a project and freelancers bid. Now replace the freelancers with AI models.</p>
+<ol>
+<li><strong>You post the problem along with the tests.</strong> The tests define what "done" means: accuracy, speed, budget, format.</li>
+<li><strong>Models bid.</strong> Each one quotes a price and a delivery time.</li>
+<li><strong>They prove themselves on a slice first.</strong> Each shortlisted model solves a representative ~10% of the problem, free to you.</li>
+<li><strong>Hidden tests pick the winner.</strong> Every candidate is scored against the same criteria, including test cases no model has seen.</li>
+<li><strong>You pay only for the solution that passes.</strong></li>
+</ol>
+<p>You no longer need to know which model is best. You only need to know what good looks like. The models compete to meet that standard.</p>
+<h2>Why this matters more than it looks</h2>
+<p>Today you buy access to intelligence. On an exchange, you'd buy a verified outcome.</p>
+<p>That's a different business. Model routers and comparison tools already exist, and they help you <em>call</em> models. This is about <strong>procuring results</strong>, where competition happens on quality and price and acceptance is objective.</p>
+<p>It also changes who wins. A small, cheap, specialised model that nails SQL generation could beat a giant general model on every SQL task posted, and earn the business. <strong>Specialisation finally gets paid.</strong></p>
+<h2>The real asset isn't the marketplace</h2>
+<p>Picture a platform that has run 100,000 real tasks. It knows which provider delivers accepted results for debugging versus data cleaning versus document extraction, and at what cost per accepted result.</p>
+<p>That's not a benchmark leaderboard. It's evidence from real work, and it compounds with every task.</p>
+<blockquote>
+<p>When anyone can build a model, the scarce thing is proof.</p>
+</blockquote>
+<h2>The hard parts (because there always are)</h2>
+<p>I'll be honest about what makes this difficult:</p>
+<p>→ <strong>Gaming the tests.</strong> If a model sees all the test cases, it can overfit to them. That's why part of the test suite must stay hidden.</p>
+<p>→ <strong>Free trials aren't free.</strong> Four models solving 10% each still burns compute. The platform has to shortlist smartly instead of inviting everyone to every task.</p>
+<p>→ <strong>Not everything is unit-testable.</strong> Code and data tasks are easy to verify. Strategy, writing and research need rubrics and human judgement.</p>
+<p>→ <strong>Trust and data.</strong> Customers won't send confidential files to ten providers. Privacy controls aren't optional.</p>
+<p>None of these kills the idea. They're exactly what makes it defensible for whoever solves them first.</p>
+<h2>Where I'd start</h2>
+<p>Not with "every AI task in the world." I'd start with tasks that are easy to verify: code, SQL, data transformation, Excel automation. In these areas a test either passes or it doesn't, and the winner is obvious.</p>
+<p>Prove the model there, then expand.</p>
+<h2>The bigger shift</h2>
+<p>Cloud taught us to stop buying servers and pay for compute.<br>
+SaaS taught us to stop buying software and pay for usage.</p>
+<p>AI may teach us to stop paying for attempts and <strong>pay only for results.</strong></p>
+<p>The tokens will still be consumed. They just won't be your problem anymore.</p>
+<hr>
+<p>I'm genuinely curious:<br>
+<strong>Would you post your next problem on an exchange like this? And what's the first task you'd put up for bidding?</strong> 👇</p>
+</div>
+<div class="tags"><span>#AI</span><span>#GenerativeAI</span><span>#LLM</span><span>#AgenticAI</span><span>#FutureOfWork</span><span>#Startups</span><span>#AIEconomics</span><span>#ProductThinking</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="next" href="../agent-passport/"><span>Next &#8594;</span>Your AI Agent Has No CV. Would You Still Hire It?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

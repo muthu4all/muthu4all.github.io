@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Cited Clause 14. Clause 14 Doesn&#x27;t Exist. Who Signed Off?</title>
+<meta name="description" content="A vendor in Hosur supplies castings to a Chennai manufacturer. Their last order ran three weeks late, so they ask how much will be deducted. The procurement team&#x27;s new AI agent drafts the reply in…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day17-advanced-rag/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Cited Clause 14. Clause 14 Doesn&#x27;t Exist. Who Signed Off?">
+<meta property="og:description" content="A vendor in Hosur supplies castings to a Chennai manufacturer. Their last order ran three weeks late, so they ask how much will be deducted. The procurement team&#x27;s new AI agent drafts the reply in…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day17-advanced-rag/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day17-advanced-rag/A-day17-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 17/50 · 12 Nov 2026</div>
+  <h1>Your AI Agent Cited Clause 14. Clause 14 Doesn&#x27;t Exist. Who Signed Off?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day17-1-cover-poster.jpg" alt="Cover: Your AI Agent Cited Clause 14. Clause 14 Doesn&#x27;t Exist. Who Signed Off?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>A vendor in Hosur supplies castings to a Chennai manufacturer. Their last order ran three weeks late, so they ask how much will be deducted.</p>
+<p>The procurement team's new AI agent drafts the reply in seconds: <em>"As per Clause 14 of our supply agreement, the late-delivery penalty is 2% per week. ₹3,60,000 will be deducted."</em> A manager skims it and forwards it.</p>
+<p>Two hours later, the vendor's lawyer replies. The agreement has 12 clauses. The real penalty is in Clause 9: 1% a week, capped at 10%. That's ₹1,80,000, not ₹3,60,000. (The companies and numbers are <em>illustrative</em>. The pattern is very real.)</p>
+<p>Where did Clause 14 come from? An old 2021 template for a different vendor, sitting in the same document store. The agent blended two contracts and quoted the result with total confidence.</p>
+<p><strong>A citation isn't proof. It's a claim that someone has to check.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>Yesterday, on Day 16, we looked at basic RAG: retrieval-augmented generation. You cut documents into pieces, turn each piece into an embedding, find the pieces that look most similar to the question, and let the model answer from them.</p>
+<p>It works well in a demo. In a legal or finance setting it fails in three predictable ways:</p>
+<p>→ <strong>Fixed-size chunks cut clauses in half.</strong> Clause 9's penalty sits in one chunk and its 10% cap in the next.<br>
+→ <strong>Vector search finds what's similar, not what's correct.</strong> A 2021 template about late delivery looks very similar to the 2025 contract about late delivery.<br>
+→ <strong>Nobody checks the citation.</strong> The model writes "Clause 14" and the system passes it straight through.</p>
+<p>My contrarian view: <strong>most RAG failures aren't model failures. They're retrieval and checking failures, and you can fix them without changing the model.</strong></p>
+<p>👉 <strong>[IMAGE: A-day17-2-in-article-architecture.png]</strong><br>
+<em>Caption: Advanced RAG: chunk by clause, filter by metadata, search wide, rerank hard, and check every citation in code before anything goes out. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: five fixes, all boring, all effective</strong></p>
+<p>→ <strong>Chunk by clause, not by word count.</strong> One chunk per clause, with its number, the contract it belongs to and its effective date.<br>
+→ <strong>Filter before you search.</strong> This vendor, this contract, the current version and its amendments. The 2021 template never enters the race.<br>
+→ <strong>Hybrid search.</strong> Keywords catch the exact words "Clause 9" and "liquidated damages". Vectors catch the meaning of "penalty for delay". Elasticsearch, OpenSearch, Azure AI Search and Vespa all support combining the two.<br>
+→ <strong>Rerank.</strong> Pull 20 candidates, then let a reranker pick the best three. It reads the question and each passage together, which is slower and far more accurate than a similarity score.<br>
+→ <strong>Check every citation in code.</strong> The model must quote the exact text with the clause number. A plain function then checks two things: does that clause exist in the retrieved sources, and does the quoted text match the source word for word? If either fails, the answer is held.</p>
+<p>That last step is the one most teams skip. It's also the one that would have stopped Clause 14.</p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>We've already seen what happens when nobody checks. In 2023, a New York judge fined two lawyers and their firm $5,000 for filing a brief with case citations ChatGPT had made up (Mata v. Avianca).</p>
+<p>The message: <strong>the people who sign answer for what their AI says.</strong> Not the model vendor, and not "the system".</p>
+<p>So in two or three years, I expect citation checks to become as normal as unit tests. Every agent that quotes a contract, policy or regulation will run a checker before it speaks, keep an evaluation set of real questions with known answers, and publish its scores. Answers that move money will carry the name of the person who approved them.</p>
+<p>👉 <strong>[IMAGE: A-day17-3-in-article-basic-vs-advanced.png]</strong><br>
+<em>Caption: Same model, different plumbing. Six differences between basic and advanced RAG. Illustrative.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>One vendor question. Twenty candidates, three after reranking, one draft with two citations. One of them doesn't exist.</p>
+<p>👉 <strong>[GIF: A-day17-4-in-article-citation-check.gif]</strong><br>
+<em>Caption: Retrieve 20, rerank to 3, draft, check every citation. The fake one turns red and the answer is held. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Wrong-contract answers mostly disappear once metadata filters run first<br>
+→ Fake citations get caught by plain code before a vendor or a lawyer sees them<br>
+→ You can measure quality every week instead of hoping, and show the numbers to audit</p>
+<p><strong>Cons</strong><br>
+→ Reranking and checking add latency and cost to every question<br>
+→ A citation check proves the clause exists, not that the agent understood it correctly<br>
+→ Clause-level chunking needs clean documents, and many contracts are scanned PDFs with handwritten amendments</p>
+<p><strong>The hard part</strong></p>
+<p>It's not the reranker. It's the test set. Someone has to write 200 real questions with the right answers, signed off by legal: "What's the penalty for three weeks' delay on the Hosur contract?" Answer: Clause 9, 1% a week, capped at 10%.</p>
+<p>Nobody in legal wants that job, and nobody in IT knows the answers. That gap is filled by a forward deployed engineer (FDE), an engineer who sits inside the customer's team and ships on their real systems. They spend two weeks with legal and procurement, collect the questions people actually ask, and turn them into tests that run every night.</p>
+<p>Then a Context Engineer, the person who decides what the agent reads and how it's split, owns the chunking, the metadata and the filters. Both titles are still settling. The work isn't optional.</p>
+<p>And sign-off needs a name. If an agent's answer deducts money from a vendor, someone in procurement approves it with the clause on screen. "The agent said so" won't hold up in front of the vendor's lawyer.</p>
+<p><strong>The opportunity</strong></p>
+<p>Most companies that built a RAG assistant in the last two years built the Day 16 version. It demos well and fails quietly. They'll pay to find out how often.</p>
+<p>That's the market: <strong>RAG quality tuning as a consulting service.</strong> Audit the assistant against a real test set. Report three numbers: did it find the right passage, did the answer stay faithful to it, and were the citations real. Then fix the plumbing: clause-level chunks, metadata filters, hybrid search, a reranker and a citation checker. Run the test set monthly and send one report.</p>
+<p>In India, start where documents carry money: procurement and vendor contracts, insurance policies, loan agreements, and the GST circulars every finance team keeps asking about.</p>
+<p><strong>Tools to try</strong><br>
+Elasticsearch or OpenSearch for hybrid search with reciprocal rank fusion · Azure AI Search with its semantic ranker · Vespa · Cohere Rerank or an open-source reranker · Ragas, DeepEval or Langfuse for evaluation sets and faithfulness scores · any model behind the agent: Claude, GPT, Gemini or an open model.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>When an AI agent quotes a contract to a vendor, who should sign off: legal or procurement? One word.</strong></p>
+<p>Tag the person in your company who actually knows what Clause 9 says.</p>
+<p><em>Day 17 of 50 · follow along. Tomorrow: Day 18 · Three Companies. One Owner. ₹50 Lakh Credit. Your AI Agent Didn't Connect Them.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#RAG</span><span>#AdvancedRAG</span><span>#ContextEngineering</span><span>#AIGovernance</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day16-rag/"><span>&#8592; Previous</span>Your AI Agent Read the 2022 Price List. It Cost You ₹6 Lakh.</a><a class="next" href="../a-day18-knowledge-graph/"><span>Next &#8594;</span>Three Companies. One Owner. ₹50 Lakh Credit Each. Your AI Agent Didn&#x27;t Connect Them.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

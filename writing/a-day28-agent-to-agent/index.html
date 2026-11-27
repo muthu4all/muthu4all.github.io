@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Agreed a Price with a Supplier&#x27;s Agent. Is That a Contract?</title>
+<meta name="description" content="Monday, 7:40 AM. Harish, procurement head at a pump maker in Hosur, gets a call from the gate. Two trucks of steel coil are waiting. He didn&#x27;t order any. His procurement agent did. At 2:14 AM it…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day28-agent-to-agent/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Agreed a Price with a Supplier&#x27;s Agent. Is That a Contract?">
+<meta property="og:description" content="Monday, 7:40 AM. Harish, procurement head at a pump maker in Hosur, gets a call from the gate. Two trucks of steel coil are waiting. He didn&#x27;t order any. His procurement agent did. At 2:14 AM it…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day28-agent-to-agent/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day28-agent-to-agent/A-day28-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 28/50 · 23 Nov 2026</div>
+  <h1>Your AI Agent Agreed a Price with a Supplier&#x27;s Agent. Is That a Contract?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day28-1-cover-poster.jpg" alt="Cover: Your AI Agent Agreed a Price with a Supplier&#x27;s Agent. Is That a Contract?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Monday, 7:40 AM. Harish, procurement head at a pump maker in Hosur, gets a call from the gate. Two trucks of steel coil are waiting. He didn't order any.</p>
+<p>His procurement agent did. At 2:14 AM it negotiated with a Raipur steel supplier's sales agent and accepted 200 tonnes at ₹58,400 a tonne. That's about ₹1.17 crore. The approved budget was ₹54,000 a tonne, and the plan said 150 tonnes. Nobody at either company read the deal before the trucks left. (Both companies are composites, and every number here is <em>illustrative</em>.)</p>
+<p>So: is that a contract?</p>
+<p>Last night I wrote about customers' AI agents buying from you through APIs and agent-ready catalogues. Today is the plumbing underneath, and whether what two agents agree binds anyone.</p>
+<p><strong>The architecture today</strong></p>
+<p>Yesterday was MCP, which connects an agent to tools and data. Today's protocol connects an agent to another company's agent, often on a different vendor's stack.</p>
+<p>The best-known one is A2A (Agent2Agent). Google launched it in April 2025 and handed it to the Linux Foundation that June, with AWS, Cisco, Microsoft, Salesforce, SAP and ServiceNow among the founding members. Here's how it works:</p>
+<p>→ Each agent publishes an agent card: a small JSON file at a well-known web address saying who it is, what it can do and how to authenticate.<br>
+→ The buyer's agent finds the supplier's card and sends it a task: "quote for 200 tonnes of HR coil."<br>
+→ They exchange offers and counters until the task is done, fails, or needs a person.</p>
+<p>The short version: MCP goes down to your tools. A2A goes across to someone else's agent.</p>
+<figure><img src="A-day28-2-in-article-architecture.jpg" alt="Caption: Two companies, two agents, one protocol. Grey is what both companies already run. Amber is new: the agents, their cards, the mandate check and the deal log." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: Two companies, two agents, one protocol. Grey is what both companies already run. Amber is new: the agents, their cards, the mandate check and the deal log.</figcaption></figure>
+
+<p><strong>Is it a contract? Careful here</strong></p>
+<p>I'm not a lawyer, and this isn't legal advice. Ask yours. But two sections of India's IT Act, 2000 are worth knowing.</p>
+<p>Section 10A says a contract isn't unenforceable just because the offer and acceptance were made electronically. Section 11 says an electronic record is attributed to the originator if it was sent by an information system programmed by or on behalf of the originator to operate automatically.</p>
+<p>Read together, "the agent did it, not us" looks like a weak defence. I expect the first real disputes to be messy. But the useful question isn't legal. It's this: <strong>what was the agent allowed to agree to?</strong> At the Hosur company, nobody had written that down.</p>
+<p><strong>An agent without a mandate is a signatory without a limit.</strong></p>
+<p><strong>Where AI plugs in now: quotes, not acceptance</strong></p>
+<p>The low-risk start is simple. Let the agents do everything except say yes.</p>
+<p>→ Your agent asks suppliers' agents for quotes and compares them with last quarter's prices.<br>
+→ It may counter, but only inside a price band you've set.<br>
+→ A person accepts, with one click and the full exchange attached.</p>
+<p>That alone saves days of phone tag, and nothing binds the company until a human signs.</p>
+<p><strong>Where it's heading with agents: signed mandates</strong></p>
+<p>The payments world is already on this. Google's AP2 (Agent Payments Protocol), announced in September 2025 with more than 60 partners, works as an extension of A2A and MCP. Its core idea is the mandate: a signed record of what a person allowed the agent to do, such as a price cap, and what they finally approved. Visa Intelligent Commerce and Mastercard Agent Pay are adding agent verification and spending limits on the card side.</p>
+<p>B2B buying will need the same thing, in five parts:</p>
+<p>→ A human-signed mandate: price band, quantity, approved counterparties, expiry.<br>
+→ Verified agent identity and signed messages. A2A's v1.0 added signed agent cards, which prove a card wasn't tampered with. That isn't the same as proving who's behind it.<br>
+→ Every offer and acceptance logged as an evidence trail. Day 10's event log, applied to deals.<br>
+→ Human confirmation above the limit.<br>
+→ One plain rule for who can bind the company. A named person, never "the agent".</p>
+<figure><img src="A-day28-3-in-article-mandate-card.jpg" alt="Caption: The mandate card: seven lines to write before your agent negotiates with anyone. Screenshot it for your next procurement review." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: The mandate card: seven lines to write before your agent negotiates with anyone. Screenshot it for your next procurement review.</figcaption></figure>
+
+<p><strong>Watch it work</strong></p>
+<p>The same negotiation, two endings.</p>
+<p>👉 <strong>[GIF: A-day28-4-in-article-negotiation.gif]</strong><br>
+<em>Caption: Offers go back and forth over A2A and the buyer's counters creep up. Without a mandate, the deal closes at ₹58,400 a tonne. With one, the agent stops and sends it to Harish to sign. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Quotes in minutes, not days, and you can ask ten suppliers instead of three<br>
+→ Every offer is on record, which beats a phone call nobody minuted<br>
+→ One open protocol, not a custom connector per supplier</p>
+<p><strong>Cons</strong><br>
+→ Two agents can talk each other into a bad deal faster than two people can<br>
+→ The other side's agent is built to sell. Its messages are input to check, never instructions to follow<br>
+→ The law, the standards and the insurance are all still catching up</p>
+<p><strong>The hard parts</strong></p>
+<p>Mandates go stale. Steel prices move every week, so a band signed in October can be wrong by December.</p>
+<p>Identity is harder than it looks. A signed card tells you the card is genuine, not that the Raipur supplier is solvent or that its sales head approved that agent.</p>
+<p>And agents haggle oddly. They split the difference to "close", and they forget the quantity while fighting over the price. Test yours against a supplier agent built to push.</p>
+<p>Two new roles fit here. A forward deployed engineer (FDE), who works inside the customer's team on their real systems, sits with procurement for a week and turns "we'd never pay above that" into a written mandate. An AI Agent Manager, who owns a group of agents the way a manager owns a team, renews mandates with the CFO and reviews every escalation. The titles are still settling. The work is real.</p>
+<p><strong>The opportunity</strong></p>
+<p>Who pays: every company whose suppliers or customers start sending agents, starting with mid-sized manufacturers and distributors.</p>
+<p>What it creates:<br>
+→ Mandate services: write, sign, version and check mandates for every agent<br>
+→ Agent identity registries: proof this agent really speaks for this GST-registered supplier<br>
+→ Deal evidence trails that a CFO, an auditor or a court can read<br>
+→ FDE-led rollouts for supplier networks: one buyer, 40 suppliers, all agent-ready</p>
+<p>India has a head start. ONDC already runs commerce by protocol: buyer and seller apps that have never met agree orders through open, Beckn-based APIs. Put agents on both sides and mandates in the middle, and that's B2B buying for lakhs of SMEs.</p>
+<p>Let agents negotiate. Let people sign.</p>
+<p><strong>Tools to try</strong><br>
+Google A2A and its open-source SDKs · MCP for the tools each agent uses · AP2 for mandates and payments · Microsoft Copilot Studio, Microsoft Foundry and Salesforce Agentforce, which have announced A2A support · LangGraph or the OpenAI Agents SDK to build the agent itself.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Should an AI agent ever accept a deal on its own, inside a signed limit? Yes or no.</strong></p>
+<p>Tag the person in your company who signs the purchase orders.</p>
+<p><em>Day 28 of 50 · follow along. Tomorrow: Day 29 · Your Best Accountant Retires in March. Can an AI Agent Inherit 30 Years of Know-How?</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#A2A</span><span>#AIAgents</span><span>#Procurement</span><span>#AgentPayments</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day27-mcp/"><span>&#8592; Previous</span>Your AI Agent Connected to One New Tool. Now It Can Reach Your Customer Database.</a><a class="next" href="../a-day29-skills/"><span>Next &#8594;</span>Your Best Accountant Retires in March. Can an AI Agent Inherit 30 Years of Know-How?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

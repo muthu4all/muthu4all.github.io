@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A ₹50 Lakh Contract Renewed Itself Last Month. Your AI Agent Would Have Flagged It.</title>
+<meta name="description" content="1 October, 10.40 in the morning. The finance head of a packaging manufacturer in Ambattur opens an invoice from their old warehouse-software vendor. ₹50,00,000 for another year of licences and…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day17-contract-renewal/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="A ₹50 Lakh Contract Renewed Itself Last Month. Your AI Agent Would Have Flagged It.">
+<meta property="og:description" content="1 October, 10.40 in the morning. The finance head of a packaging manufacturer in Ambattur opens an invoice from their old warehouse-software vendor. ₹50,00,000 for another year of licences and…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day17-contract-renewal/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day17-contract-renewal/B-day17-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 14 Nov 2026</div>
+  <h1>A ₹50 Lakh Contract Renewed Itself Last Month. Your AI Agent Would Have Flagged It.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day17-1-cover-poster.jpg" alt="Cover: A ₹50 Lakh Contract Renewed Itself Last Month. Your AI Agent Would Have Flagged It." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>1 October, 10.40 in the morning. The finance head of a packaging manufacturer in Ambattur opens an invoice from their old warehouse-software vendor.</p>
+<p>₹50,00,000 for another year of licences and support. Plus a 7% escalation, "as per Clause 11".</p>
+<p>They'd moved to a new system in June. Everyone knew the old contract was ending.</p>
+<p>Except the contract didn't know that. It renewed automatically for 12 months unless someone sent written notice 90 days before the renewal date. The notice deadline was 3 July. The signed PDF sat in a shared drive folder called <code>Vendor Agreements FINAL</code>. The contract register in Excel had a "renewal date" column. It was blank for this row.</p>
+<p>Nobody did anything wrong on 1 October. The mistake happened, quietly, on 3 July. (The company and every number here are <em>illustrative</em>. Ask any procurement head whether the story is.)</p>
+<p><strong>The problem: contracts make promises on dates nobody is watching</strong></p>
+<p>We spend weeks negotiating a contract. Legal reads every line. The CFO pushes the price down by 4%. Then it's signed, scanned, saved, and nobody opens it again until something goes wrong.</p>
+<p>Here's my contrarian view: <strong>most contract money isn't lost at the negotiating table. It's lost in the calendar.</strong></p>
+<p>The clauses that cost money after signing are boring ones:</p>
+<p>→ <strong>Auto-renewal and notice periods.</strong> Miss the window and you've bought another year.<br>
+→ <strong>Price escalation.</strong> 7% a year, compounding, nobody budgeted for it.<br>
+→ <strong>Lock-ins and minimum commitments.</strong> You pay for volume you never used.<br>
+→ <strong>SLA credits.</strong> The vendor missed uptime three months running and owes you money. Nobody claimed it.<br>
+→ <strong>Penalties and warranties.</strong> The warranty ran out a week before the motor failed.</p>
+<p>This isn't a small leak. World Commerce &amp; Contracting's research has put the average value erosion from weak contracting at around 9% of contract value (9.2% in its 2014 study, 8.6% in a later update). On a ₹10 crore contract book, that's the price of a small team, every year.</p>
+<p>The legacy system here isn't software. It's a mix: signed PDFs in a shared drive, a register in Excel kept up by whoever has time, and a legal team's calendar that only knows the dates someone typed into it.</p>
+<p><strong>The solution: an obligations agent, a register, and a named owner</strong></p>
+<p>This is a job today's AI is genuinely good at, because the hard part is reading messy documents, and that's what the models do well. But only if you split the work properly.</p>
+<p>→ <strong>1. Read every signed contract.</strong> Including scans, amendments and side letters. The agent pulls out the term, renewal type, notice period, escalation, penalties, SLA credits and termination rights, with the clause number and the exact text for each.<br>
+→ <strong>2. Fill a register, not a chat.</strong> One row per contract, one column per obligation. Every value links back to the page it came from.<br>
+→ <strong>3. Let code do the dates.</strong> "90 days before the end of the then-current term" becomes a date by plain code, not by the model. Language models are good at reading clauses. They're not reliable at counting days.<br>
+→ <strong>4. Alert the owner at 90, 60 and 30 days.</strong> To one named person, not a shared inbox. Each alert says what happens if nobody acts, in rupees.<br>
+→ <strong>5. Draft the notice.</strong> The agent writes the termination or renegotiation letter. Legal reviews it. A person signs and sends it.</p>
+<p>The agent reads, extracts and drafts. Code calculates. <strong>A person decides: renew, renegotiate or terminate.</strong></p>
+<figure><img src="B-day17-2-in-article-obligations-agent.jpg" alt="Caption: The agent reads every signed contract into one register. Code turns clauses into dates. Alerts go to one named owner, and legal sends the notice." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: The agent reads every signed contract into one register. Code turns clauses into dates. Alerts go to one named owner, and legal sends the notice.</figcaption></figure>
+
+<figure><img src="B-day17-3-in-article-seven-clauses.jpg" alt="Caption: Seven clauses that cost money after signing. Screenshot it before your next contract review." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: Seven clauses that cost money after signing. Screenshot it before your next contract review.</figcaption></figure>
+
+<p>In our story, the agent would have read Clause 4 in the first week. The register shows "Auto-renews 1 Oct · notice by 3 Jul · owner: Anitha, Procurement". Alerts land on 4 April, 4 May and 3 June. On 12 June, Anitha decides to terminate, the agent drafts the letter, legal sends it. On 1 October, nothing arrives.</p>
+<p><strong>A contract you can't see is a contract that decides for you.</strong></p>
+<p>👉 <strong>[GIF: B-day17-4-in-article-two-calendars.gif]</strong><br>
+<em>Caption: April to October, twice. Without the agent, the notice deadline slips past and the contract renews itself. With the agent, three alerts, one decision, one letter. All details illustrative.</em></p>
+<p><strong>Who makes it work</strong></p>
+<p>Not a tool you switch on. Every company's contracts are messier than the demo: three versions of the same agreement, an amendment that lives only in an email, a scanned page with a handwritten "12 months" crossed out.</p>
+<p>That's the job of a <strong>forward deployed engineer (FDE)</strong>: an engineer who works inside the customer's team and ships on their real systems. Here, two weeks with legal and procurement, going through the top 50 contracts by value, deciding which clauses matter and who owns each one.</p>
+<p>After go-live, someone owns the agent's behaviour: which clauses it tracks, who gets which alert, how early, and what it must never send on its own. Some companies are starting to call that person an <strong>AI Agent Manager</strong>. The titles are still settling. In an SME it's usually the finance head with two hours a month.</p>
+<p><strong>The hard parts</strong></p>
+<p>→ <strong>Wrong version, wrong date.</strong> The agent reads the 2021 draft instead of the signed 2023 copy. Every extracted value must point to the exact clause in the signed document. If it can't, it's a guess. (On Day 17 of my architecture series I wrote about agents citing clauses that don't exist. Same rule here: check the clause is real.)<br>
+→ <strong>Amendments outside the PDF.</strong> "Notice period reduced to 60 days, as agreed on call" in an email thread. The register is only as good as what you feed it.<br>
+→ <strong>Alert fatigue.</strong> 400 contracts, 1,200 alerts a year. Alert on money and deadlines, not on every clause.<br>
+→ <strong>Confidential documents.</strong> Contracts carry prices and margins. Use a company-approved AI workspace, never a free chat window.<br>
+→ <strong>Some renewals are wanted.</strong> The agent shouldn't push you to terminate. It should make sure that renewing is a decision, not an accident.<br>
+→ <strong>Legal judgement stays legal.</strong> Whether a notice is valid, how it must be served, what the clause really means: that's your lawyer's call. I'm not giving legal advice here.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For CFOs and procurement heads:</strong> list your top 20 contracts by annual value. For each, write the next notice deadline and its owner. If you can't fill that in within an hour, you know what to fix first.<br>
+→ <strong>For SME owners:</strong> your AMC, software, rent, security and transport contracts are enough to start. Ten contracts, one register, one owner.<br>
+→ <strong>For CA firms and legal-services firms:</strong> "contract obligations register" is a service you can sell: read, extract, verify, alert. Fixed price per contract, then a monthly fee.<br>
+→ <strong>For founders:</strong> tools exist, from CLM suites to renewal reminders in Zoho Contracts and DocuSign's AI repository. The gap is mid-size Indian companies with scanned paper, Tamil-English side letters and Excel registers. Build for them.</p>
+<p>The contract was always a promise with dates in it. AI can finally read the dates. A person still has to keep the promise.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>When a contract auto-renews by accident, whose fault is it: the owner's or the process's? Pick one.</strong></p>
+<p>Tag the person in your company who'd know, right now, which contract renews next.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#AIAgents</span><span>#Procurement</span><span>#ContractManagement</span><span>#CFO</span><span>#LegalOps</span><span>#ForwardDeployedEngineer</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../b-day16-onboarding/"><span>&#8592; Previous</span>Onboarding One Hire Costs ₹2 Lakh. An AI Agent Can Cut 3 Months to 3 Weeks.</a><a class="next" href="../b-day18-hiring/"><span>Next &#8594;</span>AI Agents Write the CVs. AI Agents Screen Them. Who Answers for the ₹9 Lakh Bad Hire?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

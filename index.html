@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/writing.css">
 <style>
 .hero h1{max-width:16ch}
 .map{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
@@ -34,6 +35,7 @@
   <a class="brand" href="./">Architecture <span>Atlas</span></a>
   <nav aria-label="Site"><ul>
     <li><a class="link" href="#architectures">Architectures</a></li>
+    <li><a class="link" href="writing/">Writing</a></li>
     <li><a class="link" href="#about">About</a></li>
     <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
   </ul></nav>
@@ -70,12 +72,36 @@
     </a>
   </article>
 
+  <article class="card feature" style="margin-top:16px">
+    <div>
+      <span class="tag live">New · v0.1</span>
+      <h3 style="font-size:1.9rem;margin-top:12px">Proven Autonomy</h3>
+      <p style="font-size:1.05rem"><b>Proven per task. Scoped. Revocable.</b> An AI agent's freedom is earned per kind of action from its verified track record, bounded by an envelope enforced outside the agent, and taken back automatically when the evidence turns. Slow up, fast down; a new model version proves itself again; sampling never reaches zero.</p>
+      <div class="actions">
+        <a class="btn primary" href="proven-autonomy/">Overview</a>
+        <a class="btn" href="proven-autonomy/explore/">Explore</a>
+        <a class="btn" href="proven-autonomy/architecture/">Definition</a>
+        <a class="btn" href="proven-autonomy/spec/">Spec</a>
+      </div>
+    </div>
+    <a href="proven-autonomy/explore/" aria-label="Open the interactive Proven Autonomy explorer">
+      <img src="assets/og/proven-autonomy-card.png" alt="Proven Autonomy: nine action classes of three AI agents at different autonomy levels, with a track-record ledger beneath" width="1200" height="627" loading="lazy" style="border-radius:12px;border:1px solid var(--line)">
+    </a>
+  </article>
+
   <div class="map" aria-label="Architectures in development">
-    <div class="slot"><b>In development</b><span>Trust and autonomy for AI agents</span></div>
     <div class="slot"><b>In development</b><span>Accountable decisions at scale</span></div>
+    <div class="slot"><b>In development</b><span>A system-wide safety layer for AI agents</span></div>
     <div class="slot"><b>In development</b><span>Agent-to-agent commerce</span></div>
   </div>
 </section>
+
+<!-- LATEST:START -->
+<section class="block" id="writing" aria-labelledby="writing-h">
+  <div class="head"><h2 id="writing-h">Latest writing</h2><p>From the daily series on LinkedIn. <a href="writing/">All 78 articles &#8594;</a></p></div>
+  <div class="wgrid"><a class="wcard" href="writing/b-day26-cheapest-quote/"><img src="writing/b-day26-cheapest-quote/thumb.jpg" alt="" width="720" height="405" loading="lazy"><div><div class="meta">Problem and Solution · 30 Nov 2026</div><h3>The Cheapest Quote Won. Nobody Read Page 14.</h3></div></a><a class="wcard" href="writing/a-day35-evals/"><img src="writing/a-day35-evals/thumb.jpg" alt="" width="720" height="405" loading="lazy"><div><div class="meta">Architecture of the Day · Day 35/50 · 30 Nov 2026</div><h3>You Changed One Line in the Prompt. Would You Know If Your AI Agent Broke?</h3></div></a><a class="wcard" href="writing/brain-design-lessons/"><img src="writing/brain-design-lessons/thumb.jpg" alt="" width="720" height="405" loading="lazy"><div><div class="meta">Essay · 29 Nov 2026</div><h3>Your Brain Doesn&#x27;t Use Full Power to Say Hello. Why Does Your AI Agent?</h3></div></a><a class="wcard" href="writing/a-day34-guardrails/"><img src="writing/a-day34-guardrails/thumb.jpg" alt="" width="720" height="405" loading="lazy"><div><div class="meta">Architecture of the Day · Day 34/50 · 29 Nov 2026</div><h3>A Customer Asked Nicely. The AI Agent Gave Away 80%.</h3></div></a><a class="wcard" href="writing/b-day25-month-end/"><img src="writing/b-day25-month-end/thumb.jpg" alt="" width="720" height="405" loading="lazy"><div><div class="meta">Problem and Solution · 28 Nov 2026</div><h3>Why Your Finance Team Still Loses the Last Week of Every Month.</h3></div></a><a class="wcard" href="writing/a-day33-multi-model/"><img src="writing/a-day33-multi-model/thumb.jpg" alt="" width="720" height="405" loading="lazy"><div><div class="meta">Architecture of the Day · Day 33/50 · 28 Nov 2026</div><h3>Monday, 9 AM. Your Model Provider Is Down. Where Do Your AI Agents Go?</h3></div></a></div>
+</section>
+<!-- LATEST:END -->
 
 <section class="block" id="about" aria-labelledby="about-h">
   <div class="head"><h2 id="about-h">About</h2><p>Why this atlas exists.</p></div>

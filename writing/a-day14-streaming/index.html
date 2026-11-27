@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fraud Takes 3 Seconds. Your AI Agent Is Reading Yesterday&#x27;s Data.</title>
+<meta name="description" content="10:14 on a Tuesday morning. A retired schoolteacher in Madurai gets a call from &quot;the bank&quot;. A new payee is added to her account, a new phone logs in, and six UPI debits of ₹80,000 each go out in 40…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day14-streaming/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Fraud Takes 3 Seconds. Your AI Agent Is Reading Yesterday&#x27;s Data.">
+<meta property="og:description" content="10:14 on a Tuesday morning. A retired schoolteacher in Madurai gets a call from &quot;the bank&quot;. A new payee is added to her account, a new phone logs in, and six UPI debits of ₹80,000 each go out in 40…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day14-streaming/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day14-streaming/A-day14-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 14/50 · 9 Nov 2026</div>
+  <h1>Fraud Takes 3 Seconds. Your AI Agent Is Reading Yesterday&#x27;s Data.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day14-1-cover-poster.jpg" alt="Cover: Fraud Takes 3 Seconds. Your AI Agent Is Reading Yesterday&#x27;s Data." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>10:14 on a Tuesday morning. A retired schoolteacher in Madurai gets a call from "the bank". A new payee is added to her account, a new phone logs in, and six UPI debits of ₹80,000 each go out in 40 seconds.</p>
+<p>The bank has a shiny new AI agent watching for fraud. It checked every one of those debits. Each time it said: low risk, usual customer.</p>
+<p>It was right, according to its data. Its data was from 2 AM.</p>
+<p>₹4.8 lakh, gone before anyone looked up. (The customer, the bank and the numbers are <em>illustrative</em>. The pattern is one every fraud team in India knows.)</p>
+<p><strong>Fraud moves in seconds. Most AI agents still think in nights.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>Day 13 was about the nightly pipeline. Streaming is its opposite. Instead of collecting data and loading it at 2 AM, every event (a debit, a login, a new payee, a device change) is published the moment it happens to an event stream like Apache Kafka. Any system that cares can read it straight away.</p>
+<p>A stream processor such as Apache Flink sits on that stream and keeps a running picture: how many debits from this account in the last minute, is this payee new, has this device ever been seen before.</p>
+<p>Banks and payment companies already run this way for rules: "block if more than five debits a minute". And the volume makes it necessary. NPCI's data shows UPI handled about 25.5 billion transactions in October 2026 alone. Nobody reviews that by hand, and nobody should review it from last night's copy.</p>
+<p>👉 <strong>[IMAGE: A-day14-2-in-article-architecture.png]</strong><br>
+<em>Caption: Three clocks. A fast model scores every event in milliseconds, plain-code limits decide, and the AI agent works the case in minutes. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: three clocks, not one</strong></p>
+<p>Here's the mistake I see in agent demos: someone wires a large language model into the payment path and asks it, "Is this fraud?" for every transaction. It's too slow, too costly, and it doesn't give the same answer twice.</p>
+<p>Split the work by speed instead:</p>
+<p>→ <strong>Milliseconds: a fast ML model on the stream.</strong> Flink computes live features (six debits in 40 seconds, new payee, new device) and a classic model scores each event. It flags. It doesn't decide.<br>
+→ <strong>Under a second: limits in plain code.</strong> Allow, ask for step-up authentication, or hold. Written down, tested, owned by risk.<br>
+→ <strong>Minutes: the AI agent.</strong> Now the LLM earns its place. It reads the whole trail, checks for mule-account signals, looks at the payee's history, drafts the case note, and calls or messages the customer. An analyst makes the final call.</p>
+<p>In our story, the third debit scores 0.94. It's held. The agent opens a case at 10:14:16, and the last three debits never happen. ₹1.6 lakh is still lost. ₹3.2 lakh isn't.</p>
+<p><strong>The model is fast. The agent is thoughtful. The limits are written down.</strong></p>
+<p>👉 <strong>[IMAGE: A-day14-3-in-article-who-acts-when.png]</strong><br>
+<em>Caption: Who acts, at what speed, and with what limit. Screenshot it for your next fraud design review. Limits are illustrative.</em></p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>The streaming vendors have seen this coming. Confluent, now part of IBM, has moved from running model inference inside Flink to "streaming agents" that run continuously on live events and can call tools. Expect the same from every cloud.</p>
+<p>In two or three years, I expect fraud teams to work alongside a pack of agents: one tracing where the money went, one checking whether the payee is a mule account, one talking to the customer in their own language. India is already moving on the mule side. The RBI Innovation Hub built MuleHunter.AI to spot mule accounts, and reports from May 2026 say more than two dozen banks use it.</p>
+<p>The hard question won't be the model. It'll be who's allowed to hold a customer's money, for how long, and on whose say-so.</p>
+<p><strong>Watch it work</strong></p>
+<p>Same six debits, same 40 seconds. One agent reads the 2 AM snapshot. The other reads the stream.</p>
+<p>👉 <strong>[GIF: A-day14-4-in-article-two-lanes.gif]</strong><br>
+<em>Caption: The batch lane notices the next morning. The stream lane holds the third debit and opens a case. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Decisions happen while the money is still in the bank, not in tomorrow's report<br>
+→ The LLM handles what it's good at, reading a messy case and explaining it, without slowing every payment<br>
+→ The same stream feeds fraud, pricing, logistics alerts and the nightly warehouse, so you build it once</p>
+<p><strong>Cons</strong><br>
+→ Streaming is harder to run than a nightly job. Late events, duplicates and replays need real engineering<br>
+→ False holds annoy honest customers, and a held salary transfer at month-end is its own crisis<br>
+→ Fraudsters adapt. A model that's great this month needs retraining next month</p>
+<p><strong>The hard part</strong></p>
+<p>It's the limits, and who owns them. How long can you hold a pensioner's money without asking her? Can the agent release a hold on its own, and up to what amount? Who gets the call at 10:15 on a Tuesday?</p>
+<p>Those rules belong to an owner, not a model. An AgentOps engineer, the person who runs agents in production the way an SRE runs services, owns the hold and release limits and tests them like code. A forward deployed engineer (FDE), an engineer who works inside the customer's team, sits with the fraud operations desk and learns which alerts analysts actually trust. These titles are still settling. The 10:15 phone call isn't.</p>
+<p><strong>The opportunity</strong></p>
+<p>Every bank, NBFC, payment app and lender runs fraud rules today. Very few have joined the three clocks: live features, a fast model, and an agent that works the case. Smaller banks, co-operative banks and fintechs can't build it alone.</p>
+<p>That's the market: <strong>real-time AI for payments, lending and logistics.</strong> A packaged "fraud desk in a box" for mid-size lenders. Feature pipelines on Flink as a service. Case-investigation agents that sit beside an analyst and cut each case from 20 minutes to 5. The same pattern sells outside fraud too: dynamic pricing, delivery exceptions, collections.</p>
+<p><strong>Tools to try</strong><br>
+Apache Kafka or Confluent for the event stream · Apache Flink for live features · AWS Kinesis, Google Pub/Sub with Dataflow, or Azure Event Hubs if you're on one cloud · a fast classic model for scoring, such as gradient-boosted trees · any LLM for case investigation: Claude, GPT, Gemini or an open model on Bedrock.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Should an AI agent be allowed to hold a customer's money on its own: yes or no? One word.</strong></p>
+<p>Tag the person in your bank whose phone rings when a fraud alert fires at 10:15.</p>
+<p><em>Day 14 of 50 · follow along. Tomorrow: Day 15 · Your AI Agent Found the Wrong Contract. It Looked Similar Enough.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#Streaming</span><span>#FraudPrevention</span><span>#UPI</span><span>#ApacheKafka</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day13-pipelines/"><span>&#8592; Previous</span>Last Night&#x27;s Data Job Failed. Your AI Agent Answered Anyway.</a><a class="next" href="../a-day15-vector-database/"><span>Next &#8594;</span>Your AI Agent Found the Wrong Contract. It Looked Similar Enough.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

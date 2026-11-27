@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Manager AI Agent Delegated the Job. The ₹38 Lakh Mistake Is Still Yours.</title>
+<meta name="description" content="The summary looked perfect: one page, four green ticks, and a bold line at the top. &quot;Vendor check: PASSED. Risk: low.&quot; Arvind runs purchasing at an auto-parts maker in Hosur. He read that page on his…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day24-supervisor-workers/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your Manager AI Agent Delegated the Job. The ₹38 Lakh Mistake Is Still Yours.">
+<meta property="og:description" content="The summary looked perfect: one page, four green ticks, and a bold line at the top. &quot;Vendor check: PASSED. Risk: low.&quot; Arvind runs purchasing at an auto-parts maker in Hosur. He read that page on his…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day24-supervisor-workers/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day24-supervisor-workers/A-day24-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 24/50 · 19 Nov 2026</div>
+  <h1>Your Manager AI Agent Delegated the Job. The ₹38 Lakh Mistake Is Still Yours.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day24-1-cover-poster.jpg" alt="Cover: Your Manager AI Agent Delegated the Job. The ₹38 Lakh Mistake Is Still Yours." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>The summary looked perfect: one page, four green ticks, and a bold line at the top. "Vendor check: PASSED. Risk: low."</p>
+<p>Arvind runs purchasing at an auto-parts maker in Hosur. He read that page on his phone between two meetings and signed a ₹38 lakh castings contract with a new supplier in Salem. Eleven weeks later his accountant asked why none of the supplier's invoices were showing up in GSTR-2B. The answer: the supplier's GSTIN had been cancelled in March 2025. About ₹6.8 lakh of input tax credit was suddenly in doubt. (The company, the people and every number here are <em>illustrative</em>.)</p>
+<p>Nobody lied. Four AI agents did the check. One read the GST certificate the vendor had uploaded and wrote "GST filings: all current". The manager agent merged four answers into one confident page, and the cancelled GSTIN never reached a human screen.</p>
+<p><strong>Delegation moves the work. It never moves the responsibility.</strong></p>
+<p>On Day 8, two agents disagreed on a refund and we asked who was responsible. Today's agents agreed with each other, which is worse, because agreement looks like proof.</p>
+<p><strong>The architecture today</strong></p>
+<p>Supervisor and workers is the most common way to build a team of agents. A lead agent, the supervisor, takes a big job and splits it up:</p>
+<p>→ It reads the job: "due diligence on Sri Ganapathi Castings before we sign".<br>
+→ It hands the parts to specialist workers for financials, legal and MCA filings, GST compliance, and news.<br>
+→ Each worker runs with its own instructions and tools, often in parallel.<br>
+→ The supervisor merges the results into one answer for a human.</p>
+<p>Anthropic called its 2025 research feature an "orchestrator-worker" pattern. CrewAI calls it a hierarchical process, and OpenAI's Agents SDK calls it agents as tools. It's the same shape every time.</p>
+<figure><img src="A-day24-2-in-article-architecture.jpg" alt="Caption: Supervisor and workers, with the two parts most teams skip: a rule check before the merge, and a named owner at the end. Grey is what you already have. Amber is new." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: Supervisor and workers, with the two parts most teams skip: a rule check before the merge, and a named owner at the end. Grey is what you already have. Amber is new.</figcaption></figure>
+
+<p>The weak spot is the merge. A smooth summary is exactly where one wrong worker disappears.</p>
+<p><strong>Where AI plugs in now: make the workers show their work</strong></p>
+<p>Don't add agents first. Write a contract between the supervisor and its workers:</p>
+<ol>
+<li><strong>Evidence, not verdicts.</strong> Every worker returns what it found and where: the GST portal record with its status and date, the MCA filing, the news link. "All current" with no source isn't an answer.</li>
+<li><strong>Check before you merge.</strong> The supervisor runs plain-code rules on the worker outputs before it writes a word. GST status must come from a live portal lookup, not an uploaded PDF, and it must say Active. If evidence is missing, that section stays open. It doesn't pass.</li>
+<li><strong>Scoped tools for each worker.</strong> The GST worker can look up GST status. It can't read the bank account or email the vendor.</li>
+<li><strong>Show disagreements.</strong> If the financials worker reports strong turnover and the GST worker finds no filings since March 2025, that conflict goes on page one. It doesn't get averaged into "medium risk".</li>
+<li><strong>A named owner signs.</strong> The sign-off says Suresh, the vendor-risk lead, not "procurement". He sees the evidence on screen and his name goes in the log.</li>
+</ol>
+<p><strong>A supervisor without checks is just a very confident summariser.</strong></p>
+<figure><img src="A-day24-3-in-article-delegation-contract.jpg" alt="Caption: The delegation contract: five rules before a manager agent merges anything. Screenshot it before your next multi-agent demo." width="1600" height="840" loading="lazy" decoding="async"><figcaption>Caption: The delegation contract: five rules before a manager agent merges anything. Screenshot it before your next multi-agent demo.</figcaption></figure>
+
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I expect the team of agents to be the product: agent teams for due diligence, board packs, tenders and audits. The questions will sound like HR. Who's on the team? What can each one touch? Who reviews their work, and who signs?</p>
+<p>That's already creating a new job. Some people call it the <strong>AI Agent Manager</strong>: someone who manages a team of agents the way a team lead manages people. They set each agent's scope, review its mistakes, and decide when it needs new instructions or should be retired. The title is still settling, but the work is real.</p>
+<p><strong>Watch it work</strong></p>
+<p>The same four workers and the same wrong answer, run twice: once without a check and once with one.</p>
+<p>👉 <strong>[GIF: A-day24-4-in-article-supervisor-check.gif]</strong><br>
+<em>Caption: Without a check, the GST worker's "all current" merges into PASSED. With one, the live lookup says Cancelled and Suresh gets the evidence before anyone signs. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ A week of checking becomes an afternoon, with each specialist doing what it's good at<br>
+→ Each worker is small, so you can test, swap or improve one without touching the rest<br>
+→ Four checks run at once, not one after another</p>
+<p><strong>Cons</strong><br>
+→ Cost: Anthropic reported that its multi-agent research system used about 15 times the tokens of a normal chat<br>
+→ The merge hides things. Every extra worker is another place for one quiet error<br>
+→ Debugging is harder: which worker, which tool, which step?</p>
+<p><strong>The hard part</strong></p>
+<p>Getting people to read the evidence. Arvind will still read only the one-line summary between two meetings, so the top line has to carry the red flags. If one check is still open, it can't say PASSED. It says HOLD and names the person holding it.</p>
+<p>Knowing which sources count is hard too. The GST worker didn't hallucinate. It answered "is this certificate genuine?" when the real question was "is this registration active today?" Gaps like that are found by a forward deployed engineer (FDE): an engineer who works inside the customer's team and ships on their real systems. The FDE learns that vendors upload old certificates and turns that into a rule.</p>
+<p>And be honest about the law. Whether the credit is lost depends on dates and facts; courts have treated a cancellation before the invoice differently from a retrospective one. Your CA decides. The agent's job is to make sure your CA sees it before you sign.</p>
+<p><strong>The opportunity</strong></p>
+<p>Every company buys due diligence, research and reporting: vendor onboarding, distributor credit checks, month-end board packs, tender scrutiny. Most of it is still done by juniors with twelve browser tabs open.</p>
+<p>That's the market: <strong>multi-agent teams sold with evidence trails.</strong> Don't sell "an AI that says PASSED". Sell a pack where every line links to its source and every sign-off has a name. Price it per vendor checked or per board pack, say ₹1,500 a vendor (<em>illustrative</em>), and sell the evidence trail to the auditor as much as to the buyer. FDEs build it with the first few customers. AI Agent Managers run it after that.</p>
+<p><strong>Tools to try</strong><br>
+CrewAI's hierarchical process with a manager agent · Microsoft Agent Framework, which reached 1.0 in April 2026 as the successor to AutoGen and Semantic Kernel · LangGraph, with the supervisor built as a tool-calling agent · OpenAI Agents SDK, using agents as tools · and the GST portal's free Search Taxpayer page, which your GST worker should check directly.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>When a manager agent misses a mistake, who owns it: the builder or the signer? One word.</strong></p>
+<p>Tag the person in your team who always reads the annexure, not just the summary.</p>
+<p><em>Day 24 of 50 · follow along. Tomorrow: Day 25 · Five AI Agents Held a Meeting. It Cost ₹40,000 and Decided Nothing.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#MultiAgentSystems</span><span>#AIAgents</span><span>#GST</span><span>#DueDiligence</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day23-model-router/"><span>&#8592; Previous</span>Your AI Agent Used the ₹200 Model for a ₹2 Job.</a><a class="next" href="../a-day25-agent-swarm/"><span>Next &#8594;</span>Five AI Agents Held a Meeting. It Cost ₹40,000 and Decided Nothing.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

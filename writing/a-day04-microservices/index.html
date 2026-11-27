@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Don&#x27;t Build One Super-Agent. Build One Per Domain.</title>
+<meta name="description" content="A customer types four words into a shopping app&#x27;s chatbot: &quot;Where&#x27;s my refund?&quot; Simple question. Except the answer lives in six places. Orders knows the item came back. Returns knows the quality…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day04-microservices/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Don&#x27;t Build One Super-Agent. Build One Per Domain.">
+<meta property="og:description" content="A customer types four words into a shopping app&#x27;s chatbot: &quot;Where&#x27;s my refund?&quot; Simple question. Except the answer lives in six places. Orders knows the item came back. Returns knows the quality…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day04-microservices/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day04-microservices/A-day04-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 4/50 · 30 Oct 2026</div>
+  <h1>Don&#x27;t Build One Super-Agent. Build One Per Domain.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day04-1-cover-poster.jpg" alt="Cover: Don&#x27;t Build One Super-Agent. Build One Per Domain." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>A customer types four words into a shopping app's chatbot: <em>"Where's my refund?"</em></p>
+<p>Simple question. Except the answer lives in six places. Orders knows the item came back. Returns knows the quality check passed on Tuesday. Payments knows the refund was initiated. The UPI gateway knows it hasn't settled. Logistics knows the pickup was late. Notifications knows nobody told the customer.</p>
+<p>The chatbot sees one of them and replies: <em>"Your order has been delivered!"</em></p>
+<p>That's not a model problem. <strong>It's an architecture problem, and microservices teams have solved this exact problem before.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>Microservices split a big application into small services, one per business capability: orders, payments, inventory, shipping. Each team owns its service, its data and its deployments. Services talk over APIs and events. It's how most large digital businesses in India run today, from food delivery to banking apps.</p>
+<p>The rule that made it work: <strong>each service owns its domain, and nobody reaches into another team's database.</strong></p>
+<p>👉 <strong>[IMAGE: A-day04-2-in-article-architecture.png]</strong><br>
+<em>Caption: One agent per domain, each calling its own team's services as tools. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: one agent per domain</strong></p>
+<p>The tempting move is one giant "super-agent" with every API in the company plugged in as a tool. I've seen teams try it. It works in the demo, with eight tools. In production, with two hundred, the agent picks the wrong tool, mixes up two "status" fields, and nobody knows which team should fix it.</p>
+<p>The better move copies what microservices already got right:<br>
+→ <strong>One agent per business domain.</strong> A Refunds agent, an Orders agent, a Logistics agent.<br>
+→ <strong>Each agent calls only its own team's services as tools,</strong> exposed through something like MCP. Ten well-named tools, not two hundred.<br>
+→ <strong>The team that owns the service owns the agent.</strong> Same on-call, same release process, same accountability.<br>
+→ <strong>A thin front agent routes the question</strong> to the right domain agent and stitches the answer together.</p>
+<p>Start with one domain where questions are frequent and read-only. "Where's my refund?" is perfect: high volume, no money moves, and the answer is fully in your systems.</p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I expect every serious service to ship with an agent beside it, the way every service today ships with an API and a dashboard.</p>
+<p>Agents will talk to each other across domains, and across companies. That's what the Agent2Agent (A2A) protocol, now under the Linux Foundation, is for: the Refunds agent asks the Payments agent, the Payments agent asks the bank's agent. MCP connects an agent to its tools; A2A connects agents to each other.</p>
+<p>The hard question won't be "can the agents talk?" It'll be <strong>"who owns what an agent promised?"</strong> Domain ownership answers that the same way it always has: the team that owns the domain.</p>
+<p>👉 <strong>[IMAGE: A-day04-3-in-article-super-vs-domain.png]</strong><br>
+<em>Caption: One super-agent versus one agent per domain. Five differences that show up in production.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>One question, three domain agents, one correct answer.</p>
+<p>👉 <strong>[GIF: A-day04-4-in-article-refund-question.gif]</strong><br>
+<em>Caption: "Where's my refund?" routed to the domains that actually know.</em></p>
+<p><strong>Pros</strong><br>
+→ Small tool lists per agent, so tool choice is far more reliable<br>
+→ Clear ownership: when the Refunds agent is wrong, everyone knows whose sprint it goes into<br>
+→ Each domain can move at its own pace, with its own model, evaluations and release cycle</p>
+<p><strong>Cons</strong><br>
+→ More agents means more to version, monitor and secure (Track B covers this one today)<br>
+→ Cross-domain questions add hops, latency and token cost<br>
+→ Weak domain boundaries become weak agent boundaries. If your services are a "distributed monolith", your agents will be too</p>
+<p><strong>The opportunity</strong></p>
+<p>Most large companies already have a service catalogue: hundreds of APIs, documented to varying degrees, each owned by a team. Almost none of it is agent-ready.</p>
+<p>That's the market: <strong>domain agents built on top of existing service catalogues.</strong> Turning a team's APIs into a clean MCP tool set, building and evaluating the domain agent, and wiring agents together with A2A. For integrators, it's a repeatable package per domain: refunds, claims, KYC, order tracking. For product companies, it's the platform underneath: tool registries, routing, and evaluation per domain.</p>
+<p><strong>Tools to try</strong><br>
+MCP servers to expose each team's services as tools · OpenAI Agents SDK or LangGraph to build the domain agents · Google's Agent Development Kit and the A2A protocol for agent-to-agent calls · Amazon Bedrock AgentCore or Microsoft Agent Framework to run them in production.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>One super-agent or one agent per domain: which would you bet your support queue on? Pick one.</strong></p>
+<p>Tag the architect who drew your service boundaries. They just designed your agents too.</p>
+<p><em>Day 4 of 50 · follow along. Tomorrow: Event-driven, with agents that react to events and emit new ones.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#Microservices</span><span>#MCP</span><span>#A2A</span><span>#SoftwareArchitecture</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day03-client-server/"><span>&#8592; Previous</span>Not Every Prompt Deserves a Data Centre.</a><a class="next" href="../a-day05-event-driven/"><span>Next &#8594;</span>Your AI Agent Just Paid the Same Invoice Twice.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

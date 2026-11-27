@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Rewrote the Payroll in a Language No Human Can Read. Who Signs the Audit?</title>
+<meta name="description" content="Picture a March audit, a few years from now. A textile group in Coimbatore. 4,000 employees. The auditor sends one question: &quot;Why did PF deductions go up for 1,100 employees in December?&quot; The payroll…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/unreadable-code/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Rewrote the Payroll in a Language No Human Can Read. Who Signs the Audit?">
+<meta property="og:description" content="Picture a March audit, a few years from now. A textile group in Coimbatore. 4,000 employees. The auditor sends one question: &quot;Why did PF deductions go up for 1,100 employees in December?&quot; The payroll…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/unreadable-code/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/unreadable-code/C-unreadable-code-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Essay · 15 Nov 2026</div>
+  <h1>Your AI Agent Rewrote the Payroll in a Language No Human Can Read. Who Signs the Audit?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="C-unreadable-code-1-cover-poster.jpg" alt="Cover: Your AI Agent Rewrote the Payroll in a Language No Human Can Read. Who Signs the Audit?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Picture a March audit, a few years from now.</p>
+<p>A textile group in Coimbatore. 4,000 employees. The auditor sends one question: <em>"Why did PF deductions go up for 1,100 employees in December?"</em></p>
+<p>The payroll was rebuilt last year by an AI agent. Not in Java, not in Python. In its own optimised form: no folders, no classes, no comments, one compact binary that runs the whole month in seconds. The vendor says it has never miscalculated a payslip.</p>
+<p>The finance team opens the "source". It's a wall of hex. The engineer who set it up has moved on. The vendor's support agent offers a confident explanation that nobody can check.</p>
+<p>The payroll is probably right. Nobody can prove it. (The company, the numbers and the scene are <em>illustrative</em>.)</p>
+<p><strong>So who signs the audit?</strong></p>
+<p><strong>The idea I can't stop thinking about</strong></p>
+<p>Here's what's been on my mind. Today we make AI write code in <em>our</em> languages. JavaScript, Java, Python. Our folder structures, our layers, our design patterns. Then we review it line by line, as if the machine were a junior developer.</p>
+<p>But think about why those things exist. I've been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. Almost every language and framework I learned was built for one reader: a tired human who has to hold the system in their head. MVC, microservices, clean code, naming conventions. They're crutches for our brains, not for the CPU.</p>
+<p>So why not let AI pick its own language? Generate something optimised for the machine, skip our crutches, and eventually build whole systems from what the business needs, with no human in between.</p>
+<p>This isn't science fiction. It's already started at the bottom of the stack.</p>
+<p>→ In 2023, DeepMind's AlphaDev worked directly in assembly and found faster sorting routines. They went into LLVM's libc++, the first change to those standard sorting routines in over a decade. DeepMind then translated them back into C++ so humans could use them.<br>
+→ In 2024, Meta released LLM Compiler, models trained on about 546 billion tokens of compiler IR and assembly, the layer below the code we read.<br>
+→ Back in 2017, Andrej Karpathy called neural network weights "Software 2.0": code that nobody writes or reads line by line.</p>
+<p>So on the direction, I think the idea is right. The machine doesn't need our languages.</p>
+<p><strong>The twist: code was never only for the machine</strong></p>
+<p>Here's my contrarian claim: <strong>the faster AI writes code, the more the human-readable layer matters, not less.</strong></p>
+<p>Ask who actually reads code over its life:</p>
+<p>→ <strong>The machine.</strong> The only reader that doesn't need it to be readable.<br>
+→ <strong>The next engineer</strong>, at 2 AM, when something breaks.<br>
+→ <strong>The auditor</strong>, asking why a number changed.<br>
+→ <strong>The regulator</strong>, asking whether a rule was followed.<br>
+→ <strong>A court</strong>, asking who decided.</p>
+<p>Code is a record. Take the readable record away and you get a system that works until someone asks "why?"</p>
+<p>We've done this before. It's called COBOL. I wrote about it in "Your Last COBOL Expert Retires Next Year. Who Remembers Why the Code Works?": systems that run the money, written in a language that fewer and fewer people can read. AI-only code would be COBOL at a scale and speed we've never seen, and with no expert left to retire because there never was one.</p>
+<p>There's a security problem too. A binary nobody can review is a perfect place to hide a backdoor, whether a supplier planted it or a poisoned model learned it. We've learned the hard way that you can't trust what you can't inspect.</p>
+<p>👉 <strong>[IMAGE: C-unreadable-code-2-in-article-two-paths.png]</strong><br>
+<em>Caption: Two ways an AI can build your payroll. Both may run perfectly. Only one can answer the auditor.</em></p>
+<p><strong>"But the AI won't make mistakes"</strong></p>
+<p>Maybe one day it won't make coding mistakes. It'll still build exactly what it was told.</p>
+<p>Take "deduct PF correctly". Correct by which rule, from which date, for whom? India's four labour codes took effect on 21 November 2025, with a new definition of wages that pushes many salary structures towards a larger PF base. Should the company restructure salaries? From when? For contract staff too? Those are business decisions, not coding ones.</p>
+<p><strong>Even a perfect builder needs a perfect spec. Businesses almost never have one.</strong> The mistakes don't disappear. They move from the code to the intent.</p>
+<p><strong>The resolution: let the machine write it, make it prove it</strong></p>
+<p>So I'd split the job. Let the AI write in any form it likes, as fast as it likes. But it has to hand over an evidence pack that humans can read:</p>
+<p>→ <strong>1. The spec.</strong> Plain-language rules, numbered, each with an owner and an effective date. "Rule 7: PF wages are at least 50% of total pay, from 21 Nov 2025. Owner: payroll head."<br>
+→ <strong>2. Tests.</strong> Thousands of real and generated cases, plus properties that must always hold: net pay is never negative, PF never goes above what the rule allows.<br>
+→ <strong>3. Proofs, where the stakes justify them.</strong> Formal verification isn't new. In 2009, the seL4 team proved that a whole operating-system kernel followed its specification, checked by machine. It's expensive, but for payroll, payments and tax, parts of it are worth the price.<br>
+→ <strong>4. A trace.</strong> For every number on every payslip: which rule produced it.<br>
+→ <strong>5. A human signature on the spec</strong>, not on the code.</p>
+<p><strong>The spec becomes the new source code.</strong> Engineers move from reading code to checking specs and evidence.</p>
+<p>👉 <strong>[IMAGE: C-unreadable-code-3-in-article-evidence-pack.png]</strong><br>
+<em>Caption: The evidence pack. Five things any AI-built system that touches money should hand over. Screenshot it for your next vendor review.</em></p>
+<p>👉 <strong>[GIF: C-unreadable-code-4-in-article-prove-it.gif]</strong><br>
+<em>Caption: Same request, two outcomes. A wall of hex and a question mark, or a spec, tests, a trace and a signature. Illustrative.</em></p>
+<p><strong>The new jobs in the middle</strong></p>
+<p>Someone has to turn "pay people correctly" into fifty precise rules. That's the forward deployed engineer (FDE): an engineer who works inside the customer's team, sits with HR and finance, and writes down what the business actually means. Someone else checks that the evidence holds: a spec reviewer, or verification engineer. The titles are still settling. The skills aren't new: requirements, testing and logic, with far higher stakes.</p>
+<p><strong>What I might be wrong about</strong></p>
+<p>→ <strong>AI explanations may become good enough.</strong> If an agent can explain any line of its binary on demand, maybe readable code matters less. But an explanation is a story, not proof. A model can explain a wrong answer very convincingly.<br>
+→ <strong>Regulators may accept test evidence alone.</strong> They already accept it for some systems. If so, proofs stay rare.<br>
+→ <strong>Proofs are expensive.</strong> Outside kernels, aviation and chips, few teams do formal verification today. AI may make it cheap, or it may not.<br>
+→ <strong>Specs can be wrong too.</strong> A signed spec with a bad rule just moves the error to someone with a pen. That's still better: at least you know who decided.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For CTOs:</strong> before buying any AI-built system that touches money, ask for the evidence pack, not a demo.<br>
+→ <strong>For auditors and CA firms:</strong> "spec and trace audits" of AI-built systems are a new practice. Learn to read a spec and a test report.<br>
+→ <strong>For engineers and students:</strong> learn to specify and test, and learn one domain deeply. Code-reading may shrink. Spec-reading won't.<br>
+→ <strong>For founders:</strong> tools that turn business rules into specs, specs into tests, and every output back into a trace.</p>
+<p>Let the machine write it. Make it prove it.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Would you run your payroll on code no human can read, if it came with tests and a proof? Yes or no.</strong></p>
+<p>Tag the auditor who'd ask the first question.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#AIAgents</span><span>#SoftwareEngineering</span><span>#FormalVerification</span><span>#AIGovernance</span><span>#Audit</span><span>#FutureOfWork</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../developer-learns-the-bank/"><span>&#8592; Previous</span>AI Agents Write the Code Now. The Developer Has to Learn the Bank.</a><a class="next" href="../self-redesigning-ui/"><span>Next &#8594;</span>Your AI Agent Redesigned the Checkout at 2 AM. Sales Up 9%. Complaints Up 40%.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

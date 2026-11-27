@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Auditor Asked Why Your AI Agent Paid ₹9 Lakh. Can You Replay the Decision?</title>
+<meta name="description" content="Six months after the payment, the auditor&#x27;s email arrived. One line. &quot;Why did your system pay ₹9,00,000 to this vendor on 14 March?&quot; The finance team opened the database and found a single row:…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day10-event-sourcing/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="The Auditor Asked Why Your AI Agent Paid ₹9 Lakh. Can You Replay the Decision?">
+<meta property="og:description" content="Six months after the payment, the auditor&#x27;s email arrived. One line. &quot;Why did your system pay ₹9,00,000 to this vendor on 14 March?&quot; The finance team opened the database and found a single row:…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day10-event-sourcing/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day10-event-sourcing/A-day10-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 10/50 · 5 Nov 2026</div>
+  <h1>The Auditor Asked Why Your AI Agent Paid ₹9 Lakh. Can You Replay the Decision?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day10-1-cover-poster.jpg" alt="Cover: The Auditor Asked Why Your AI Agent Paid ₹9 Lakh. Can You Replay the Decision?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Six months after the payment, the auditor's email arrived. One line.</p>
+<p>"Why did your system pay ₹9,00,000 to this vendor on 14 March?"</p>
+<p>The finance team opened the database and found a single row: payment 4471, status PAID, approved by agent-v3. That was all of it. The prompt had been changed twice since then, the model had been upgraded, and the vendor's record had been edited. Nobody could say what the agent saw that morning, or why it said yes. (The company and the numbers are <em>illustrative</em>. I've seen the pattern more than once.)</p>
+<p><strong>An AI agent that can't explain a payment is a liability with a login.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>CQRS splits the system in two. One side takes commands ("pay this invoice") and plain code decides whether they're allowed. The other side serves reads from views built for asking questions.</p>
+<p>Event sourcing changes what you store. You don't overwrite the current state. You append every change as an event: invoice received, vendor checked, payment approved. The current state is simply all the events added up.</p>
+<p>If that sounds abstract, look at a bank passbook. Your balance isn't stored on its own. It's every entry since you opened the account, line after line, and nobody rubs one out.</p>
+<p>👉 <strong>[IMAGE: A-day10-2-in-article-architecture.png]</strong><br>
+<em>Caption: The agent reads from the read side and only proposes commands. Plain code decides. Every step, including the agent's own decision, lands in an append-only log. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: read here, propose there, record everything</strong></p>
+<p>Three changes, all low-risk:</p>
+<p>→ <strong>The agent reads only from read models.</strong> It never touches the write database. It can't corrupt anything there.<br>
+→ <strong>The agent proposes, plain code decides.</strong> It sends a command like any other user. The same checks run: limits, duplicates, a changed bank account. That's the lesson from Day 5, when an agent paid the same invoice twice.<br>
+→ <strong>The agent's decision becomes an event too.</strong> Not just "paid". What it read, which policy version applied, which model and prompt version, which tools it called, what it concluded, and who approved.</p>
+<p>That last one is the new habit. Most teams log the answer. Very few log the decision.</p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>Once every decision is an event, you can replay it. Rebuild the read models exactly as they stood at 10:03 AM on 14 March, and look at what the agent was looking at.</p>
+<p>In our story, the replay takes four minutes and finds the real problem. The vendor's bank account had changed three days earlier. The agent saw the flag. The payment rule, version 14, didn't block it, because ₹9 lakh was under the ₹10 lakh approval limit. The agent followed the rules. The rules had a hole.</p>
+<p>That's the finding you want in an audit report. Without the replay, the agent just gets the blame.</p>
+<p>In two or three years, I expect regulators to stop accepting "the AI decided". The RBI's FREE-AI committee report (August 2025), advisory for now, already lists accountability and "understandable by design" among its principles. The lenders who can replay a decision on demand will have a much easier inspection.</p>
+<p>There's a second use. Before upgrading a model, replay last quarter's events through it and compare its decisions. A rehearsal on real history, with no real money at risk.</p>
+<p>👉 <strong>[IMAGE: A-day10-3-in-article-decision-record.png]</strong><br>
+<em>Caption: Eight fields per agent decision. Store them and you can answer the auditor. Example values are illustrative.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>The auditor asks. The team presses replay. The events come back one by one, and the hole in the rule shows up on its own.</p>
+<p>👉 <strong>[GIF: A-day10-4-in-article-replay.gif]</strong><br>
+<em>Caption: Replaying one ₹9 lakh decision, event by event. All details illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Every agent decision can be explained months later, which is what auditors and regulators actually ask for<br>
+→ You can test a new model or prompt against real history before it goes live<br>
+→ The agent can't quietly change data. It can only propose, and the log keeps everything</p>
+<p><strong>Cons</strong><br>
+→ It's more work to build than one table with a status column, and teams new to it find it hard<br>
+→ Replay brings back what the agent saw and said. It won't make a model produce the same words twice, because models aren't fully deterministic<br>
+→ Logs that keep everything also keep personal data, so you need retention and masking rules from day one</p>
+<p><strong>The hard parts</strong></p>
+<p>Retrofitting is the real job. Your core banking system or ERP wasn't built to emit events. You'll often have to read its database changes from the side (change data capture), and the old system's quirks come with them.</p>
+<p>Storage grows too. A full decision record is much bigger than a status flag.</p>
+<p>And someone has to own the replay. An AgentOps engineer, the person who runs agents in production much as an SRE runs services, should run a replay drill every month: pick three random decisions and rebuild them. If you can't do it in a drill, you won't do it when the auditor writes.</p>
+<p><strong>The opportunity</strong></p>
+<p>Every bank, NBFC, insurer and co-operative bank putting agents into payments, claims or lending will need a "decision ledger". That means a record of every agent decision, a replay console an auditor can use without an engineer, and a report that holds up in an inspection.</p>
+<p>That's a product, and a services business: fitting event logs beside old core systems never built for them. The person who wins this deal is often a forward deployed engineer (FDE), an engineer who works inside the customer's team, who sits with internal audit for two weeks and learns exactly what they'll ask. These titles are still settling, but the need isn't. Audit has always followed new technology into the bank. It's coming for agents next.</p>
+<p><strong>Tools to try</strong><br>
+KurrentDB (formerly EventStoreDB) as the event store · Axon Framework for CQRS and event sourcing in Java · Apache Kafka as an event log, with Debezium to stream changes out of an old database · Langfuse or OpenTelemetry for agent traces · any model through tool calling: OpenAI, Claude, Gemini or Bedrock.</p>
+<p>That's Phase 1 done: ten classic architectures, each with an AI agent added to it. Phase 2 starts tomorrow with data.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>For an AI agent that moves money: store the answer, or store the decision? One word.</strong></p>
+<p>Tag the person in your team who'd get that auditor's email.</p>
+<p><em>Day 10 of 50 · follow along. Tomorrow: Day 11 · Your AI Agent Told the Board ₹4 Crore. The Data Warehouse Says ₹3.1 Crore.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#EventSourcing</span><span>#CQRS</span><span>#AIGovernance</span><span>#BFSI</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day09-serverless/"><span>&#8592; Previous</span>₹2 for Every Invoice Your AI Agent Reads. ₹0 While It Sleeps.</a><a class="next" href="../a-day11-data-warehouse/"><span>Next &#8594;</span>Your AI Agent Told the Board ₹4 Crore. The Data Warehouse Says ₹3.1 Crore.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

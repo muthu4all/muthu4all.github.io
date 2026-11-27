@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>₹2 for Every Invoice Your AI Agent Reads. ₹0 While It Sleeps.</title>
+<meta name="description" content="A CA firm in Madurai reads 2,000 invoices a month. Nearly all of them land in the last week. Someone sold them an AI setup with its own GPU server. It works well. For about 40 hours a month. The…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day09-serverless/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="₹2 for Every Invoice Your AI Agent Reads. ₹0 While It Sleeps.">
+<meta property="og:description" content="A CA firm in Madurai reads 2,000 invoices a month. Nearly all of them land in the last week. Someone sold them an AI setup with its own GPU server. It works well. For about 40 hours a month. The…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day09-serverless/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day09-serverless/A-day09-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 9/50 · 4 Nov 2026</div>
+  <h1>₹2 for Every Invoice Your AI Agent Reads. ₹0 While It Sleeps.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day09-1-cover-poster.jpg" alt="Cover: ₹2 for Every Invoice Your AI Agent Reads. ₹0 While It Sleeps." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>A CA firm in Madurai reads 2,000 invoices a month. Nearly all of them land in the last week.</p>
+<p>Someone sold them an AI setup with its own GPU server. It works well. For about 40 hours a month.</p>
+<p>The other 690 hours, it sits in a data centre doing nothing, and the meter keeps running. ₹80,000 a month. That's ₹40 to read one invoice. (The firm and its numbers are <em>illustrative</em>. The maths is the point.)</p>
+<p>The partner asked me a fair question: <strong>"Why am I paying rent for a machine that's asleep?"</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>Serverless flips the old deal. You don't rent a server. You upload a small function, and the cloud runs it only when something triggers it: a file arrives, a message comes in, a timer fires. When nothing's happening, nothing's running, and nothing's billed.</p>
+<p>It's been around for more than a decade. Most back offices use it for dull jobs like resizing images and sending emails.</p>
+<p>That dull old pattern happens to suit small AI work very well, because most AI work in a small business isn't constant. It comes in bursts: month-end, GST dates, Monday morning.</p>
+<p>👉 <strong>[IMAGE: A-day09-2-in-article-architecture.png]</strong><br>
+<em>Caption: Small AI functions wake up when an invoice arrives, and go back to sleep. Tally stays exactly where it is. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: small functions, not one big server</strong></p>
+<p>Don't start with an always-on agent. Start with three tiny AI functions:</p>
+<p>→ <strong>Read.</strong> A photo or PDF arrives on WhatsApp or email. The function pulls out the vendor, GSTIN, amount and date.<br>
+→ <strong>Classify.</strong> Which ledger, which tax head, is this a duplicate?<br>
+→ <strong>Check.</strong> Does the total add up, and does the vendor exist in the Tally export? Plain code does this part, not the model.</p>
+<p>Each one wakes up, calls a model, finishes in seconds and disappears. The result lands in a review list, and a person approves it before anything goes into Tally. You've changed nothing in the old system. You've only added a side door.</p>
+<p>For the model, you've got two choices. Call a pay-per-token API, or use a service that scales to zero, like Cloudflare Workers AI or Cloud Run with GPUs, so even an open model costs nothing while it's idle.</p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>Small functions are becoming small agents. Each one will do one job, get paid per job and report back. A reconciliation agent wakes on the 20th. A notice-reading agent wakes when the tax portal mail arrives. A reminder agent wakes every Monday.</p>
+<p>Today's serverless has an honest limit here, though. Agents wait. They wait for a human, a vendor, a slow ERP. A synchronous AWS Lambda call still stops at 15 minutes. That's why the clouds are adding durable options: Lambda's durable functions can now run for up to a year across pauses, and you don't pay for compute while they wait.</p>
+<p>So in two or three years, I expect the small-business agent to look like this: asleep 99% of the time, awake for seconds, and billed like an electricity meter. <strong>The best AI employee is the one you don't pay while it's sleeping.</strong></p>
+<p>👉 <strong>[IMAGE: A-day09-3-in-article-break-even.png]</strong><br>
+<em>Caption: Per-call wins at low volume. A dedicated server wins at high volume. Know your number. All figures illustrative.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>One month, two meters. One never stops. The other only moves when there's work.</p>
+<p>👉 <strong>[GIF: A-day09-4-in-article-two-meters.gif]</strong><br>
+<em>Caption: Same 2,000 invoices, same month. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ You pay nothing while it's idle, which suits month-end bursts perfectly<br>
+→ No server to patch, and a small firm can start this week<br>
+→ The legacy system stays untouched: Tally only sees an export and an import</p>
+<p><strong>Cons</strong><br>
+→ Cold starts: the first call after a quiet spell is slow, and model loading makes that worse<br>
+→ Long-running agents don't fit plain functions. You need durable workflows or a queue<br>
+→ Per-call pricing flips at volume. In this example, past 40,000 invoices a month the "expensive" server is the cheaper one</p>
+<p><strong>The opportunity</strong></p>
+<p>India has millions of small businesses and thousands of CA firms that will never own a GPU, and shouldn't. They'd happily pay ₹2 to read a bill.</p>
+<p>That's the market: <strong>pay-per-use AI micro-products for SMEs.</strong> Read a GST invoice. Classify a bank statement. Draft a reply to a notice. Priced per document, sold on WhatsApp, and connected to Tally, Zoho or an old ERP. The builder needs no big server, and the buyer needs no IT team.</p>
+<p>The hard part is the last mile. Somebody has to sit with the firm during month-end and learn its real invoice mix: blurry photos, handwritten bills, the vendor who spells its own name three ways. That's what a forward deployed engineer (FDE) does: an engineer who sits with the customer's team and ships the agent on their real systems. An AgentOps engineer then watches cost per invoice once it's live. Those titles are still settling, but for someone who knows both Tally and cloud functions, this is a real business, even as a team of two.</p>
+<p><strong>Tools to try</strong><br>
+AWS Lambda for functions, with durable functions for long waits · Azure Functions on the Flex Consumption plan · Cloudflare Workers AI for models billed per use · Google Cloud Run with GPUs that scale to zero · any model API behind them: OpenAI, Claude or Gemini.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>For a small business, would you buy a server or pay per invoice? One word.</strong></p>
+<p>Tag the CA who spends the last week of every month typing in bills.</p>
+<p><em>Day 9 of 50 · follow along. Tomorrow: the auditor asked why your AI agent paid ₹9 lakh. Can you replay the decision?</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#AIAgents</span><span>#Serverless</span><span>#MSME</span><span>#ForwardDeployedEngineer</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day08-agent-mesh/"><span>&#8592; Previous</span>Two AI Agents Disagreed on a Refund. Who&#x27;s Responsible?</a><a class="next" href="../a-day10-event-sourcing/"><span>Next &#8594;</span>The Auditor Asked Why Your AI Agent Paid ₹9 Lakh. Can You Replay the Decision?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

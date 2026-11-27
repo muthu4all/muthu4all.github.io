@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Last COBOL Expert Retires Next Year. Who Remembers Why the Code Works?</title>
+<meta name="description" content="Every bank, insurer and large government system I&#x27;ve worked with has one. Let&#x27;s call him Raghavan. He&#x27;s been there for 30 years. He knows why the interest calculation has a special case for one…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/cobol-expert/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your Last COBOL Expert Retires Next Year. Who Remembers Why the Code Works?">
+<meta property="og:description" content="Every bank, insurer and large government system I&#x27;ve worked with has one. Let&#x27;s call him Raghavan. He&#x27;s been there for 30 years. He knows why the interest calculation has a special case for one…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/cobol-expert/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/cobol-expert/1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 25 Oct 2026</div>
+  <h1>Your Last COBOL Expert Retires Next Year. Who Remembers Why the Code Works?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="1-cover-poster.jpg" alt="Cover: Your Last COBOL Expert Retires Next Year. Who Remembers Why the Code Works?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Every bank, insurer and large government system I've worked with has one.</p>
+<p>Let's call him Raghavan.</p>
+<p>He's been there for 30 years. He knows why the interest calculation has a special case for one branch. He knows which batch job must finish before 2 AM, or the next morning's reports go wrong. He knows what the "temporary" fix from 2003 was actually for.</p>
+<p>None of this is written down. It's in the code, sort of, and in his head, definitely.</p>
+<p>And Raghavan retires in March.</p>
+<p>I've been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I've seen this story play out more than once, and it rarely ends well.</p>
+<p><strong>The problem isn't the code. It's the missing "why".</strong></p>
+<p>People talk about legacy systems as if the problem is old technology. COBOL, mainframes, green screens.</p>
+<p>It isn't. That code has been running reliably for decades. It still works.</p>
+<p>The real problem is that <strong>nobody remembers why it does what it does.</strong></p>
+<p>Take a line like this:</p>
+<p><em>IF BRANCH-CD = '0471' ADD 0.25 TO RATE.</em></p>
+<p>Any decent developer can read it. Branch 0471 gets a quarter percent more interest.</p>
+<p>But <em>why</em>? Is it a regulatory requirement? A deal from a merger? A bug someone never fixed? Can you remove it during modernisation, or will 4,000 customers get a letter saying their interest has changed?</p>
+<p>The code tells you <em>what</em>. Only people know <em>why</em>.</p>
+<figure><img src="2-in-article-where-rules-hide.jpg" alt="Caption: The documentation is the smallest part of the story." width="1600" height="820" loading="lazy" decoding="async"><figcaption>Caption: The documentation is the smallest part of the story.</figcaption></figure>
+
+<p><strong>Why most modernisation projects hurt</strong></p>
+<p>I've seen two common approaches. Both have the same blind spot.</p>
+<p><strong>Approach 1: Convert it line by line.</strong> Translate COBOL into Java, rule for rule. Fast and safe on paper. But you carry every mystery across into a new language, and now nobody understands the Java either.</p>
+<p><strong>Approach 2: Rewrite from fresh requirements.</strong> Sit with the business, document what the system <em>should</em> do, and build it new. Cleaner, but the business users don't know about the hidden rules either. The special branch, the holiday cutoff and the senior-customer waiver get missed. You find out in production, usually through a customer complaint.</p>
+<p>Either way, the knowledge gap stays. It just moves.</p>
+<p><strong>Where AI agents genuinely help</strong></p>
+<p>This is one area where I think AI agents are not hype. They're actually well suited to the job.</p>
+<p>Reading hundreds of thousands of lines of old code, tracing which program calls which, following a field through copybooks and database tables, and writing it all up in plain English is slow, tedious work for people. For an agent it's reading, and reading is what LLMs do well.</p>
+<p>But the agent doesn't replace Raghavan. It makes the most of the time he has left.</p>
+<p>Here's the workflow I'd use.</p>
+<p><strong>1. Map.</strong> Agents read the programs, JCL, copybooks and database schemas, and build a map of the system: what calls what, which data flows where, which jobs depend on which.</p>
+<p><strong>2. Extract.</strong> Agents turn the code into plain-English rule cards. <em>"Senior customers with more than 5 years' tenure pay no service charge."</em> Each card links back to the exact lines of code it came from.</p>
+<p><strong>3. Verify.</strong> This is where Raghavan comes in. Instead of spending months writing documentation from scratch, he reviews rule cards: <em>yes, correct</em>, <em>no, that's wrong</em>, <em>and here's why it exists</em>. Ten minutes a card instead of ten days a module. The agent can even ask him targeted questions about the code it couldn't explain: <em>"Lines 290–320 treat branch 0471 differently. What's the reason?"</em></p>
+<p><strong>4. Prove.</strong> Every confirmed rule gets a golden test built from real historical data. The old system and the new rule must give the same answer. If they don't, either the card is wrong or the code has a surprise in it. Both are worth knowing.</p>
+<p><strong>5. Modernise.</strong> Only now do you migrate or rewrite, with a verified rulebook and a test suite that proves nothing was lost.</p>
+<figure><img src="3-in-article-recovery-workflow.jpg" alt="Caption: Recover the rules first. Modernise second." width="1600" height="820" loading="lazy" decoding="async"><figcaption>Caption: Recover the rules first. Modernise second.</figcaption></figure>
+
+<p><strong>Watch it work</strong></p>
+<p>Here's what that looks like on a small piece of an interest calculation program. The agent reads the code and pulls out a rule. The expert confirms it and adds the reason, a golden test proves the old system agrees, and the rule goes into the knowledge base.</p>
+<figure><img src="4-in-article-recovery.gif" alt="Caption: AI reads the code. The expert adds the why. Tests prove it." width="1000" height="750" loading="lazy" decoding="async"><figcaption>Caption: AI reads the code. The expert adds the why. Tests prove it.</figcaption></figure>
+
+<p><strong>The bit people get wrong</strong></p>
+<p>Please don't read this as "AI will convert your COBOL to Java overnight". That's not what I'm saying, and it's how projects get into trouble.</p>
+<p>AI agents can misread code. They can explain a branch confidently and wrongly. That's exactly why every rule card is linked to its source lines, checked by a human, and proven by a test. The agent does the heavy reading. The expert does the judging. The tests settle the arguments.</p>
+<p>Without step 3 and step 4, you're just generating very convincing documentation, which is arguably worse than none.</p>
+<p><strong>Why this can't wait</strong></p>
+<p>Steps 1, 2, 4 and 5 can happen any time. Step 3 can only happen while Raghavan is still here.</p>
+<p>Knowledge has an expiry date. It's the day of the farewell party.</p>
+<p>If your organisation has a major modernisation planned for 2028, the knowledge recovery shouldn't start in 2028. It should start now, while the people who know the <em>why</em> are still a phone call away, and still willing to pick up.</p>
+<p><strong>A word for the Raghavans</strong></p>
+<p>One more thing. The engineers who built and kept these systems running for 30 years are often treated as the "legacy" problem.</p>
+<p>They're not. They're the most valuable source of truth the organisation has.</p>
+<p>A good knowledge recovery project is also a way of saying thank you. It turns what they know into something that outlives their time at the company, with their name on it.</p>
+<hr>
+<p>Curious how others are handling this:</p>
+<p><strong>Does your organisation have a Raghavan? And what's the plan for the day after he retires?</strong></p>
+</div>
+<div class="tags"><span>#LegacyModernization</span><span>#Mainframe</span><span>#COBOL</span><span>#AIAgents</span><span>#AgenticAI</span><span>#BankingTechnology</span><span>#DigitalTransformation</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="next" href="../freshers/"><span>Next &#8594;</span>We&#x27;re Still Training Freshers for Jobs AI Already Does. Here&#x27;s What They Should Learn Instead.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

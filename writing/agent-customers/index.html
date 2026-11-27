@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Next Customer Won&#x27;t See Your Website. Their AI Agent Will Decide in 4 Seconds.</title>
+<meta name="description" content="Picture a Thursday afternoon, a couple of years from now. Arjun runs purchasing for an auto-parts maker in Hosur. Dispatch is short of packing tape again. He doesn&#x27;t open a browser. He types one line…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/agent-customers/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your Next Customer Won&#x27;t See Your Website. Their AI Agent Will Decide in 4 Seconds.">
+<meta property="og:description" content="Picture a Thursday afternoon, a couple of years from now. Arjun runs purchasing for an auto-parts maker in Hosur. Dispatch is short of packing tape again. He doesn&#x27;t open a browser. He types one line…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/agent-customers/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/agent-customers/C-agent-customers-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Essay · 22 Nov 2026</div>
+  <h1>Your Next Customer Won&#x27;t See Your Website. Their AI Agent Will Decide in 4 Seconds.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="C-agent-customers-1-cover-poster.jpg" alt="Cover: Your Next Customer Won&#x27;t See Your Website. Their AI Agent Will Decide in 4 Seconds." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Picture a Thursday afternoon, a couple of years from now.</p>
+<p>Arjun runs purchasing for an auto-parts maker in Hosur. Dispatch is short of packing tape again. He doesn't open a browser. He types one line to his company's buying agent:</p>
+<p><em>"Reorder 200 cartons of 48 mm brown tape. Best landed price. Delivered by Friday."</em></p>
+<p>The agent checks eight suppliers. Two are out of stock. Three can't promise Friday. One is ₹400 a carton dearer than the rest. One keeps its return terms in a PDF the agent can't rely on. Four seconds later, the order goes to the last one standing.</p>
+<p>One of the suppliers that lost had just spent ₹40 lakh on a new website. Festive banner, product videos, a carousel of happy customers. The agent never opened it.</p>
+<p>(Arjun, the suppliers and every number here are <em>illustrative</em>. The direction isn't.)</p>
+<p><strong>The visitor we never designed for</strong></p>
+<p>Last Tuesday I wrote about an AI agent that redesigned a checkout page at 2 AM. This is the twist I've been chewing on since: what if the visitor doesn't need the page at all?</p>
+<p>For about 25 years we've designed websites for human eyes. Hero images. "Mega Sale" banners. Trust badges. The exact shade of the Buy button. All of it assumes someone is looking.</p>
+<p>The next buyer may not look. It reads.</p>
+<p>So here's my contrarian line: <strong>your next website redesign may be for the wrong visitor.</strong></p>
+<p>Two things will be true at once. Websites will get better at adapting to each person. And for a growing share of purchases, especially the repeat, boring, spec-driven ones, the website will matter less, because the "visitor" is a customer's AI agent reading a feed or calling an API.</p>
+<p><strong>This isn't a forecast. The plumbing is going in.</strong></p>
+<p>→ In April 2025, Mastercard announced Agent Pay and Visa announced Intelligent Commerce. Both are about letting AI agents pay on a person's behalf, within limits that person sets.<br>
+→ In September 2025, Google announced AP2, the Agent Payments Protocol, with more than 60 partners.<br>
+→ The same month, OpenAI and Stripe released the Agentic Commerce Protocol and launched Instant Checkout in ChatGPT. To take part, a merchant shares a product feed. Not a banner. A feed.</p>
+<p>How two agents agree a deal is tomorrow morning's topic. Today I care about something more basic: <strong>when a buyer's agent comes looking, what does it actually see of you?</strong></p>
+<p><strong>What the agent reads</strong></p>
+<p>Not your banner. It reads seven things, in milliseconds:</p>
+<p>→ <strong>1. Live price</strong>, with GST shown separately, so it can compare landed cost.<br>
+→ <strong>2. Live stock</strong>, not an "in stock" line that was true last month.<br>
+→ <strong>3. A delivery promise</strong> to a pincode, by a date.<br>
+→ <strong>4. Return terms</strong> it can parse: window, conditions, who pays for pickup.<br>
+→ <strong>5. GSTIN and HSN</strong>, so the buyer's finance team can claim input tax credit without a chase.<br>
+→ <strong>6. Trust with a source</strong>: verified ratings, order history, a known business identity.<br>
+→ <strong>7. A way to order</strong> that doesn't need a human clicking through five screens.</p>
+<p>None of this is new. Schema.org has had Product and Offer markup for years: price, currency, availability, shipping details, even a merchant return policy. Most small Indian sellers I talk to have never filled any of it in. Their price lives in a WhatsApp message, their stock lives in the owner's head, and their return policy is "call me, we'll manage".</p>
+<p>That worked when the buyer was a person. It fails when the buyer is a program.</p>
+<p>So SEO quietly turns into something else: <strong>being readable by agents.</strong> I call it agent-readiness.</p>
+<p>👉 <strong>[IMAGE: C-agent-customers-2-in-article-two-front-doors.png]</strong><br>
+<em>Caption: One catalogue, two front doors. Most sellers built the one for people and forgot the one for agents. Times illustrative.</em></p>
+<p><strong>India already has commerce by protocol</strong></p>
+<p>This is where I think India has a head start. ONDC, the Open Network for Digital Commerce, a DPIIT initiative, already works on this idea. A seller lists once through a seller app, and buyer apps across the network can discover that catalogue over a shared open protocol (it's built on Beckn). Commerce by protocol, not by website.</p>
+<p>I wrote about the seller side of this in "Every Kirana Store Could Have an AI Agent. ONDC Is the Missing Plumbing." This piece is the buyer side of the same story. When buyers start sending agents instead of opening apps, a seller with a clean, ONDC-ready catalogue is already in the conversation. A seller with only a beautiful website isn't.</p>
+<p>👉 <strong>[GIF: C-agent-customers-4-in-article-four-seconds.gif]</strong><br>
+<em>Caption: Eight suppliers, four seconds. Each one drops out on a field, not a feeling, while a person is still on page one. Illustrative.</em></p>
+<p><strong>What's at stake</strong></p>
+<p>→ <strong>Margins.</strong> An agent compares eight prices every single time. The "they won't bother checking" premium disappears.<br>
+→ <strong>Loyalty.</strong> Brand recall doesn't move an agent much. Fill rate, on-time delivery and clean returns do. Loyalty shifts from feelings to track record.<br>
+→ <strong>Responsibility.</strong> The agent orders 2,000 cartons instead of 200. Whose mistake is that? The buyer who wrote a vague instruction, the company that built the agent, or the seller who accepted a strange order without a second look?<br>
+→ <strong>Fraud.</strong> A fake "buyer agent" places 50 cash-on-delivery orders from a brand-new account. This is partly why the card networks want agents identified and verified before they can pay. Sellers will need the same habit: know which agent you're dealing with, and who stands behind it.</p>
+<p><strong>The hard parts (where I could be wrong)</strong></p>
+<p>→ <strong>People still buy with their eyes.</strong> Nobody's agent is choosing a Kanchipuram silk saree for a wedding. Jewellery, furniture, gifts, anything emotional: people will look, touch and compare. For these, the website and the shop still matter a lot.<br>
+→ <strong>The standards are still settling.</strong> ACP, AP2, the card-network programmes, ONDC: they overlap, and nobody knows which mix wins. Building for all of them is a lot to ask of a 20-person business.<br>
+→ <strong>Agents can be gamed.</strong> If agents rank on fields, some sellers will fake the fields: phantom stock, hopeful delivery dates. Trust signals with a verifiable source become the new battleground.<br>
+→ <strong>Buyers may not trust their own agents</strong> with real money for a while. I expect a long "agent suggests, human taps Approve" phase before full autopilot.</p>
+<p><strong>The opportunity: agent-ready catalogues</strong></p>
+<p>If I were starting a services business for Indian SMEs tomorrow, it would be this: <strong>an agent-ready catalogue service.</strong></p>
+<p>→ Clean the product data: names, specs, HSN codes, units, pack sizes.<br>
+→ Connect live stock and price from whatever billing software or ERP runs the business.<br>
+→ Write delivery, return and warranty terms as fields, not paragraphs.<br>
+→ Publish it where agents look: schema.org markup, product feeds, an order API, an ONDC seller app.<br>
+→ Watch what agents ask for and where you lose, the way we once watched web analytics.</p>
+<p>👉 <strong>[IMAGE: C-agent-customers-3-in-article-agent-readiness.png]</strong><br>
+<em>Caption: The agent-readiness checklist. Seven fields a buyer's agent reads, and what most SMEs show today. Screenshot it before your next website budget meeting.</em></p>
+<p>Someone has to do this work inside the seller's business. That's a job for the forward deployed engineer (FDE), an engineer who sits with the customer's team instead of at the vendor's desk. Some teams call a version of it a Context Engineer: the person who writes the catalogue for agents rather than for people. The titles are still settling. The work is real: turning "call me, we'll manage" into fields a machine can trust.</p>
+<p>Web agencies should pay attention too. The ₹40 lakh redesign budget doesn't vanish. Part of it moves from the banner to the data.</p>
+<p>Banners for people. Data for agents.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>If you had ₹40 lakh for your online presence next year, where would it go: website or catalogue?</strong></p>
+<p>Tag the person who signed off your last website redesign.</p>
+<p>Tomorrow morning: your AI agent agreed a price with a supplier's agent. Is that a contract?</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#AIAgents</span><span>#Ecommerce</span><span>#ONDC</span><span>#MSME</span><span>#DigitalCommerce</span><span>#FutureOfCommerce</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../single-point-of-failure/"><span>&#8592; Previous</span>Your AI Agent Has a Single Point of Failure. It Isn&#x27;t in Your Code.</a><a class="next" href="../brain-operating-system/"><span>Next &#8594;</span>20 Watts Runs Your Whole Body. AI Agents Only Copy the Part You Notice.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

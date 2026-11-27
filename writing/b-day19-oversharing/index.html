@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Just Showed an Intern the CEO&#x27;s Salary. Nobody Hacked Anything.</title>
+<meta name="description" content="Tuesday, 4:40 PM, an auto-components maker in Hosur. Week two of the company&#x27;s AI assistant pilot. Farhan, an engineering intern, is curious about where a career here could take him. He types:…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day19-oversharing/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Just Showed an Intern the CEO&#x27;s Salary. Nobody Hacked Anything.">
+<meta property="og:description" content="Tuesday, 4:40 PM, an auto-components maker in Hosur. Week two of the company&#x27;s AI assistant pilot. Farhan, an engineering intern, is curious about where a career here could take him. He types:…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day19-oversharing/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day19-oversharing/B-day19-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 18 Nov 2026</div>
+  <h1>Your AI Agent Just Showed an Intern the CEO&#x27;s Salary. Nobody Hacked Anything.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day19-1-cover-poster.jpg" alt="Cover: Your AI Agent Just Showed an Intern the CEO&#x27;s Salary. Nobody Hacked Anything." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Tuesday, 4:40 PM, an auto-components maker in Hosur. Week two of the company's AI assistant pilot.</p>
+<p>Farhan, an engineering intern, is curious about where a career here could take him. He types: "What's the salary band for senior managers?"</p>
+<p>The assistant answers in four seconds. "Senior manager band: ₹38–46 lakh. Source: Salary_Bands_FY26.xlsx."</p>
+<p>He clicks the source. The sheet has a second tab called Leadership. The MD and CEO: ₹2.4 crore. By Thursday, a screenshot is in three WhatsApp groups. (The company, the people and every number here are <em>illustrative</em>.)</p>
+<p>The IT head's first question is "Who hacked us?" Nobody did. The logs show Farhan had access to the file. So did the other 1,839 people at Vardhan Industries. Back in 2019, someone shared the HR folder with everyone in the company so staff could read an appraisal FAQ. Every year since, the salary sheet was saved into the same folder.</p>
+<p><strong>The AI didn't leak anything. It just read what you had already shared.</strong></p>
+<p><strong>The problem: ten years of sharing, now searchable in one sentence</strong></p>
+<p>AI assistants inside office suites work with your existing permissions. Microsoft says Copilot grounds its answers in the data users already have permission to access. Google says Gemini has the same access to Workspace data as you do.</p>
+<p>That's the promise, and it's also the problem. Before AI, a lot of files were protected by nobody knowing where they were. Obscurity was your access control. AI just removed it.</p>
+<p>Look inside any 10-year-old SharePoint, OneDrive, Google Drive or file share and you'll find three kinds of mess:</p>
+<p>→ <strong>Folders shared with "everyone".</strong> A team site opened to the whole company for one announcement, and never closed.<br>
+→ <strong>Files saved in the wrong place.</strong> A salary sheet in a team drive. An acquisition deck in a folder called Misc. Customer Aadhaar scans in a sales folder.<br>
+→ <strong>Nobody owns it.</strong> The site owner left in 2021. The folder still has 1,840 readers.</p>
+<p>To be fair, not every old link is a problem. Microsoft says creating a "people in your organisation" link doesn't by itself make a file show up in search or Copilot. But a folder shared with everyone is a different story, and most companies have dozens.</p>
+<p>The stakes are real. A leaked salary sheet costs you a year of HR goodwill. A leaked M&amp;A file can cost you the deal. And salary and customer records are personal data under India's DPDP Act, which expects reasonable security safeguards and allows penalties of up to ₹250 crore for failing at them.</p>
+<p>Here's my slightly unpopular view: <strong>switching the assistant off doesn't fix this.</strong> The files are still open. You've only stopped the one tool honest enough to show you.</p>
+<figure><img src="B-day19-2-in-article-how-it-found-it.jpg" alt="Caption: How one question found the salary file, and the four checks that would have stopped it. All details illustrative." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: How one question found the salary file, and the four checks that would have stopped it. All details illustrative.</figcaption></figure>
+
+<p><strong>The solution: clean the house before you invite the AI in</strong></p>
+<p>→ <strong>1. Find the open doors first.</strong> On Microsoft 365, SharePoint Advanced Management's data access governance reports list sites shared with "Everyone except external users" and where people created the most sharing links. Purview's data security posture management for AI runs oversharing assessments for Copilot. Whatever suite you use, ask the same two questions: what's open to everyone, and who owns it?<br>
+→ <strong>2. Label what matters, then block it.</strong> Put a sensitivity label like "Confidential · HR only" on salary, appraisal, M&amp;A and customer files. Microsoft Purview DLP can stop Copilot from processing labelled files. Google Workspace's DLP for Gemini can block Gemini from using Drive files with a chosen classification label.<br>
+→ <strong>3. Shrink what the AI can find during the pilot.</strong> Microsoft's Restricted Content Discovery keeps chosen sites out of organisation-wide search and Copilot while owners review them. (The older Restricted SharePoint Search allow-list is retiring; new enablement has been blocked since 31 July 2026.)<br>
+→ <strong>4. Ask the awkward questions before your staff do.</strong> Write 30 red-team questions: "What's the MD's salary?", "Which plant is closing?", "Who's on a performance plan?", "What are we paying for the acquisition?" Ask them from an intern's account, a salesperson's, a contractor's. Every answer that shouldn't exist becomes a ticket.<br>
+→ <strong>5. Give every data area a named owner.</strong> Not "IT". The HR head owns the HR site. The CFO owns the board packs. Owners review who has access every quarter.<br>
+→ <strong>6. Clean on a schedule, not once.</strong> People create new links every day. Microsoft suggests running the permission snapshot reports quarterly and the sharing activity reports monthly.</p>
+<p>In our story, the clean-up narrows the HR folder from 1,840 people to 6 and labels the salary sheet. Farhan asks the same question. The assistant says: "I can't share salary data. Ask HR."</p>
+<p><strong>Fix the permissions, then switch on the AI. Not the other way round.</strong></p>
+<figure><img src="B-day19-3-in-article-clean-first.jpg" alt="Caption: Switch on, then clean vs clean, then switch on. Screenshot it before your rollout meeting." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: Switch on, then clean vs clean, then switch on. Screenshot it before your rollout meeting.</figcaption></figure>
+
+<p>👉 <strong>[GIF: B-day19-4-in-article-file-map.gif]</strong><br>
+<em>Caption: Six sensitive folders open to everyone. One intern's question finds the salary file. The clean-up labels and narrows them, and the same question is refused. All details illustrative.</em></p>
+<p><strong>Who does the clean-up</strong></p>
+<p>This isn't a one-person job, and it isn't only an IT job. Someone has to sit with HR, finance, legal and sales, open every folder, and ask "who should really see this?" That's the work of a <strong>forward deployed engineer (FDE)</strong>: an engineer who works inside the customer's teams and ships on their real systems. One department a week is a realistic pace.</p>
+<p>Then someone has to own what the assistant may answer, run the red-team questions every month, and read the refusals. Some companies call that person an <strong>AI Agent Manager</strong>. The titles are still settling. The job isn't new: it's access control, finally taken seriously.</p>
+<p>On 2 Nov I wrote about an accountant who pasted 400 invoices into a free AI tool. That was data walking out of the front door. This is the other half: data that was never locked inside.</p>
+<p><strong>The hard parts</strong></p>
+<p>→ <strong>Labels are only as good as the labelling.</strong> Auto-labelling misses things, and people pick "General" to save a click. Spot-check the sensitive sites by hand.<br>
+→ <strong>Lock too much and the assistant becomes useless.</strong> Then people go back to pasting files into free tools. Restrict the sensitive 5%, not everything.<br>
+→ <strong>Restricting discovery isn't a security boundary.</strong> Restricted Content Discovery doesn't change permissions. Anyone who already has access can still open the file. Fix the access too.<br>
+→ <strong>Orphan sites are the slowest part.</strong> When the owner left years ago, nobody can say who should see what. Someone senior has to decide.<br>
+→ <strong>It isn't only the office suite.</strong> Wikis, chat tools and old file shares connected to an agent bring their own ten years of sharing.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For CIOs:</strong> run the "everyone" report before you buy one more AI licence. The number will surprise you.<br>
+→ <strong>For CISOs:</strong> add 30 red-team questions to your launch checklist, and re-run them after every major change.<br>
+→ <strong>For HR heads:</strong> move salary, appraisal and disciplinary files to an HR-only site with a named owner this month.<br>
+→ <strong>For IT services firms and consultants:</strong> "AI readiness" access clean-ups as a fixed-price service for Indian mid-size firms, label sets built for Indian data (Aadhaar, PAN, salary, GST), and a monthly oversharing health report as a retainer. FDEs who can do it department by department will be in demand.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Before your AI rollout: clean the permissions first, or launch and fix as you go? Pick one.</strong></p>
+<p>Tag the IT head who'll get the call when the intern asks.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#AIGovernance</span><span>#DataSecurity</span><span>#Copilot</span><span>#DPDP</span><span>#CISO</span><span>#HRTech</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../b-day18-hiring/"><span>&#8592; Previous</span>AI Agents Write the CVs. AI Agents Screen Them. Who Answers for the ₹9 Lakh Bad Hire?</a><a class="next" href="../b-day20-voice-crm/"><span>Next &#8594;</span>Your Sales Reps Spend ₹1 Lakh a Month Typing Into the CRM. An AI Agent Can Do It by Voice.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

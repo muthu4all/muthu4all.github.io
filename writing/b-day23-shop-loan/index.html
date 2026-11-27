@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Tailor Waited 15 Days for a ₹5 Lakh Loan. The Real Work Took 15 Minutes.</title>
+<meta name="description" content="Murugan runs a tailoring shop near the Meenakshi temple in Madurai. Six machines, four people, and a waiting list every wedding season. In early December he gets the order of his year: 40 bridal…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day23-shop-loan/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="A Tailor Waited 15 Days for a ₹5 Lakh Loan. The Real Work Took 15 Minutes.">
+<meta property="og:description" content="Murugan runs a tailoring shop near the Meenakshi temple in Madurai. Six machines, four people, and a waiting list every wedding season. In early December he gets the order of his year: 40 bridal…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day23-shop-loan/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day23-shop-loan/B-day23-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 25 Nov 2026</div>
+  <h1>A Tailor Waited 15 Days for a ₹5 Lakh Loan. The Real Work Took 15 Minutes.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day23-1-cover-poster.jpg" alt="Cover: A Tailor Waited 15 Days for a ₹5 Lakh Loan. The Real Work Took 15 Minutes." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Murugan runs a tailoring shop near the Meenakshi temple in Madurai. Six machines, four people, and a waiting list every wedding season. In early December he gets the order of his year: 40 bridal blouses for one family, due before Thai.</p>
+<p>He needs two more machines. He applies for a ₹5 lakh business loan at his bank on a Monday morning, with everything they ask for in a plastic folder.</p>
+<p>Then he waits.</p>
+<p>Day 3, the file goes to a processing centre in another city. Day 6, someone notices page 4 of a bank statement is missing. The file comes back. Murugan closes the shop for half a day to bring it in. Day 9, it goes out again. Day 12, a credit officer finally reads it. Day 15, the loan is sanctioned.</p>
+<p>By then the family had given half the order to another tailor.</p>
+<p>Here's the part that stings. For a file this simple, the actual checking (read the statements, match the GST returns, work out what he can repay) is maybe 15 minutes of focused work. The other 14 days and 23 hours are the file moving between desks. (Murugan, his shop and every number here are <em>illustrative</em>. The pattern is very real.)</p>
+<p><strong>The problem: the work is small, the waiting is big</strong></p>
+<p>Small loans are expensive to process for what they earn, so they go to the back of the queue. And the file is built by hand:</p>
+<p>→ Documents arrive as paper or blurry phone photos, so someone checks them page by page<br>
+→ Gaps are found late, one at a time, and each one costs days<br>
+→ The person who checks isn't the person who decides, and neither talks to the borrower<br>
+→ The borrower can't see where the file is. "It's under process" is the whole status</p>
+<p>None of this is about whether Murugan is a good borrower. It's about desks.</p>
+<p><strong>A loan file shouldn't need a bus ticket.</strong></p>
+<p><strong>The solution: an agent builds the file, a person decides</strong></p>
+<p>I'd put an underwriting assistant (an AI agent) at the start, not the end. Its job is to prepare, never to approve.</p>
+<p>Here's how it would work for Murugan:</p>
+<ol>
+<li><strong>He gives consent once, on his phone.</strong> Through the Account Aggregator framework, his bank statements, and his GST returns if he's registered, flow to the lender digitally. RBI created Account Aggregators as a licensed category in 2016, the network went live in 2021, and GST data was brought in later as a source. No folder, no missing page 4.</li>
+<li><strong>The agent reads everything and flags gaps in the first minute,</strong> not on day 6. "GST return for August not found. Ask Murugan or note it."</li>
+<li><strong>Code, not the model, calculates the numbers.</strong> Average monthly credits, UPI collections from customers, existing EMIs, cheque bounces. Fixed formulas, same answer every time.</li>
+<li><strong>The agent writes a one-page summary</strong> where every line points to its source document. Then it stops.</li>
+<li><strong>A credit officer reads it and decides,</strong> with their name on the decision.</li>
+<li><strong>Murugan sees the status on WhatsApp</strong> in plain Tamil or English: received, complete, with the officer, decided. If it's a no, he gets the reason and a way to ask for a second look.</li>
+</ol>
+<figure><img src="B-day23-2-in-article-loan-journey.jpg" alt="Caption: The new path for a small loan: Murugan&#x27;s documents, with consent → the agent builds and checks the file → the credit officer decides → Murugan sees every step. The agent prepares. A person decides." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: The new path for a small loan: Murugan&#x27;s documents, with consent → the agent builds and checks the file → the credit officer decides → Murugan sees every step. The agent prepares. A person decides.</figcaption></figure>
+
+<p>There's bigger plumbing coming too. RBI's Unified Lending Interface (ULI), piloted in 2023 and named in August 2024, connects lenders to data like GST records and land records through standard APIs. Business Standard reported 64 lenders on it by the end of 2025, so it's early, but it's the same idea: the data travels, not the borrower.</p>
+<p><strong>Who decides what</strong></p>
+<p>This is the part I'd write down before writing any code. If the agent's role is fuzzy, it will slowly become the approver, and nobody will notice.</p>
+<figure><img src="B-day23-3-in-article-who-decides.jpg" alt="Caption: Four roles, four verbs. The agent prepares, code calculates, the officer decides, the borrower can appeal. Pin it next to the credit policy." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: Four roles, four verbs. The agent prepares, code calculates, the officer decides, the borrower can appeal. Pin it next to the credit policy.</figcaption></figure>
+
+<p>The agent prepares. Code calculates. A person decides. The borrower can push back. Keep those four verbs separate and you can explain any decision to an auditor, to RBI, or to Murugan.</p>
+<p><strong>Watch it work</strong></p>
+<figure><img src="B-day23-4-in-article-file-journey.gif" alt="Caption: Before: the file crawls desk to desk and the day counter reaches 15. After: the agent builds the file in 15 minutes, the officer decides on day 2." width="1000" height="608" loading="lazy" decoding="async"><figcaption>Caption: Before: the file crawls desk to desk and the day counter reaches 15. After: the agent builds the file in 15 minutes, the officer decides on day 2.</figcaption></figure>
+
+<p><strong>The hard parts</strong></p>
+<p>→ <strong>Thin files.</strong> Plenty of tailors, kirana owners and auto drivers aren't GST-registered and run part of their business in cash. The agent can only read what exists. UPI history helps; it isn't everything.<br>
+→ <strong>The summary can be wrong.</strong> A model can misread a statement or make up a tidy sentence. That's why every line must cite its source, and why ratios come from code.<br>
+→ <strong>Rubber-stamping.</strong> When the file looks perfect, officers stop reading. Track how often they disagree with the draft. If it's zero, that's a warning, not a win.<br>
+→ <strong>Bias moves faster.</strong> If past approvals were unfair to certain areas or trades, an agent trained on them repeats it at speed. Someone has to check outcomes by trade, area and gender.<br>
+→ <strong>Consent and privacy.</strong> Bank statements are some of the most personal data a person has. Ask for only what the loan needs, keep it only as long as the loan needs it, and tell the borrower in plain words.</p>
+<p>There's a new role in the middle of this. A forward deployed engineer (FDE) is an engineer who works inside the customer's team rather than at head office, on their real systems and files. For a lender, that's someone who spends three weeks with the credit team, sits through 50 real files, and finds out which checks matter and which are habit. The title is still settling across companies. The work is what makes the agent useful.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For banks and NBFCs:</strong> small-ticket business loans are where the turnaround is worst and the volume is biggest. Cut 15 days to two and you win the borrower who'd otherwise go to the moneylender.<br>
+→ <strong>For fintechs and IT services firms:</strong> underwriting assistants built on Account Aggregator and ULI rails, sold with the boring parts done properly: source citations, audit logs, a decision screen for the officer, and a status page for the borrower.<br>
+→ <strong>For MSME owners:</strong> keep your UPI collections in your business account and file your returns on time, if you're registered. Your digital trail is now your collateral story.<br>
+→ <strong>For everyone else:</strong> when someone in your family applies for a loan, ask the lender one question: "Who decides, and how will I know the status?"</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Would you accept a loan decision if an AI agent prepared the file and a named officer signed it? Yes or no.</strong></p>
+<p>Tag a friend who runs a small shop and has waited on a loan.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#MSME</span><span>#DigitalLending</span><span>#AccountAggregator</span><span>#FinTech</span><span>#SmallBusiness</span><span>#AIinBanking</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../b-day22-test-debt/"><span>&#8592; Previous</span>Your AI Agent Changed the Payment Code. Your 2012 Test Suite Said It Was Fine.</a><a class="next" href="../b-day24-app-sprawl/"><span>Next &#8594;</span>You Log Into 14 Apps Before Lunch. Will AI Agents Make It 15?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

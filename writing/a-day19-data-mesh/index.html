@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Paid ₹27 Lakh on Bad Sales Data. Which Team Owns the Mistake?</title>
+<meta name="description" content="The first week of November. A Chennai company that sells fans and mixer grinders across the south runs its new incentive agent for October, the Diwali month. The agent reads the sales data, works out…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day19-data-mesh/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Paid ₹27 Lakh on Bad Sales Data. Which Team Owns the Mistake?">
+<meta property="og:description" content="The first week of November. A Chennai company that sells fans and mixer grinders across the south runs its new incentive agent for October, the Diwali month. The agent reads the sales data, works out…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day19-data-mesh/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day19-data-mesh/A-day19-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 19/50 · 14 Nov 2026</div>
+  <h1>Your AI Agent Paid ₹27 Lakh on Bad Sales Data. Which Team Owns the Mistake?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day19-1-cover-poster.jpg" alt="Cover: Your AI Agent Paid ₹27 Lakh on Bad Sales Data. Which Team Owns the Mistake?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>The first week of November. A Chennai company that sells fans and mixer grinders across the south runs its new incentive agent for October, the Diwali month. The agent reads the sales data, works out each rep's payout and sends the file to payroll.</p>
+<p>Karnataka looks spectacular. ₹14.2 crore in sales.</p>
+<p>Two weeks later, finance notices that ₹1.9 crore of that was returns. The Karnataka team loads gross sales into the shared sales table and books returns separately. Every other region loads net. The agent had no way to know. ₹27 lakh in incentives went out on sales that came back. (The company and every number here are <em>illustrative</em>. The pattern isn't.)</p>
+<p>Then the meeting. The central data team says, "We load what the regions send." Karnataka sales ops says, "IT built that table." IT says, "Ask the data team."</p>
+<p><strong>Three teams. One table. Zero owners.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>Most companies still run data the way they did in 2010. Every department sends its data to one central team. That team loads it into a warehouse or a lake, in tables named things like <code>sales_all_regions_v2</code>. Everyone reads from there.</p>
+<p>The central team knows SQL. It doesn't know that Karnataka books returns differently, or that a "sale" in the dealer channel means something else in e-commerce. The people who do know that sit in sales ops and never see the table.</p>
+<p>That gap was survivable when a person read the report. An analyst in Bengaluru would look at Karnataka's number and say, "That's too high." An agent doesn't say that. It pays.</p>
+<p><strong>Where AI plugs in now: give every dataset an owner before you give it an agent</strong></p>
+<p>Data mesh is an idea Zhamak Dehghani laid out at Thoughtworks in 2019. It has four principles: domains own their data, data is treated as a product, a self-serve platform makes that easy, and governance is shared rather than central. It was hard to justify for dashboards. Agents make it urgent.</p>
+<p>Here's the practical version for an agent:</p>
+<p>→ <strong>Each domain publishes a data product.</strong> Sales ops owns <code>sales.net_orders</code>. Finance owns <code>finance.receivables</code>. Inventory owns <code>stock.on_hand</code>. Not tables: products, with a version number.<br>
+→ <strong>Each product has a contract.</strong> What's in, what's out ("returns excluded"), the columns and types, how fresh it is, which checks it must pass.<br>
+→ <strong>Each product has a named owner.</strong> A person, not a team mailbox. If the contract breaks, that person gets the call.<br>
+→ <strong>Agents call products, not tables.</strong> The data product is exposed as a tool, often through an MCP server, with the same permissions a person would have. The agent never wanders into <code>sales_all_regions_v2</code> again.<br>
+→ <strong>A failed check blocks the agent.</strong> If Karnataka's load still has returns in it, the product fails its contract, the agent gets "not available", and the owner is paged.</p>
+<p>👉 <strong>[IMAGE: A-day19-2-in-article-architecture.png]</strong><br>
+<em>Caption: Each domain owns a data product with a contract and a named owner. Agents call products through a catalog, never raw tables. Grey is what you already have. Amber is new.</em></p>
+<p>This isn't the same as Day 11's semantic layer. That was about defining "revenue" once. This is about who stands behind the data underneath it, region by region, when it goes wrong.</p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I expect agents to be the biggest consumers of company data, ahead of dashboards. An incentive agent, a replenishment agent, a collections agent and the CFO's assistant, all asking the sales domain every hour.</p>
+<p>At that point a data product starts to look like an API product. It'll have a catalog page, a contract file in version control, an uptime promise and a usage bill: which agents called it, how often, and what they decided with it. The tooling is heading there already. Databricks offers managed MCP servers governed by Unity Catalog permissions. Snowflake's Horizon Catalog has an internal marketplace for sharing governed data products. Collibra has an MCP server that lets agents read data contracts. And the Open Data Contract Standard, a Linux Foundation project, is trying to give contracts one common format.</p>
+<p>I'm honestly not sure which of these will become the standard. I am sure that "which team owns this table?" will become a question you must answer before an agent may read it.</p>
+<p>👉 <strong>[IMAGE: A-day19-3-in-article-product-card.png]</strong><br>
+<em>Caption: The data product card. Seven fields to fill in before any agent is allowed to call it. Screenshot it for your next data review.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>One agent request, three domain data products. One of them fails its contract.</p>
+<p>👉 <strong>[GIF: A-day19-4-in-article-contract-check.gif]</strong><br>
+<em>Caption: Inventory and finance pass. Sales fails its "returns excluded" check, so the agent is blocked and the owner is paged, before any money moves. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ Every number an agent uses has a person behind it, so the blame meeting becomes a five-minute call<br>
+→ The people who understand the data now control its quality, instead of a central team guessing<br>
+→ Agents get clean, versioned tools instead of hundreds of tables, which also makes their answers easier to audit</p>
+<p><strong>Cons</strong><br>
+→ It's an organisation change before it's a technology change, and sales ops didn't ask for a new job<br>
+→ Domains drift apart. Five teams with five definitions of "customer" is a mess of a different kind<br>
+→ Smaller companies may not have enough people to own a product per domain. For them, start with the one domain that feeds an agent that moves money</p>
+<p><strong>The hard part</strong></p>
+<p>It's getting sales ops to say yes. Owning a data product means being woken up when the check fails. Nobody volunteers for that. It has to be written into someone's role, with time and credit for doing it.</p>
+<p>That's where the new roles come in. A <strong>data product owner</strong> in each domain is the business person who signs the contract. A <strong>Context Engineer</strong>, the person who decides what an agent may read and how, wires those products into the agent's tools. And a <strong>forward deployed engineer (FDE)</strong>, an engineer who works inside the customer's team and ships on their real systems, is usually the one who discovers, in week one, that Karnataka books returns differently. These titles are still settling. The Karnataka problem isn't.</p>
+<p><strong>The opportunity</strong></p>
+<p>Every company putting agents on top of its data has inherited tables nobody owns. They'll pay to fix that before the next payout goes wrong.</p>
+<p>That's the market: <strong>data products packaged as agent tools.</strong> Pick the five datasets your agents touch most. Find a business owner for each. Write the contract, add the checks, publish it through a catalog with an MCP endpoint, and retire the raw-table access. Then run it as a service, with one monthly report to the CFO: which agents used which products, how many checks failed, and how much money those failures would have moved.</p>
+<p>In India, start with distributors, NBFCs and retailers with many regions or branches. Every region does things slightly differently, and every one of them is about to be read by an agent.</p>
+<p><strong>Tools to try</strong><br>
+Databricks Unity Catalog with its managed MCP servers · Snowflake Horizon Catalog and its internal marketplace · dbt model contracts to enforce columns and types · Collibra or Atlan to catalogue products and their owners · the Open Data Contract Standard for a vendor-neutral contract file · any model behind the agent: Claude, GPT, Gemini or an open model.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>When an agent pays out on bad data, who owns the mistake: the data team or the business team? Pick one.</strong></p>
+<p>Tag the person in your company who'd get the call if your sales numbers were wrong.</p>
+<p><em>Day 19 of 50 · follow along. Tomorrow: Day 20 · Your AI Agent Approved Loans on a Stale Credit Score. Who Pays for the Bad Debt?</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#DataMesh</span><span>#DataProducts</span><span>#DataGovernance</span><span>#ContextEngineering</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day18-knowledge-graph/"><span>&#8592; Previous</span>Three Companies. One Owner. ₹50 Lakh Credit Each. Your AI Agent Didn&#x27;t Connect Them.</a><a class="next" href="../a-day20-feature-store/"><span>Next &#8594;</span>Your AI Agent Approved Loans on a Stale Credit Score. Who Pays for the Bad Debt?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

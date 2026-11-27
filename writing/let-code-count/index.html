@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Let AI Talk. Let Code Count.</title>
+<meta name="description" content="Try this experiment. Give an AI model a messy invoice, with a few line items, a discount and GST, and ask it for the total. Then ask again in a new chat. And again. Most of the time you&#x27;ll probably…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/let-code-count/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Let AI Talk. Let Code Count.">
+<meta property="og:description" content="Try this experiment. Give an AI model a messy invoice, with a few line items, a discount and GST, and ask it for the total. Then ask again in a new chat. And again. Most of the time you&#x27;ll probably…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/let-code-count/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/let-code-count/1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Essay · 22 Oct 2026</div>
+  <h1>Let AI Talk. Let Code Count.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="1-cover-poster.jpg" alt="Cover: Let AI Talk. Let Code Count." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Try this experiment.</p>
+<p>Give an AI model a messy invoice, with a few line items, a discount and GST, and ask it for the total.</p>
+<p>Then ask again in a new chat. And again.</p>
+<p>Most of the time you'll probably get the right number. Sometimes you won't. Occasionally you'll get three slightly different totals, each explained with complete confidence.</p>
+<p>For a blog post, that's fine. For an invoice, it's a problem.</p>
+<p>I've been in IT for 25 years, at Infosys and then as a consultant and fractional executive, and a lot of that time has been spent on systems where "approximately correct" simply means wrong. You can't approximately pay a vendor. You can't approximately file taxes.</p>
+<p>That's the gap I want to talk about.</p>
+<p><strong>AI works on probability. Business runs on certainty.</strong></p>
+<p>Large language models don't look up answers. They predict the next word (strictly speaking, the next token) based on probabilities learned from enormous amounts of text.</p>
+<p>That's exactly why they're so useful. Ask why sales dropped and you'll get a thoughtful answer covering pricing, churn, competition and seasonality. Ask again and you'll get a slightly different, equally useful one.</p>
+<p>For explanations, ideas and drafts, that variation is a feature.</p>
+<p>Now think about:</p>
+<p>→ An invoice total<br>
+→ A tax calculation<br>
+→ An interest computation<br>
+→ An engineering measurement<br>
+→ A dosage, a load limit, a reconciliation</p>
+<p>Here we don't want a <em>good</em> answer. We want <em>the</em> answer, and the same one every time we ask.</p>
+<p>If a room is 5 m by 4 m, the area is 20 m². Not 19.8 on Monday and 20.3 on Tuesday.</p>
+<p><strong>Three things people often get wrong about this</strong></p>
+<p><strong>1. Not every wrong answer is a hallucination.</strong><br>
+A hallucination is when the model confidently makes something up. But an answer can also be correct and irrelevant, relevant and wrong, or simply uncertain because the data isn't there. Each of these failures needs different handling. Calling all of them "hallucination" hides the real problem.</p>
+<p><strong>2. Temperature zero doesn't turn an LLM into a calculator.</strong><br>
+Lowering randomness makes answers more repeatable. It doesn't guarantee identical outputs across model versions or infrastructure, and it certainly doesn't make them correct. A model can be consistently wrong.</p>
+<p><strong>3. Consistent isn't the same as correct.</strong><br>
+A miscalibrated weighing scale gives you the same wrong reading every time. Determinism without accuracy is just reliable error.</p>
+<p><strong>Haven't the newer models fixed this?</strong></p>
+<p>Partly, and they deserve credit.</p>
+<p><strong>Structured outputs</strong> can force a model to answer in an exact format, such as specific fields and types. <strong>Tool calling</strong> lets a model hand work to a real calculator, database or API instead of guessing.</p>
+<p>These are big steps forward. But here's the catch:</p>
+<p><strong>A perfectly formatted answer can still contain the wrong number.</strong></p>
+<p>The JSON can be valid and the invoice total still wrong. The model can call the calculator and pass it the wrong quantity.</p>
+<p>So the fix isn't just better models. It's better <em>architecture</em>.</p>
+<p><strong>The principle: let AI talk, let code count</strong></p>
+<p>Stop asking one model to do everything. Split the work.</p>
+<p>Take that invoice:</p>
+<p><strong>1. AI reads.</strong> The model understands the request and the messy document. This is what it's brilliant at.</p>
+<p><strong>2. Structure and check.</strong> It extracts quantities, prices and tax codes into a strict format. Anything missing or ambiguous gets flagged. It's never quietly filled in.</p>
+<p><strong>3. Code calculates.</strong> A proper tax engine applies the formulas and rounding rules. Plain, boring, tested code. No predictions.</p>
+<p><strong>4. Verify.</strong> Recalculate independently, reconcile with the records, and get a human to approve if the stakes are high.</p>
+<p><strong>5. AI explains.</strong> Now the model comes back and explains the verified total in plain language: what was charged, why, and what looked odd.</p>
+<p>The model brings the intelligence. The system holds the authority.</p>
+<p>Same invoice. Same total. Every time.</p>
+<p><strong>This matters even more with AI agents</strong></p>
+<p>An agent doesn't just answer. It decides which tool to use, gathers data and takes actions. Every one of those steps is a new chance to go wrong.</p>
+<p>So the boundaries need to be explicit.</p>
+<p>An agent can <em>prepare</em> a payment from an invoice. That doesn't mean it should <em>approve and execute</em> the payment on its own.</p>
+<p>Reading the invoice, calculating the amount, checking the vendor, authorising and paying should each have a clear owner and a clear control. The agent coordinates. It isn't the final authority on everything.</p>
+<p>And when something doesn't add up, the system should <strong>fail closed</strong>: stop and ask instead of inventing a value to keep the workflow moving.</p>
+<p><strong>Where this leaves us</strong></p>
+<p>The first wave of enterprise GenAI was about what models <em>can</em> do.</p>
+<p>The next wave is about how <em>reliably</em> we can plug them into real business operations.</p>
+<p>A proof of concept shows the model can read an invoice. A production system has to show that the data was validated, the maths was right, permissions were respected, failures were handled and the whole thing can be audited.</p>
+<p>That doesn't come from prompt engineering. It comes from system design.</p>
+<p>So I don't think the goal is to make AI deterministic. That fights the very thing that makes it useful.</p>
+<p>The goal is to make sure <strong>probabilistic outputs can never bypass the deterministic controls your business depends on.</strong></p>
+<p>Let AI talk. Let code count.</p>
+<hr>
+<p>I'm curious how others are handling this 👇</p>
+<p><strong>In your AI systems, where exactly do you draw the line between what the LLM decides and what code decides?</strong></p>
+</div>
+<div class="tags"><span>#GenerativeAI</span><span>#EnterpriseAI</span><span>#AIAgents</span><span>#SoftwareArchitecture</span><span>#LLMOps</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../idea-backlog/"><span>&#8592; Previous</span>100 Ideas. 10 Got Built. AI Just Changed What Happens to the Other 90.</a><a class="next" href="../living-agent/"><span>Next &#8594;</span>Your AI Agent Has a Brain and Hands. It&#x27;s Missing the Organs That Keep It Alive.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

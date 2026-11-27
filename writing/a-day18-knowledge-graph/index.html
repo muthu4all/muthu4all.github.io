@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Three Companies. One Owner. ₹50 Lakh Credit Each. Your AI Agent Didn&#x27;t Connect Them.</title>
+<meta name="description" content="An NBFC in Coimbatore put an AI agent on its business-loan desk. It reads the bank statements, checks the GST returns, pulls the bureau report and writes the credit note. It&#x27;s fast and it&#x27;s thorough.…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day18-knowledge-graph/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Three Companies. One Owner. ₹50 Lakh Credit Each. Your AI Agent Didn&#x27;t Connect Them.">
+<meta property="og:description" content="An NBFC in Coimbatore put an AI agent on its business-loan desk. It reads the bank statements, checks the GST returns, pulls the bureau report and writes the credit note. It&#x27;s fast and it&#x27;s thorough.…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day18-knowledge-graph/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day18-knowledge-graph/A-day18-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 18/50 · 13 Nov 2026</div>
+  <h1>Three Companies. One Owner. ₹50 Lakh Credit Each. Your AI Agent Didn&#x27;t Connect Them.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day18-1-cover-poster.jpg" alt="Cover: Three Companies. One Owner. ₹50 Lakh Credit Each. Your AI Agent Didn&#x27;t Connect Them." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>An NBFC in Coimbatore put an AI agent on its business-loan desk. It reads the bank statements, checks the GST returns, pulls the bureau report and writes the credit note. It's fast and it's thorough.</p>
+<p>In March it approved three working-capital loans of ₹50 lakh each. Sri Vinayaga Traders, SV Textiles and Vinayaga Exports. Each file was clean. Each got the same careful review, one at a time.</p>
+<p>All three had the same director, R. Shankar. Two shared an office address in Tiruppur. One stood guarantor for another. That's ₹1.5 crore of exposure to one family of companies, and nobody saw it as one. In November the group stopped paying. All three loans went bad in the same week. (The NBFC, the firms, the director and every number are <em>illustrative</em>. Credit teams will recognise the pattern.)</p>
+<p><strong>The agent read every document. It never asked who was behind them.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>Most enterprise data lives in tables, and most AI agents read documents. Neither is good at relationships.</p>
+<p>A loan system stores applications as rows. The documents sit in a file store, maybe embedded for search, as we saw on Day 15. Ask the agent about Sri Vinayaga Traders and it finds everything about Sri Vinayaga Traders. It doesn't think to look for the other two firms, because nothing in the question mentions them.</p>
+<p>A knowledge graph stores the connections themselves. Things become nodes: a company, a person, a PAN, a GSTIN, an address, a bank account. Facts become edges: <em>is director of</em>, <em>owns</em>, <em>stands guarantor for</em>, <em>shares an address with</em>. Once the edges exist, "who is connected to this applicant?" is a simple query, not a research project.</p>
+<p>👉 <strong>[IMAGE: A-day18-2-in-article-architecture.png]</strong><br>
+<em>Caption: The loan system and document store stay. An extraction step builds a graph of companies, people, IDs and addresses, and the agent asks the graph before it writes a credit note. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: build the graph, then make the agent ask it</strong></p>
+<p>The first job for AI here isn't the decision. It's the extraction, which used to take an analyst a day per file.</p>
+<p>→ <strong>Pull out the entities.</strong> A model reads the application, the GST registration, the board resolution and the bank statements, and lists every company, person, PAN, GSTIN, address and account it finds.<br>
+→ <strong>Resolve them.</strong> "R. Shankar", "Shankar R" and "Ramasamy Shankar" with the same PAN are one person. Plain code does the matching on hard IDs first; the model only suggests matches where IDs are missing, and a person approves those.<br>
+→ <strong>Write the edges.</strong> Director of. Guarantor for. Same address. Same bank account. Each edge keeps its source document.<br>
+→ <strong>Make the graph a required step.</strong> Before the agent writes any credit note, it runs one question: "Show every company and person within two hops of this applicant, and our total exposure to them."</p>
+<p>India makes this easier than most places. A GSTIN carries the business's PAN inside it, so firms that share a PAN line up at once. Directors are linked to companies through their DIN in the MCA's records. The data was always there. It just wasn't joined.</p>
+<p>When an agent combines graph answers with document text like this, people call it <strong>GraphRAG</strong>. Microsoft's open-source GraphRAG project is one well-known version; Neo4j, Amazon Neptune and others offer their own.</p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I expect the graph to become the agent's sense of context. Not "what does this document say?" but "how does this fit with everything else we know?"</p>
+<p>The same graph answers questions across the company. Credit asks about connected borrowers. Procurement asks whether a new vendor shares a director with an existing one. Compliance asks who's related to a politically exposed person. Supply chain asks which of our suppliers depend on the same single factory.</p>
+<p>Regulators already think this way. The RBI's large exposures framework for upper-layer NBFCs asks lenders to treat a "group of connected counterparties" as one exposure, linked through control or economic interdependence. An agent that judges each borrower alone is working against the rule, not with it.</p>
+<p>👉 <strong>[IMAGE: A-day18-3-in-article-hop-checks.png]</strong><br>
+<em>Caption: Five connection checks to run before an agent approves credit. Screenshot it for your next credit-policy review. Illustrative.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>Three files, reviewed one by one, then drawn as a graph.</p>
+<p>👉 <strong>[GIF: A-day18-4-in-article-connect-the-dots.gif]</strong><br>
+<em>Caption: The nodes appear, the edges draw in, and one director ties three ₹50 lakh loans into a ₹1.5 crore exposure. The agent's answer changes. All details illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ The agent sees the group, not just the borrower, which is how credit risk actually works<br>
+→ Every connection keeps its source, so the credit committee can check why two firms are linked<br>
+→ One graph serves credit, procurement, compliance and fraud, so you build it once</p>
+<p><strong>Cons</strong><br>
+→ Entity resolution is hard. Get it wrong and you merge two different "Shankars", or miss the same one spelt two ways<br>
+→ Graphs need upkeep. Directors resign, addresses change, guarantees expire, and a stale edge is a wrong answer<br>
+→ A new store, a new query language, and a new skill your data team may not have yet</p>
+<p><strong>The hard parts</strong></p>
+<p>The model is the easy bit. The hard bit is deciding what the entities are and what counts as "connected". Is a shared accountant a connection? A shared phone number? A brother-in-law? Each answer changes who gets credit.</p>
+<p>That design work is becoming a role. Some companies call it a <strong>Context Engineer</strong>: the person who decides what the agent can see and how it's shaped, here the entities, the edges and their sources. And a forward deployed engineer (FDE), an engineer who works inside the customer's team and ships on their real systems, sits with the credit officers for two weeks to learn which connections they actually check by hand today. These titles are still settling. The work isn't.</p>
+<p>There's also a fairness question. A graph can find real risk, and it can also tar someone by association. Every "connected" flag should go to a person with the evidence, not quietly lower a score.</p>
+<p><strong>The opportunity</strong></p>
+<p>Every lender, insurer and large buyer in India has this blind spot, and most have the raw data to fix it: GST registrations, director records, KYC files and their own loan books.</p>
+<p>That's the market: <strong>graph-backed AI for credit, compliance, supply chain and fraud.</strong> A "connected-party check" as a service for NBFCs and co-operative banks. Vendor-relationship graphs for procurement teams. Supplier-dependency maps for manufacturers. Each starts with the same project: extract the entities, resolve them, and put a two-hop check in front of every agent that moves money.</p>
+<p><strong>Tools to try</strong><br>
+Neo4j or Memgraph as the graph database · Amazon Neptune or TigerGraph at larger scale · Microsoft's open-source GraphRAG to build graphs from documents · any model for entity extraction: Claude, GPT, Gemini or an open model · your existing KYC, GST and loan data as the first source.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Should an AI agent be allowed to approve credit without checking connected parties: yes or no? One word.</strong></p>
+<p>Tag the credit officer who still connects these dots by hand.</p>
+<p><em>Day 18 of 50 · follow along. Tomorrow: Day 19 · Your AI Agent Paid ₹27 Lakh on Bad Sales Data. Which Team Owns the Mistake?</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#KnowledgeGraph</span><span>#GraphRAG</span><span>#CreditRisk</span><span>#NBFC</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day17-advanced-rag/"><span>&#8592; Previous</span>Your AI Agent Cited Clause 14. Clause 14 Doesn&#x27;t Exist. Who Signed Off?</a><a class="next" href="../a-day19-data-mesh/"><span>Next &#8594;</span>Your AI Agent Paid ₹27 Lakh on Bad Sales Data. Which Team Owns the Mistake?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

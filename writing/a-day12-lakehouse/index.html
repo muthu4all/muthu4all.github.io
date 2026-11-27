@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>You Paid ₹1 Crore to Store Data Your AI Agent Can&#x27;t Use.</title>
+<meta name="description" content="The CFO of a Chennai auto-parts distributor typed one question into the company&#x27;s new AI agent: &quot;What credit period did we agree with Sri Murugan Traders?&quot; The agent replied: &quot;I couldn&#x27;t find that…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day12-lakehouse/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="You Paid ₹1 Crore to Store Data Your AI Agent Can&#x27;t Use.">
+<meta property="og:description" content="The CFO of a Chennai auto-parts distributor typed one question into the company&#x27;s new AI agent: &quot;What credit period did we agree with Sri Murugan Traders?&quot; The agent replied: &quot;I couldn&#x27;t find that…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day12-lakehouse/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day12-lakehouse/A-day12-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 12/50 · 7 Nov 2026</div>
+  <h1>You Paid ₹1 Crore to Store Data Your AI Agent Can&#x27;t Use.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day12-1-cover-poster.jpg" alt="Cover: You Paid ₹1 Crore to Store Data Your AI Agent Can&#x27;t Use." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>The CFO of a Chennai auto-parts distributor typed one question into the company's new AI agent:</p>
+<p>"What credit period did we agree with Sri Murugan Traders?"</p>
+<p>The agent replied: "I couldn't find that information."</p>
+<p>The answer was sitting in their own data lake, on page 3 of a scanned agreement from 2022, in a folder called <code>scans_final_v2</code>. Next to it were 4.2 lakh other files: PDFs, email exports, call recordings, WhatsApp chats. Over five years the lake had cost them about ₹1 crore in storage, licences and the team that built it. (The company, the vendor and every number here are <em>illustrative</em>. The pattern isn't.)</p>
+<p><strong>They didn't have a data problem. They had a reading problem.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>A data lake is the cheap basement of a company's data. You dump everything into object storage in its raw form and decide later what to do with it. A lakehouse adds a proper floor on top: open table formats like Apache Iceberg and Delta Lake turn files into tables with transactions, versions and a catalog, so dashboards and SQL can trust them.</p>
+<p>That top floor works well for rows and columns. Sales, stock, ledgers.</p>
+<p>Everything else stays in the basement as files. Invoices as scanned images. Contracts as PDFs. Customer complaints as call audio. Nobody parsed them, so nobody can query them. Analysts have repeated for years that most company data, 80% or more by the usual estimate, is unstructured. That's the part your AI agent needs most, and it's the part the lake never learned to read.</p>
+<p>👉 <strong>[IMAGE: A-day12-2-in-article-architecture.png]</strong><br>
+<em>Caption: The lake you already have, plus one new lane that reads files into governed tables. Grey is what you already have. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: a reading lane, one folder at a time</strong></p>
+<p>Don't point an agent at the whole lake. Add a reading lane beside it:</p>
+<p>→ <strong>Parse.</strong> A document model reads each PDF, scan or recording and pulls out the fields that matter: vendor, credit days, amount, date, page number.<br>
+→ <strong>Tag.</strong> Every extracted row keeps its source file, its owner, who may see it, and whether the person in it consented to this use.<br>
+→ <strong>Index.</strong> The text gets chunked and embedded for search, and the fields land in a normal lakehouse table.</p>
+<p>Start with one folder that has a clear owner and a clear payoff. Vendor agreements are a good first pick: finance asks about them every week, and a wrong answer costs real money.</p>
+<p>Now the agent's answer changes: "45 days. Source: agreement_2022.pdf, page 3." <strong>An answer without a source is a rumour.</strong></p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I expect the lakehouse to become the agent's long-term memory. One catalog will govern tables, files, embeddings and agent access together. When an agent reads a contract, the catalog will know which agent, for which user, under which permission. When an agent finds something, say a duplicate vendor, it'll write it back as a table with lineage, not a chat message nobody can audit.</p>
+<p>The person who decides what the agent may read is becoming a role of its own. Some companies call it a Context Engineer: the one who picks which documents go in, how they're split, what's off-limits, and how fresh they must be. On the delivery side, a forward deployed engineer (FDE), someone who sits with the customer's team and ships on their real systems, finds which folders actually matter. Those titles are still settling. The work isn't.</p>
+<p>👉 <strong>[IMAGE: A-day12-3-in-article-triage.png]</strong><br>
+<em>Caption: Not every file deserves to be read by an agent. Parse it, park it, lock it or delete it. Illustrative examples.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>Raw files go into the lake, get parsed, tagged and indexed, and then one question pulls one answer with its source.</p>
+<p>👉 <strong>[GIF: A-day12-4-in-article-dark-to-searchable.gif]</strong><br>
+<em>Caption: From 4.2 lakh unreadable files to an answer with a page number. All figures illustrative.</em></p>
+<p><strong>What could go wrong</strong></p>
+<p>This is where most dark-data projects get hurt.</p>
+<p>→ <strong>Permissions don't survive parsing.</strong> The PDF sat in a folder only HR could open. Its embedding sits in an index everyone's agent can search. Now a salary letter is one clever question away. Copy the permission onto every chunk, or don't parse it.<br>
+→ <strong>Consent.</strong> A recording made to resolve a complaint wasn't collected so an agent could mine it. India's DPDP Rules were notified in November 2025 and phase in over 18 months, with most obligations applying from May 2027. If personal data is in the folder, ask your legal team before you parse it, not after.<br>
+→ <strong>Bad scans, bad answers.</strong> Handwritten notes, faded thermal bills and Tamil-English mixed documents still trip up extraction. Keep the page number so a person can check.<br>
+→ <strong>Old versions.</strong> Three drafts of the same agreement, all parsed. The agent quotes the wrong one with full confidence.</p>
+<p><strong>Pros</strong><br>
+→ You reuse storage you've already paid for, so there's no new lake and no migration<br>
+→ One governed copy serves both dashboards and agents, with lineage<br>
+→ Answers come with a source and a page, which is what auditors and CFOs ask for first</p>
+<p><strong>Cons</strong><br>
+→ Parsing millions of files costs real money and time, and re-parsing when models improve costs it again<br>
+→ Access control on unstructured data is hard and easy to get wrong<br>
+→ Most dark data is junk, and parsing junk only makes junk searchable</p>
+<p>That last one is my contrarian take: <strong>for many companies, the best AI data strategy starts with a delete button.</strong></p>
+<p><strong>The opportunity</strong></p>
+<p>Every mid-size company, CA firm, hospital and insurer in India has a basement like this. They've paid to store it. Nobody has paid to make it readable, governed and safe for agents.</p>
+<p>That's the market: <strong>dark data to governed knowledge.</strong> Sell it folder by folder, not as a big-bang platform. "Your vendor agreements, searchable by your finance agent, with sources and permissions, in 30 days." Then claims files. Then complaints. Each folder is a fixed-price project with a visible payoff, and the triage itself, deciding what to parse, park, lock or delete, is a consulting service on its own.</p>
+<p><strong>Tools to try</strong><br>
+Databricks, with Unity Catalog volumes for governed files · Apache Iceberg tables on Amazon S3 Tables, Microsoft Fabric OneLake or Google BigLake · Unstructured.io to parse PDFs and scans · a vision-capable model to read invoices: Claude, Gemini, GPT or an open model · vector search close to the data, such as pgvector or your lakehouse's own.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Your oldest 4 lakh files: parse them or delete them? One word.</strong></p>
+<p>Tag the person in your team who knows which folder the real contracts are in.</p>
+<p><em>Day 12 of 50 · follow along. Tomorrow: Day 13 · Last Night's Data Job Failed. Your AI Agent Answered Anyway.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#DataLakehouse</span><span>#AIAgents</span><span>#DarkData</span><span>#ContextEngineering</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day11-data-warehouse/"><span>&#8592; Previous</span>Your AI Agent Told the Board ₹4 Crore. The Data Warehouse Says ₹3.1 Crore.</a><a class="next" href="../a-day13-pipelines/"><span>Next &#8594;</span>Last Night&#x27;s Data Job Failed. Your AI Agent Answered Anyway.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

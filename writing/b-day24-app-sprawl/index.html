@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>You Log Into 14 Apps Before Lunch. Will AI Agents Make It 15?</title>
+<meta name="description" content="9:05 AM, a freight forwarder in Chennai. Divya runs customer success. Her boss sends one line on chat: &quot;Which of our top-20 customers have an open complaint and a renewal this month? Need it for the…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day24-app-sprawl/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="You Log Into 14 Apps Before Lunch. Will AI Agents Make It 15?">
+<meta property="og:description" content="9:05 AM, a freight forwarder in Chennai. Divya runs customer success. Her boss sends one line on chat: &quot;Which of our top-20 customers have an open complaint and a renewal this month? Need it for the…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day24-app-sprawl/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day24-app-sprawl/B-day24-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 27 Nov 2026</div>
+  <h1>You Log Into 14 Apps Before Lunch. Will AI Agents Make It 15?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day24-1-cover-poster.jpg" alt="Cover: You Log Into 14 Apps Before Lunch. Will AI Agents Make It 15?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>9:05 AM, a freight forwarder in Chennai. Divya runs customer success. Her boss sends one line on chat: "Which of our top-20 customers have an open complaint and a renewal this month? Need it for the 2 PM review."</p>
+<p>Simple question. Here's how she answered it.</p>
+<p>Mail, to find the renewal list someone sent in October. The CRM, for the top 20. The helpdesk, for open complaints, which uses different customer names. A spreadsheet to put it all together. Tally, to check who's overdue. The contracts folder. Chat, three times, to ask who owns which account. Somewhere in there, the HR portal for a leave approval and the GST portal for a supplier query, because the morning doesn't stop for one question.</p>
+<p>By 12:40 PM she had the answer. 14 apps, 9 separate logins, 52 copy-pastes, one spreadsheet nobody will open again. (Divya, the company and every number here are <em>illustrative</em>. You've probably lived a version of it.)</p>
+<p>That afternoon, the company approved three new AI tools. One for meeting notes, one for sales emails, one for support replies. Each with its own login. Each with its own copy of the customer list.</p>
+<p><strong>We didn't fix app sprawl with AI. We gave it a new login.</strong></p>
+<p><strong>The problem: you are the integration layer</strong></p>
+<p>Nobody designed Divya's job to be "the person who moves data between apps". It just happened, one tool at a time. Each app was a good decision on its own. Together they made her the glue.</p>
+<p>The numbers are big, even allowing for who's being measured. Zylo's 2026 SaaS Management Index puts the average company's portfolio at 305 SaaS applications, with a median of 240. That's from Zylo's own customer base, mostly larger US firms, so read it as a direction, not an Indian average. I haven't seen a good number for Indian SMEs. My guess is fewer apps, more WhatsApp, and the same copy-paste.</p>
+<p>The cost isn't only licences. It's attention. A 2022 Harvard Business Review study of employees at large companies found people switched between apps and websites nearly 1,200 times a day, and lost just under four hours a week getting their bearings back after each switch. About 9% of the working week.</p>
+<p>And now every team is adding AI tools the same way they added apps: one at a time, each one sensible, together a mess.</p>
+<p><strong>The solution: one agent across the tools, one permission layer, fewer tools</strong></p>
+<p>This morning I wrote about AI agents that click through old screens like a person. That's the last resort. Tonight is the first resort: an agent that works through the apps' own APIs.</p>
+<figure><img src="B-day24-2-in-article-integration-hub.jpg" alt="Caption: Today you sit in the middle, copying between apps. With an agent, the agent sits in the middle, reaches each app through its API or an MCP connector, and does it with your permissions, not more." width="1600" height="1040" loading="lazy" decoding="async"><figcaption>Caption: Today you sit in the middle, copying between apps. With an agent, the agent sits in the middle, reaches each app through its API or an MCP connector, and does it with your permissions, not more.</figcaption></figure>
+
+<p>Three parts:</p>
+<p>→ <strong>One agent, many tools.</strong> It reaches the CRM, the helpdesk, the sheet and the mail through APIs and MCP connectors. MCP, the Model Context Protocol, is the open standard Anthropic started in 2024 for connecting AI agents to tools; it's now under the Linux Foundation's Agentic AI Foundation. Microsoft Copilot Studio supports MCP. Google's Gemini Enterprise, the successor to Agentspace, connects to Workspace, Microsoft 365, Salesforce and SAP. The plumbing exists.<br>
+→ <strong>One permission layer.</strong> The agent acts as you. It sees only what you can see, starts read-only, and every call is logged. The identity industry is building for this: Okta's Cross App Access, for example, is a protocol for controlling how AI agents connect to apps. Whatever you use, the rule is the same. The agent never gets a master key.<br>
+→ <strong>Fewer tools, not more.</strong> Before you buy the 15th app, count the 14. Retire what overlaps. An agent across 9 well-owned apps beats an agent across 30 orphans.</p>
+<figure><img src="B-day24-3-in-article-count-first-checklist.jpg" alt="Caption: Before you buy another AI tool, count. Six numbers, one sheet of paper. Save it for your next software budget meeting." width="1600" height="980" loading="lazy" decoding="async"><figcaption>Caption: Before you buy another AI tool, count. Six numbers, one sheet of paper. Save it for your next software budget meeting.</figcaption></figure>
+
+<p><strong>Watch it work</strong></p>
+<figure><img src="B-day24-4-in-article-morning-vs-agent.gif" alt="Caption: The same question twice. First, 14 tabs open one by one while the clock runs to 12:40. Then one request to an agent that reaches five tools through their APIs and comes back with three customers and their sources in about four minutes. Illustrative." width="1000" height="667" loading="lazy" decoding="async"><figcaption>Caption: The same question twice. First, 14 tabs open one by one while the clock runs to 12:40. Then one request to an agent that reaches five tools through their APIs and comes back with three customers and their sources in about four minutes. Illustrative.</figcaption></figure>
+
+<p><strong>What could go wrong</strong></p>
+<p>→ <strong>The agent is the 15th app.</strong> Be honest about it. It's only worth adding if three others go, or if it really takes the copy-paste off people.<br>
+→ <strong>It becomes a super-user.</strong> If you wire it up with an admin account "to make it work", it can see salaries, every customer and every contract. One leaked token and it's all exposed. Your permissions, not more, is the whole point.<br>
+→ <strong>Messy data stays messy.</strong> "Kaveri Foods", "Kaveri Foods Pvt Ltd" and "KAVERI FOODS (CHN)" are three customers to a computer. The agent will either miss one or guess. Ask it to show its sources and check the first few weeks by hand.<br>
+→ <strong>The tools you need most may have no connector.</strong> Many Indian business tools, and most government portals, have thin or no public APIs. Then you're back to screen-clicking agents, with all the care that needs.<br>
+→ <strong>Habits outlast tools.</strong> People will keep their 40 tabs for a while. That's fine. Start with one question a week that the agent answers better.</p>
+<p>Two roles help. A forward deployed engineer (FDE), an engineer who works inside a customer's team on their real systems, sits with Divya's team for a week and writes down every copy-paste: from where, to where, why. That list is the agent's first job description. Then an AI Agent Manager, someone who owns an agent the way a manager owns a team, keeps its permissions tight and the app list short. The titles are still settling. The work isn't new; it just finally has a name.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For CIOs and IT heads:</strong> run the count before the next budget. Put "which tool does this replace?" on every AI purchase form.<br>
+→ <strong>For team leads:</strong> find your Divya. Ask her for the three questions that eat her mornings. Those are your first agent use cases, and they cost nothing to find.<br>
+→ <strong>For everyone who works in a browser:</strong> count your tabs before lunch tomorrow. If it's above ten, you're the integration layer. Say so in your next review.<br>
+→ <strong>For SaaS companies:</strong> ship an MCP server or a solid API. If an agent can't reach your product, your users will stop opening it.<br>
+→ <strong>For IT services firms and startups in India:</strong> build the connectors nobody else will. Tally, Zoho, the GST portal workflows, regional ERPs. Then sell FDE-led rollouts to SMEs: one week of counting, one agent, three apps retired.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>One agent that works across all your apps, or a separate AI inside each app? Pick one.</strong></p>
+<p>Tag the colleague who has 40 tabs open right now.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#FutureOfWork</span><span>#SaaS</span><span>#Productivity</span><span>#MCP</span><span>#CIO</span><span>#AIAgents</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../b-day23-shop-loan/"><span>&#8592; Previous</span>A Tailor Waited 15 Days for a ₹5 Lakh Loan. The Real Work Took 15 Minutes.</a><a class="next" href="../b-day25-month-end/"><span>Next &#8594;</span>Why Your Finance Team Still Loses the Last Week of Every Month.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

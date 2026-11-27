@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Onboarding One Hire Costs ₹2 Lakh. An AI Agent Can Cut 3 Months to 3 Weeks.</title>
+<meta name="description" content="Priya joined a Chennai product company on 1 August as a backend engineer. She&#x27;d served a 90-day notice period to get there. Day 1 went well. Laptop, ID badge on a lanyard, a welcome mug, and a…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day16-onboarding/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Onboarding One Hire Costs ₹2 Lakh. An AI Agent Can Cut 3 Months to 3 Weeks.">
+<meta property="og:description" content="Priya joined a Chennai product company on 1 August as a backend engineer. She&#x27;d served a 90-day notice period to get there. Day 1 went well. Laptop, ID badge on a lanyard, a welcome mug, and a…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day16-onboarding/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day16-onboarding/B-day16-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 13 Nov 2026</div>
+  <h1>Onboarding One Hire Costs ₹2 Lakh. An AI Agent Can Cut 3 Months to 3 Weeks.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day16-1-cover-poster.jpg" alt="Cover: Onboarding One Hire Costs ₹2 Lakh. An AI Agent Can Cut 3 Months to 3 Weeks." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Priya joined a Chennai product company on 1 August as a backend engineer. She'd served a 90-day notice period to get there.</p>
+<p>Day 1 went well. Laptop, ID badge on a lanyard, a welcome mug, and a 140-slide induction deck. Then the real onboarding started.</p>
+<p>The wiki had three versions of the setup guide. The SharePoint folder for her team was last touched in 2023. The answer to most questions lived in a 212-member WhatsApp group, or in one sentence everybody said: "Ask Ramesh."</p>
+<p>So she asked Ramesh. Forty-seven times in six weeks. How to get staging access. Which service owns billing. Why the build fails on Fridays. Whether the leave policy in the deck was still the current one.</p>
+<p>By week 11, Priya was finally shipping code on her own. Ramesh had lost about six hours a week, and his own sprint had slipped twice. (Priya, Ramesh and the company are a composite, and every number here is <em>illustrative</em>.)</p>
+<p>Here's the rough bill. Three months of a ₹9 lakh-a-year engineer working at half speed is a little over ₹1 lakh. Seventy-odd hours of a senior's time is close to another lakh. <strong>About ₹2 lakh, for one hire, before anyone writes a line of code that ships.</strong> Multiply by every hire this year.</p>
+<p><strong>The problem: onboarding is a findability problem</strong></p>
+<p>Most companies think they have an onboarding problem and fix it with a better deck, a nicer welcome kit or a longer induction week.</p>
+<p>My slightly contrarian view: <strong>the induction deck isn't onboarding. It's an alibi.</strong> It proves HR "covered it". It doesn't answer the question a new joiner has at 4.30 PM on day 12, when the build is broken and Ramesh is in a client call.</p>
+<p>Gallup has been saying this for years. In its 2021 research, only 12% of US employees said their company does a good job of onboarding, and only 29% of new hires felt fully prepared and supported to excel after it. Gallup also says new employees typically take around 12 months to reach their peak performance. That's US data, but I've rarely heard an Indian team lead argue it's better here.</p>
+<p>The knowledge exists. It's just scattered across a wiki, old folders, chat groups and two people's heads. New joiners don't lack intelligence. They lack a place to ask without feeling like a nuisance.</p>
+<figure><img src="B-day16-2-in-article-how-it-works.jpg" alt="Caption: The onboarding agent sits on top of the knowledge you already have. It answers with a source and a date, raises the routine requests, and sends the hard questions to a person." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: The onboarding agent sits on top of the knowledge you already have. It answers with a source and a date, raises the routine requests, and sends the hard questions to a person.</figcaption></figure>
+
+<p><strong>The solution: an onboarding agent with five jobs</strong></p>
+<p>Not a chatbot that recites the HR policy. An agent that does five jobs, each one small:</p>
+<p>→ <strong>1. Answer with a source and a date.</strong> "Staging access: raise the IT-REQ form, your manager approves. Source: Engineering Handbook v7, updated 2 Oct." If there's no current source, it says so and points to the buddy. It never guesses.<br>
+→ <strong>2. Give a plan for this role.</strong> A 30-60-90 plan for a backend engineer looks nothing like one for a sales hire. The agent builds it from the team's own checklist, not a generic template.<br>
+→ <strong>3. Clear the routine blockers.</strong> Laptop, VPN, repository access, payroll forms. The agent drafts the request and tracks it. A person still approves anything that grants access.<br>
+→ <strong>4. Track progress.</strong> What's done, what's stuck, what's overdue. Visible to the new joiner first.<br>
+→ <strong>5. Tell the manager where the joiner is stuck.</strong> One short note a week: "Priya has asked about the billing service four times. Nobody has explained it." That's a coaching moment, not a performance score.</p>
+<p>The test for every answer is the one I used for Track A Day 16, "Your AI Agent Read the 2022 Price List. It Cost You ₹6 Lakh.": <strong>an answer without a date is a rumour.</strong> A new joiner can't tell a 2023 process from a 2026 one. The agent has to.</p>
+<p>👉 <strong>[GIF: B-day16-4-in-article-week-3.gif]</strong><br>
+<em>Caption: Two first quarters. Without the agent, questions pile up on one senior and the joiner crawls to productive by week 11. With it, the routine questions are answered with sources and only the hard ones reach the buddy. All figures illustrative.</em></p>
+<p><strong>The buddy doesn't go away. The buddy gets better questions.</strong></p>
+<p>This is the part I'd fight for in any rollout. The agent should take the forty questions that have a written answer, so the buddy can spend time on the seven that don't: why the team chose this design, which client is sensitive, who to talk to before touching the payments code.</p>
+<p>A good agent even pushes the human contact. "You haven't met the product owner yet. Want me to find 20 minutes on her calendar?"</p>
+<figure><img src="B-day16-3-in-article-who-answers-what.jpg" alt="Caption: Who answers what in the first 90 days. Screenshot it before your next hiring wave." width="1600" height="770" loading="lazy" decoding="async"><figcaption>Caption: Who answers what in the first 90 days. Screenshot it before your next hiring wave.</figcaption></figure>
+
+<p><strong>Who builds it, and who owns it</strong></p>
+<p>Someone has to sit with HR, two team leads and three people who joined in the last six months, and collect the 200 questions new joiners actually ask. That's the job of a <strong>forward deployed engineer (FDE)</strong>: an engineer who works inside the customer's team and ships on their real systems. They'll find the setup guide that's wrong, the policy page nobody updated, and the one folder that holds salary data and must never be indexed.</p>
+<p>After go-live, someone in HR owns the agent's behaviour: what it may answer, which documents it reads, how often it nudges, what it must never say. Some companies are starting to call that person an <strong>AI Agent Manager</strong>. The title is still settling. In a 200-person company, it's probably the HR business partner who already runs onboarding, with a few hours a week.</p>
+<p><strong>The hard parts</strong></p>
+<p>→ <strong>Permissions.</strong> Point an agent at the whole SharePoint and a new joiner may get the salary sheet in an answer. Index only what a new joiner is allowed to see, and test it with awkward questions before launch.<br>
+→ <strong>Stale documents.</strong> If the wiki is wrong, the agent is confidently wrong at scale. Every source needs an owner and a review date. The first month will expose how much of your documentation is fiction.<br>
+→ <strong>What was never written down.</strong> In many Indian SMEs, the real process lives in people's heads. The agent can't answer that. Use it to capture what buddies explain, so each answer is written down once, with an owner.<br>
+→ <strong>Tracking can feel like surveillance.</strong> "Priya asked 47 questions" should never appear in an appraisal. Show stuck points to help, not to judge.<br>
+→ <strong>Lonely onboarding.</strong> A new joiner who only talks to an agent never builds the relationships that keep people in a job. Keep the buddy, keep the team lunch.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For HR leaders:</strong> count the questions your last ten joiners asked seniors in their first month. Most of them have a written answer somewhere. That's your business case.<br>
+→ <strong>For team leads:</strong> write down the ten things you explain to every new joiner. That's the agent's first knowledge base, and your first hour back.<br>
+→ <strong>For IT services firms and HR tech startups:</strong> "onboarding agent in 30 days" is a clean, fixed-scope project: clean the sources, set the permissions, build the role plans, train the buddies.<br>
+→ <strong>For founders:</strong> onboarding agents that work in Tamil, Hindi and English, inside WhatsApp and the HRMS Indian companies already use, are a gap the global tools only half fill.</p>
+<p>Indian companies wait 60 to 90 days for a new hire to serve notice. Then we spend another 90 days helping them find the setup guide. One of those waits, at least, we can fix.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>For a new joiner's first month, who should answer first: the AI agent or the buddy? Pick one.</strong></p>
+<p>Tag the "Ramesh" in your team who answers every new joiner's questions.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#AIAgents</span><span>#HR</span><span>#Onboarding</span><span>#FutureOfWork</span><span>#AIAgentManager</span><span>#ForwardDeployedEngineer</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../b-day15-gst-mismatch/"><span>&#8592; Previous</span>A ₹4 Lakh GST Mismatch. Your AI Agent Found It in 4 Minutes. Who Signs the Return?</a><a class="next" href="../b-day17-contract-renewal/"><span>Next &#8594;</span>A ₹50 Lakh Contract Renewed Itself Last Month. Your AI Agent Would Have Flagged It.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

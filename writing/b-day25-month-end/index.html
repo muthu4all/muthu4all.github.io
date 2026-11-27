@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Why Your Finance Team Still Loses the Last Week of Every Month.</title>
+<meta name="description" content="It&#x27;s 10:50 PM on the 29th. Meena, accounts manager at an auto-parts distributor in Ambattur, sends her daughter the same message she sent last night: &quot;Eat. Don&#x27;t wait for me.&quot; Three windows are open…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day25-month-end/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Why Your Finance Team Still Loses the Last Week of Every Month.">
+<meta property="og:description" content="It&#x27;s 10:50 PM on the 29th. Meena, accounts manager at an auto-parts distributor in Ambattur, sends her daughter the same message she sent last night: &quot;Eat. Don&#x27;t wait for me.&quot; Three windows are open…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day25-month-end/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day25-month-end/B-day25-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 28 Nov 2026</div>
+  <h1>Why Your Finance Team Still Loses the Last Week of Every Month.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day25-1-cover-poster.jpg" alt="Cover: Why Your Finance Team Still Loses the Last Week of Every Month." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>It's 10:50 PM on the 29th. Meena, accounts manager at an auto-parts distributor in Ambattur, sends her daughter the same message she sent last night: "Eat. Don't wait for me."</p>
+<p>Three windows are open on her screen. The bank statement. Tally. The GSTR-2B download. 1,140 bank lines this month, and 37 of them don't match anything in the books. A customer's UPI payment with no invoice against it. A supplier's bill that's on the GST portal but not in the purchase register. A transfer booked twice.</p>
+<p>None of these happened this week. Most of them happened on the 4th, the 11th, the 17th. They just waited quietly for someone to look. (Meena, the company and every number here are <em>illustrative</em>. The feeling isn't.)</p>
+<p>Her team of five has worked two Saturdays this month. Ask any of them when the month ends and they'll tell you: about six days after everyone else's.</p>
+<p><strong>Month-end isn't a deadline problem. It's a batch problem.</strong></p>
+<p><strong>The problem: we check everything at once, so we find everything at once</strong></p>
+<p>Most finance teams run the close like a batch job, and the batch is people.</p>
+<p>→ For 24 days, transactions flow in from the bank, from sales, from suppliers, from GST.<br>
+→ Nobody reconciles them as they arrive, because there's always something more urgent.<br>
+→ Then, in the last week, everyone checks everything, finds everything, and fixes everything. At night.</p>
+<p>It's not just small companies. APQC's benchmark, as reported by CFO.com, put the median at about 6.4 calendar days to close the monthly books, with the slowest quarter of companies taking 10 or more. Other surveys count differently and land in a similar place. Call it a week a month, give or take.</p>
+<p>That's a quarter of the year spent closing the last one. And the cost doesn't show up in any report. It shows up as missed dinners, cancelled weekends, and good accountants quietly leaving for jobs with saner months.</p>
+<p>Your finance team isn't slow. Their process is batched.</p>
+<p><strong>The solution: close a little every day</strong></p>
+<p>The idea has a name, continuous close, or continuous accounting. The close-management vendors have talked about it for years. What's new is that an AI agent can now do the boring first pass every morning, at a cost a mid-sized Indian company can afford.</p>
+<p>Here's the daily loop:</p>
+<p>→ <strong>Data comes in.</strong> Bank feeds, entries from Tally or your ERP, and GST data. Some of this plumbing already exists: TallyPrime 6.0 added connected banking with auto bank reconciliation for supported banks, and the GST portal's Invoice Management System (IMS) lets you accept or reject supplier invoices through the month instead of finding them in GSTR-2B later.<br>
+→ <strong>The agent flags.</strong> Every morning it reads yesterday's bank lines, entries and GST records and writes, in plain words, what looks wrong: "This ₹18,400 UPI receipt has no invoice. The narration mentions an order from Sri Murugan Traders."<br>
+→ <strong>Code reconciles.</strong> Matching amounts and dates, adding up totals, working out the GST difference: that's plain code, with rules you can read. Same input, same answer, every time.<br>
+→ <strong>A person fixes.</strong> Twelve flags before lunch, not 400 in the last week.<br>
+→ <strong>Month-end becomes a review.</strong> Open items, accruals, judgement calls, sign-off. An afternoon, not a week.</p>
+<figure><img src="B-day25-2-in-article-daily-loop.jpg" alt="Caption: The close, every morning. Data comes in, the agent flags, code reconciles, a person fixes. By day 30, what&#x27;s left is a review." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: The close, every morning. Data comes in, the agent flags, code reconciles, a person fixes. By day 30, what&#x27;s left is a review.</figcaption></figure>
+
+<p>On 22 October I wrote "Let AI Talk. Let Code Count." about why an AI model shouldn't be the thing that adds up your invoice. This is the same rule, applied to a whole month. <strong>The agent is allowed to notice. It is never allowed to calculate.</strong> If it says "these two don't match", code tells you by exactly how much.</p>
+<p><strong>Who does what</strong></p>
+<p>The design only works if four jobs stay apart.</p>
+<figure><img src="B-day25-3-in-article-who-does-what.jpg" alt="Caption: Who does what in a continuous close. The agent flags, code calculates, your people fix and sign, the auditor samples. Screenshot it for your next finance review." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: Who does what in a continuous close. The agent flags, code calculates, your people fix and sign, the auditor samples. Screenshot it for your next finance review.</figcaption></figure>
+
+<p>The auditor part matters more in India than people realise. Since 1 April 2023, companies have had to keep their books in accounting software with an audit trail (an edit log) that can't be switched off, and auditors have to report on whether they did. So the trail already exists. A daily close just fills it with something better: who flagged what, who fixed it, and when. Your auditor stops asking for a spreadsheet and starts sampling the trail.</p>
+<figure><img src="B-day25-4-in-article-heatmap-fill.gif" alt="Caption: One month, two ways. Checking everything at month-end: six late nights. Checking a little every morning: the same work, spread out, and no late nights. Times illustrative." width="960" height="672" loading="lazy" decoding="async"><figcaption>Caption: One month, two ways. Checking everything at month-end: six late nights. Checking a little every morning: the same work, spread out, and no late nights. Times illustrative.</figcaption></figure>
+
+<p><strong>What could go wrong</strong></p>
+<p>I'd be lying if I said this was plug-and-play.</p>
+<p>Bank feeds aren't everywhere. Connected banking works with a list of banks, and plenty of companies still bank somewhere that means downloading a statement. That's fine. The agent can read a statement. But someone has to upload it every day.</p>
+<p>Day one is noisy. The first morning, the agent will flag 300 things, and 250 of them will be "that's how Ravi always books it". If nobody tunes the flags in week one, people stop reading them by week two.</p>
+<p>The agent must never post entries. Not "only small ones". Not "only obvious ones". The moment it posts, your audit trail says "AI" next to a number and nobody can explain why.</p>
+<p>Some work stays at month-end. Accruals, provisions and judgement calls don't happen daily, and they shouldn't.</p>
+<p>Data leaves the building. Bank lines and customer names going to a cloud model need a decision from someone senior: which provider, which region, what's masked. Some companies will run the agent on a model on their own servers instead.</p>
+<p>And the hardest one: habit. Finance teams are rewarded for month-end heroics. A daily 20 minutes is less dramatic than a Saturday that saves the close. Someone senior has to say the boring version is the better one.</p>
+<p>This is where a forward deployed engineer (FDE), an engineer who works inside the customer's team on their real systems, earns their money. Two weeks sitting with the accounts team, learning the 40 known oddities ("Kumar Enterprises always pays in two parts"), and writing them down as rules before the agent goes live. After that, someone has to own the agent's flags day to day. Some call that an AgentOps role. The titles are still settling.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For CFOs and finance heads:</strong> pick one bank account and run a daily check on it for a month. Count the late nights before and after. That's your business case.<br>
+→ <strong>For accountants and finance teams:</strong> you're the ones who know which 40 oddities are normal. That knowledge is about to become the most valuable part of the system. Write it down.<br>
+→ <strong>For CA firms:</strong> you already do books for dozens of SMEs. A daily check across all your clients, with a person reviewing flags each morning, is a service you can sell on retainer.<br>
+→ <strong>For software builders and Tally partners:</strong> close tools like BlackLine, FloQast and SAP's Advanced Financial Closing serve big companies well. India's mid-market runs on Tally, GST portal downloads and UPI. A daily-close layer built for that stack, with an FDE to set it up, is wide open.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Daily close or month-end close: which would your finance team pick?</strong></p>
+<p>Tag the accountant who hasn't had dinner at home on the 30th in years.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#MonthEndClose</span><span>#Accounting</span><span>#CFO</span><span>#FinanceTransformation</span><span>#GST</span><span>#Tally</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../b-day24-app-sprawl/"><span>&#8592; Previous</span>You Log Into 14 Apps Before Lunch. Will AI Agents Make It 15?</a><a class="next" href="../b-day26-cheapest-quote/"><span>Next &#8594;</span>The Cheapest Quote Won. Nobody Read Page 14.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

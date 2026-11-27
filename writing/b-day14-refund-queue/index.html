@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The AI Agent Approved the Refund in 2 Seconds. The Core Banking System Took 4 Days.</title>
+<meta name="description" content="Friday, 9.12 PM. Kavya in Coimbatore pays ₹2,499 for a pair of shoes by UPI. The app spins, then says &quot;Payment failed.&quot; Her account says ₹2,499 debited. She pays again. This one goes through. Now…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day14-refund-queue/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="The AI Agent Approved the Refund in 2 Seconds. The Core Banking System Took 4 Days.">
+<meta property="og:description" content="Friday, 9.12 PM. Kavya in Coimbatore pays ₹2,499 for a pair of shoes by UPI. The app spins, then says &quot;Payment failed.&quot; Her account says ₹2,499 debited. She pays again. This one goes through. Now…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day14-refund-queue/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day14-refund-queue/B-day14-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 10 Nov 2026</div>
+  <h1>The AI Agent Approved the Refund in 2 Seconds. The Core Banking System Took 4 Days.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day14-1-cover-poster.jpg" alt="Cover: The AI Agent Approved the Refund in 2 Seconds. The Core Banking System Took 4 Days." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Friday, 9.12 PM. Kavya in Coimbatore pays ₹2,499 for a pair of shoes by UPI. The app spins, then says "Payment failed." Her account says ₹2,499 debited.</p>
+<p>She pays again. This one goes through. Now she's ₹2,499 short.</p>
+<p>At 9.14 PM she asks her bank's new AI assistant. Two seconds later: <em>"Refund approved! You'll see the amount back in your account shortly."</em></p>
+<p>Saturday, nothing. Sunday, nothing. She calls the helpline twice and posts a screenshot of the chat on X, tagging the bank. Monday, still nothing.</p>
+<p>The money comes back on Tuesday. Day 4. (Kavya is a composite, and every number here is <em>illustrative</em>.)</p>
+<p>Here's the part nobody likes: the bank didn't break a single rule. Under the RBI's 2019 circular on failed transactions, a UPI payment to a merchant that debits the customer without confirming at the merchant must be auto-reversed within T+5 days. Day 4 is legal.</p>
+<p>It's still a lost customer.</p>
+<p><strong>The problem: the front end got fast. The back office didn't.</strong></p>
+<p>There are two failures in Kavya's story, and only one is new.</p>
+<p>The old one is the queue. A failed debit lands in a reconciliation file. Someone matches it against the switch report. A maker raises the reversal, a checker approves it, and the core banking system posts it in the next batch. For a ₹2,499 case with a clear status, that's four people's time spent on a decision a rule could make.</p>
+<p>The new one is the agent. It answered in two seconds, in perfect English, and it promised something the back office hadn't done. "Refund approved" meant "complaint logged". To Kavya, it meant "money coming".</p>
+<p>My slightly contrarian view: <strong>the agent wasn't too slow. It was too fast.</strong> A quick reply on top of a slow back office isn't better service. It's a faster way to make a promise you can't keep.</p>
+<p>And that promise has a cost. In 2024, a Canadian tribunal ordered Air Canada to honour what its chatbot had told a customer about a bereavement fare. The airline argued the chatbot was responsible for its own words. The tribunal didn't accept that. Whatever your agent says, your company said.</p>
+<figure><img src="B-day14-2-in-article-straight-through.jpg" alt="Caption: Straight-through within limits. Easy cases flow automatically; the agent only says what the system of record confirms; people handle the exceptions." width="1600" height="900" loading="lazy" decoding="async"><figcaption>Caption: Straight-through within limits. Easy cases flow automatically; the agent only says what the system of record confirms; people handle the exceptions.</figcaption></figure>
+
+<p><strong>The solution: straight-through within limits</strong></p>
+<p>Don't make the agent slower. Make the easy cases fast all the way down, and make the agent honest about the rest.</p>
+<p>→ <strong>1. Sort easy from hard.</strong> A failed UPI debit where the switch status says "not credited to merchant", under ₹10,000, on an account with no disputes this month, is easy. Everything else is an exception.<br>
+→ <strong>2. Let a rule decide, not the agent.</strong> Plain code checks the limits and raises the reversal. No maker, no checker, no batch wait. The agent explains; it doesn't approve.<br>
+→ <strong>3. Say only what the ledger says.</strong> The agent's words are tied to the real status: Received, Approved, Sent to bank, Credited. It never says "approved" until the system of record does.<br>
+→ <strong>4. Send exceptions to people, with context.</strong> Large amounts, repeat claims, mismatched records. Maker-checker stays, but the checker gets the full trail, not a blank ticket.<br>
+→ <strong>5. Measure time-to-money, not time-to-reply.</strong> "Answered in 2 seconds" is a vanity number. "Money back in 11 minutes" is the one the customer feels.</p>
+<p>And publish the limits. "Failed UPI debits under ₹10,000 are reversed automatically, usually within the hour" is a sentence that stops three helpline calls.</p>
+<p><strong>Fast replies are cheap. Fast money is the real service.</strong></p>
+<p>👉 <strong>[GIF: B-day14-4-in-article-two-clocks.gif]</strong><br>
+<em>Caption: Two clocks. The agent's promise and the back office's reality, then the straight-through lane where easy cases flow and one exception goes to a person.</em></p>
+<p><strong>Who sets the limits, and who owns them</strong></p>
+<p>This is where two newer roles come in, and the titles are still settling.</p>
+<p>An <strong>AgentOps engineer</strong> runs agents in production much as an SRE runs services. Here, they own the limits: the ₹10,000 ceiling, the "one claim a month" rule, the alerts when auto-reversals spike. If fraudsters find the rule, this person sees it first.</p>
+<p>A <strong>forward deployed engineer (FDE)</strong>, an engineer who works inside the customer's team and ships on their real systems, sits with the reconciliation desk for two weeks. They find out which cases are truly easy, which ones only look easy, and why the core system posts reversals at 6 PM and not at 6.05.</p>
+<figure><img src="B-day14-3-in-article-promise-ladder.jpg" alt="Caption: The promise ladder. What the agent may say at each status, and what it must never say. Screenshot it for your next agent review." width="1600" height="770" loading="lazy" decoding="async"><figcaption>Caption: The promise ladder. What the agent may say at each status, and what it must never say. Screenshot it for your next agent review.</figcaption></figure>
+
+<p><strong>The hard parts</strong></p>
+<p>→ <strong>Auto-refunds attract fraud.</strong> Some "failed" payments actually reached the merchant. Never refund on the customer's word or the app's error screen. Check the switch and the ledger.<br>
+→ <strong>Limits set too high.</strong> Start low, watch a month of data, then raise them. A limit nobody reviews becomes a hole.<br>
+→ <strong>The core system has its own clock.</strong> Many legacy cores post reversals in batches with cut-off times. Straight-through may mean "within the hour" in one bank and "next batch" in another. Say which one honestly.<br>
+→ <strong>Reconciliation still has to tie.</strong> Fast reversals that don't match the settlement files create a worse mess next week.<br>
+→ <strong>Who answers for the agent's words?</strong> I wrote about this in "Who Pays When the AI Agent Gets It Wrong?". The short answer hasn't changed: a named person, not the model.</p>
+<p><strong>The opportunity</strong></p>
+<p>→ <strong>For banks and fintechs:</strong> pick your three most common, lowest-value complaint types. Make them straight-through with published limits. Watch the helpline volume.<br>
+→ <strong>For e-commerce and D2C brands:</strong> the same pattern works for your own refunds. The agent shouldn't say "refunded" until the payment gateway does.<br>
+→ <strong>For IT services firms:</strong> "time-to-money audits" are a clean project. Map every refund path, find the human queue that adds days, and fix the rule.<br>
+→ <strong>For founders:</strong> tools that tie an agent's every customer-facing promise to a live status in the system of record. Every bank with a chatbot needs one.</p>
+<p>The RBI's own circular says the turnaround times are the outer limit, not the target. Kavya doesn't care what's legal. She cares when her ₹2,499 comes back.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>For a ₹2,499 failed UPI debit, should the reversal need a human checker: yes or no?</strong></p>
+<p>Tag the person in your bank or company who knows exactly where refunds wait.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#AIAgents</span><span>#Banking</span><span>#FinTech</span><span>#UPI</span><span>#CustomerExperience</span><span>#AgentOps</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../b-day13-inbox-orders/"><span>&#8592; Previous</span>A ₹12 Lakh Order Sat in an Inbox for 9 Days. An AI Agent Would Have Seen It.</a><a class="next" href="../b-day15-gst-mismatch/"><span>Next &#8594;</span>A ₹4 Lakh GST Mismatch. Your AI Agent Found It in 4 Minutes. Who Signs the Return?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

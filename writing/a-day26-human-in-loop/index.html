@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your AI Agent Asks Before Paying. Your Team Clicks &quot;Approve&quot; 400 Times a Day.</title>
+<meta name="description" content="Thursday, 4.40 PM, at a pharma distributor in Hyderabad. Imran has 400 approval cards in his queue. Each one says the same thing: vendor, amount, &quot;Approve?&quot; He averages three seconds a card. Twenty…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day26-human-in-loop/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your AI Agent Asks Before Paying. Your Team Clicks &quot;Approve&quot; 400 Times a Day.">
+<meta property="og:description" content="Thursday, 4.40 PM, at a pharma distributor in Hyderabad. Imran has 400 approval cards in his queue. Each one says the same thing: vendor, amount, &quot;Approve?&quot; He averages three seconds a card. Twenty…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day26-human-in-loop/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day26-human-in-loop/A-day26-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 26/50 · 21 Nov 2026</div>
+  <h1>Your AI Agent Asks Before Paying. Your Team Clicks &quot;Approve&quot; 400 Times a Day.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day26-1-cover-poster.jpg" alt="Cover: Your AI Agent Asks Before Paying. Your Team Clicks &quot;Approve&quot; 400 Times a Day." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>Thursday, 4.40 PM, at a pharma distributor in Hyderabad. Imran has 400 approval cards in his queue. Each one says the same thing: vendor, amount, "Approve?"</p>
+<p>He averages three seconds a card. Twenty minutes, then home.</p>
+<p>Card 287 is ₹4.6 lakh to Deccan Cartons, a supplier they've paid for six years. Two days earlier, an email from a look-alike domain had changed Deccan's bank account. The card didn't say that. Imran clicked Approve, like the 286 before it. (Imran and the company are composites, and every number here is <em>illustrative</em>.)</p>
+<p>The agent did exactly what it was designed to do. It asked. Imran did exactly what the design trained him to do. He clicked.</p>
+<p><strong>400 approvals a day isn't oversight. It's a rubber stamp with a login.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>Human in the loop means the agent's workflow has places where it stops and waits for a person:</p>
+<p>→ The agent does the work: matches the invoice, prepares the payment.<br>
+→ At a checkpoint, it pauses, saves its state and sends an approval card.<br>
+→ A person approves, edits or rejects, and the agent resumes from exactly where it stopped.</p>
+<p>On Day 21 we gave a single agent hard limits, with anything above ₹2 lakh going to a person. Today is about what happens at that person's desk.</p>
+<p>This isn't new to Indian finance. Banks have run maker-checker for decades: one person enters, another approves. Most agent projects copied it literally. The agent became the maker, a human the checker, for every transaction.</p>
+<p>But maker-checker worked because a human maker produced forty entries a day, not four hundred. When the maker gets ten times faster and the checker doesn't, the checker stops checking. It's called automation bias: we trust the machine because it's usually right. The EU AI Act names it in Article 14 and asks that people overseeing high-risk AI stay aware of it.</p>
+<p><strong>Too many approvals is as unsafe as none.</strong></p>
+<figure><img src="A-day26-2-in-article-architecture.jpg" alt="Caption: Human in the loop, redesigned. Code sorts every payment into a tier, only the risky few reach a person, each with its evidence, and the agent waits durably without losing state. Grey is what you already have. Amber is new." width="1600" height="960" loading="lazy" decoding="async"><figcaption>Caption: Human in the loop, redesigned. Code sorts every payment into a tier, only the risky few reach a person, each with its evidence, and the agent waits durably without losing state. Grey is what you already have. Amber is new.</figcaption></figure>
+
+<p><strong>Where AI plugs in now: risk-tiered approvals</strong></p>
+<p>Don't remove the human. Spend the human's attention where it matters.</p>
+<p>→ <strong>Auto-approve within written limits.</strong> Known vendor, PO and goods receipt matched, amount under the limit, bank details unchanged. In the illustrative queue, that's 371 of the 400.<br>
+→ <strong>Sample the routine.</strong> A person reviews 25 random low-risk payments a day. That catches the fraudster who learned your limit and splits ₹4.6 lakh into small invoices.<br>
+→ <strong>Ask a person only for the unusual.</strong> Above the threshold, a new vendor, bank details changed in the last 30 days, or a possible duplicate. That's 4 cards, not 400.<br>
+→ <strong>Show the evidence, not just "Approve?"</strong> The card says <em>why</em> it's there: "Bank a/c changed 2 days ago, request came from a look-alike domain. Duplicate check: matches INV-3318, paid 9 Nov." Imran would have caught that in three seconds too.<br>
+→ <strong>Measure the approver.</strong> Track time per approval and how often approvers override the agent. If approvals drop under five seconds, or nobody has rejected anything in a month, alert someone. A checker who never says no isn't checking.<br>
+→ <strong>Separate the roles.</strong> Whoever changed a vendor's bank details can't approve payments to that vendor.<br>
+→ <strong>Pause durably.</strong> The agent may wait two days for an answer. It mustn't forget what it was doing, or pay twice when it wakes up.</p>
+<p>It's Track B's refund lesson, straight-through within limits, applied to the approver.</p>
+<p><strong>A human in the loop should be the last line of judgement, not the first line of typing.</strong></p>
+<figure><img src="A-day26-3-in-article-approval-ladder.jpg" alt="Caption: The approval ladder. Four tiers, the rule for each, and what the approver sees. Screenshot it before your next payment-agent design review." width="1600" height="830" loading="lazy" decoding="async"><figcaption>Caption: The approval ladder. Four tiers, the rule for each, and what the approver sees. Screenshot it before your next payment-agent design review.</figcaption></figure>
+
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I expect people to approve policies more than payments. You'll sign off the rules once a quarter: limits, vendor tiers, what counts as unusual. The agent will apply them thousands of times a day, and you'll review the samples and the exceptions.</p>
+<p>Tiers will move with track record. Two clean years earn a vendor a higher auto-approve limit; a changed bank account drops it to zero for a month. I'm less sure how fast auditors will accept "we sampled 25" in place of "a person approved all 400". That conversation is only starting.</p>
+<p><strong>Watch it work</strong></p>
+<p>The same 400 payments, two ways.</p>
+<p>👉 <strong>[GIF: A-day26-4-in-article-approval-flood.gif]</strong><br>
+<em>Caption: First, every card goes to one person, who approves the risky one in three seconds. Then the tiered version: 4 cards reach a person, with evidence, and the ₹4.6 lakh payment is held. All figures illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ The approver reads 4 cards properly instead of skimming 400<br>
+→ Fraud and duplicates surface with the reason attached, not buried in a queue<br>
+→ You can show a regulator who approved what, why, and how long they spent</p>
+<p><strong>Cons</strong><br>
+→ Someone has to write the limits down, and that's a hard meeting<br>
+→ Sampling feels riskier to auditors than "100% approved", even when it isn't<br>
+→ Durable pause and resume is real engineering: state, timeouts, reminders, no double payments</p>
+<p><strong>The hard part</strong></p>
+<p>The threshold is a business decision dressed up as a technical one. Too low and you're back to 400 cards. Too high and a ₹1.9 lakh fraud sails through. There's no right number on day one, only one you review every month.</p>
+<p>That's the job of an AI Agent Manager, a role still taking shape: the person who owns which actions an agent takes alone and which need a human, the way a finance head owns delegation of authority. An AgentOps engineer, who runs agents in production the way an SRE runs services, watches the approval-time dashboard and gets paged when approvals go under five seconds. The titles are still settling. The accountability isn't.</p>
+<p>And the threat is real. The FBI's 2025 Internet Crime Report counted about $3 billion lost to business email compromise in one year. Changed bank details are its oldest trick.</p>
+<p><strong>The opportunity</strong></p>
+<p>Every regulated business adding agents needs this layer: banks, NBFCs, insurers, hospitals, and the payment teams of large companies. The RBI's FREE-AI framework, from August 2025, already asks for human oversight in medium- and high-risk AI uses. Nobody wants that to mean 400 clicks.</p>
+<p>That's the market: <strong>approval layers for agents.</strong> Evidence cards, risk tiers, approver metrics and an audit trail, sold per workflow. Next to it sits a services business, "approval design": sit with the finance team, count the approvals, find the four that matter, write the limits.</p>
+<p><strong>Tools to try</strong><br>
+LangGraph <code>interrupt()</code> with a checkpointer to pause and resume · Temporal signals for waits that survive restarts · Microsoft Copilot Studio multistage approvals (in preview) or Power Automate approvals · Slack Block Kit buttons or Teams Adaptive Cards for the approval card itself.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Your payment agent: a person approves every payment, or only the risky ones? Every or risky?</strong></p>
+<p>Tag the person in your team who approves the most things in a day.</p>
+<p><em>Day 26 of 50 · follow along. Tomorrow: Day 27 · Your AI Agent Connected to One New Tool. Now It Can Reach Your Customer Database.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#HumanInTheLoop</span><span>#AIAgents</span><span>#FinTech</span><span>#AgentOps</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day25-agent-swarm/"><span>&#8592; Previous</span>Five AI Agents Held a Meeting. It Cost ₹40,000 and Decided Nothing.</a><a class="next" href="../a-day27-mcp/"><span>Next &#8594;</span>Your AI Agent Connected to One New Tool. Now It Can Reach Your Customer Database.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

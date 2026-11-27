@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>One AI Agent. One Bad Loop. ₹6 Lakh Gone by Morning.</title>
+<meta name="description" content="It&#x27;s 7:10 on a Friday evening, month-end. Your reconciliation agent calls a vendor lookup tool. The tool returns an error. The agent does what it was told: it tries again. And again. And again.…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day07-ai-gateway/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="One AI Agent. One Bad Loop. ₹6 Lakh Gone by Morning.">
+<meta property="og:description" content="It&#x27;s 7:10 on a Friday evening, month-end. Your reconciliation agent calls a vendor lookup tool. The tool returns an error. The agent does what it was told: it tries again. And again. And again.…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day07-ai-gateway/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day07-ai-gateway/A-day07-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 7/50 · 2 Nov 2026</div>
+  <h1>One AI Agent. One Bad Loop. ₹6 Lakh Gone by Morning.</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day07-1-cover-poster.jpg" alt="Cover: One AI Agent. One Bad Loop. ₹6 Lakh Gone by Morning." width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>It's 7:10 on a Friday evening, month-end. Your reconciliation agent calls a vendor lookup tool. The tool returns an error. The agent does what it was told: it tries again.</p>
+<p>And again. And again.</p>
+<p>Nobody's watching. Everyone's gone home. Each retry sends the whole growing conversation back to the model, so each one costs more than the last.</p>
+<p>At 6:10 the next morning, somebody opens the cloud console. The bill for the night is ₹6 lakh. The agent reconciled zero invoices.</p>
+<p>(That story is illustrative, and so are the numbers. But ask around. Nearly every team running agents has a smaller version of it.)</p>
+<p><strong>Your API gateway saw all of it and did nothing, because it's counting the wrong thing.</strong></p>
+<p><strong>The architecture today</strong></p>
+<p>An API gateway sits between the outside world and your services. Every request passes through one front door, where it gets authenticated, rate-limited, routed and logged. It's why a traffic spike doesn't flatten your backend.</p>
+<p>It was built for a world where one call costs roughly the same as the next. So it counts requests. A thousand a minute, fine.</p>
+<p>Agents broke that. One call can be 200 tokens or 200,000. The gateway sees a healthy request. Finance sees the bill a month later.</p>
+<p>👉 <strong>[IMAGE: A-day07-2-in-article-architecture.png]</strong><br>
+<em>Caption: The AI gateway sits beside the API gateway you already have. Grey is existing. Amber is new.</em></p>
+<p><strong>Where AI plugs in now: an AI gateway</strong></p>
+<p>Keep your API gateway. Add a second front door for one job: everything going to a model passes through it.</p>
+<p>→ <strong>A budget per agent.</strong> Not per team, not per company. The reconciliation agent gets ₹25,000 a day. When it's gone, requests stop and the owner gets a message.<br>
+→ <strong>Token rate limits.</strong> Count tokens, not requests.<br>
+→ <strong>Model routing.</strong> Simple tasks go to a small cheap model, hard ones to a large model. If one provider goes down, traffic moves to another.<br>
+→ <strong>PII masking.</strong> Names, phone numbers and account numbers are stripped before the prompt leaves your network.<br>
+→ <strong>A cost ledger.</strong> Every call is tagged with the agent, the task and the owner. Now you can answer "what did that agent cost us yesterday, and what did it do?"</p>
+<p>The first, low-risk step doesn't touch a single agent's logic. Point one agent at the gateway instead of straight at the model. Log for a week. Then switch on the budget.</p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>In two or three years, I think the AI gateway becomes the finance department for your agents.</p>
+<p>Every agent will have a named owner, a monthly budget and a cost per finished task. An agent that wants more spend will have to show what it delivered, the same way a team does. Gateways will also start governing tool calls, not only model calls, because a loop that hammers your payment API can do far worse damage than one that burns tokens.</p>
+<p>The real question moves from "which model?" to <strong>"who approved this agent's spending limit, and who gets the call when it hits it?"</strong></p>
+<p>That's already creating new jobs. Someone has to own the caps, and you'll see that person called an AgentOps engineer or an AI Agent Manager (the titles are still settling). Someone also has to set them for the real work. That's often a forward deployed engineer (FDE): an engineer who sits with the customer's team and ships the agent on their real systems. Only a person in that room knows month-end reconciliation legitimately costs ten times a normal Tuesday.</p>
+<p>👉 <strong>[IMAGE: A-day07-3-in-article-gateway-compare.png]</strong><br>
+<em>Caption: Your API gateway counts requests. An AI gateway counts rupees.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>Same bug, same night, two outcomes.</p>
+<p>👉 <strong>[GIF: A-day07-4-in-article-overnight-meter.gif]</strong><br>
+<em>Caption: The spend meter overnight. On the right, the gateway stops the agent at its cap. All numbers illustrative.</em></p>
+<p><strong>Pros</strong><br>
+→ A bad loop costs you a capped amount instead of an open-ended one<br>
+→ One place to mask personal data, switch models and see cost per agent<br>
+→ Switching providers becomes a config change, not a code change</p>
+<p><strong>Cons</strong><br>
+→ One more component in the path of every call, which adds latency and a new thing that can fail<br>
+→ A hard stop can kill a legitimate month-end run, so someone has to set limits thoughtfully and be reachable<br>
+→ The gateway sees tokens, not intent. It can't tell a bad loop from a big job. Your agent runtime still needs its own step limit</p>
+<p><strong>The opportunity</strong></p>
+<p>Any company using more than one model, or running more than a handful of agents, will need this. Most won't build it well themselves.</p>
+<p>That's the market: <strong>AI gateways, and the cost discipline around them.</strong> The buyers are CFOs who've just seen their first surprise AI bill and CISOs who want one place to enforce masking. For product companies, that's a gateway with agent-level budgets and chargeback reports. For integrators, it's a repeatable service: audit the AI traffic, route it through a gateway, set budgets per agent, and hand finance a monthly cost-per-task report.</p>
+<p>And there's a career in it. An FDE who can walk into a finance team, map the workflow and set sensible caps is hard to find. Indeed data reported in the Indian press shows FDE job postings in India up nearly 19-fold from June 2025 to June 2026. That's a fast rise from a small base, but the direction is hard to miss. Pair that with an AgentOps owner on the inside, and the agent finally has someone answerable for its bill.</p>
+<p><strong>Tools to try</strong><br>
+LiteLLM for virtual keys with budgets per key · Azure API Management, whose token-limit policy sets token quotas and rate limits · Kong AI Gateway if you already run Kong, with token-based rate limiting through its AI rate limiting plugin · Cloudflare AI Gateway for caching, rate limits and cost logs. Check each one's current plan, because features vary by tier.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>When an agent hits its budget at 2 AM: hard stop, or let it run and alert someone? Pick one.</strong></p>
+<p>Tag the person in your company who'd get the call about a ₹6 lakh overnight bill.</p>
+<p><em>Day 7 of 50 · follow along. Tomorrow: The agent mesh. When two agents disagree, who's responsible?</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#AIGateway</span><span>#FinOps</span><span>#LLMOps</span><span>#CloudCosts</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../a-day06-queues/"><span>&#8592; Previous</span>The Model API Went Down at Month-End. Where Did 12,000 Invoices Go?</a><a class="next" href="../a-day08-agent-mesh/"><span>Next &#8594;</span>Two AI Agents Disagreed on a Refund. Who&#x27;s Responsible?</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

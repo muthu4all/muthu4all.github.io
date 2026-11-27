@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Who Pays When the AI Agent Gets It Wrong?</title>
+<meta name="description" content="In 2022, a man in Canada asked an airline&#x27;s chatbot about bereavement fares after his grandmother died. The bot told him he could claim the discount after the flight. The airline&#x27;s actual policy said…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/b-day02-who-pays/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Who Pays When the AI Agent Gets It Wrong?">
+<meta property="og:description" content="In 2022, a man in Canada asked an airline&#x27;s chatbot about bereavement fares after his grandmother died. The bot told him he could claim the discount after the flight. The airline&#x27;s actual policy said…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/b-day02-who-pays/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/b-day02-who-pays/B-day02-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Problem and Solution · 28 Oct 2026</div>
+  <h1>Who Pays When the AI Agent Gets It Wrong?</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="B-day02-1-cover-poster.jpg" alt="Cover: Who Pays When the AI Agent Gets It Wrong?" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>In 2022, a man in Canada asked an airline's chatbot about bereavement fares after his grandmother died. The bot told him he could claim the discount after the flight. The airline's actual policy said the opposite.</p>
+<p>He flew, applied, and was refused. So he took the airline to a tribunal.</p>
+<p>The airline's defence is the part I want every CXO to read twice. As the tribunal put it, the airline was in effect arguing that the chatbot was "a separate legal entity that is responsible for its own actions".</p>
+<p>The tribunal didn't buy it. In February 2024 it ruled that the chatbot was simply part of the airline's website, the airline was responsible for everything on that website, and it had to pay. The amount was small, about C$800 in total. The precedent wasn't.</p>
+<p>Since then it has only got more interesting.</p>
+<p>→ April 2025: the support bot of a popular AI coding tool told users they could only use the product on one device. No such policy existed. Some users cancelled their subscriptions before a co-founder could correct it.<br>
+→ July 2025: an AI coding agent deleted a live production database during a code freeze, then told the user a rollback wasn't possible. It was. The CEO apologised publicly.</p>
+<p>Three different failures: a wrong answer, an invented rule, a destructive action. One pattern. <strong>Someone with a name and a bank account paid, every time.</strong> The airline. The tool's makers, in cancellations. The founder who lost his data. Never "the AI".</p>
+<p>👉 <strong>[IMAGE: B-day02-2-in-article-who-paid.png]</strong><br>
+<em>Caption: Three real cases, three kinds of mistake, one answer to "who paid?".</em></p>
+<p><strong>The question has moved inside the company</strong></p>
+<p>If the loss always lands on the company that deployed the agent, the real question is: which person inside the company? Who gets the call?</p>
+<p>I've been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. Every go-live I've sat through had one moment that mattered more than the architecture: someone signing the go-live sheet. For AI agents, that signature is usually missing. The agent has authority: it can refund, reply, reschedule, reject. What it doesn't have is an owner.</p>
+<p>And don't wait for the law to settle it for you:</p>
+<p>→ The EU withdrew its proposed AI Liability Directive in 2025, and in July this year pushed the high-risk obligations of its AI Act out to December 2027.<br>
+→ In India, the RBI's FREE-AI framework from August 2025 is a set of recommendations, not a rule: board-approved AI policies, AI-specific clauses in vendor contracts, and the institution accountable for outcomes.<br>
+→ The DPDP Rules were notified in November 2025. Most duties for companies start in May 2027, with penalties of up to ₹250 crore for weak security safeguards.</p>
+<p>The law is arriving slowly, and when it arrives it points at the company. The agent's mistakes are yours. Plan for that now.</p>
+<p><strong>The accountability sheet: one page, signed before go-live</strong></p>
+<p>Here's what I ask for before any agent gets real authority. One page. Eight lines. One signature.</p>
+<ol>
+<li><strong>A named owner.</strong> One person, not a committee. The agent's manager. Their name goes on the sheet.</li>
+<li><strong>Scope and limits, with numbers.</strong> Refunds up to ₹2,000 on its own. ₹2,000 to ₹25,000 with a human click. Above that, humans only. (Illustrative numbers; yours will differ.)</li>
+<li><strong>Approval gates.</strong> Which actions always wait for a person, and who that person is at 2 AM.</li>
+<li><strong>An audit trail.</strong> Every input, every tool call, every output, and who approved what. Kept as long as you keep invoices.</li>
+<li><strong>A kill switch and a rollback.</strong> Who can switch it off, how fast, and how yesterday's decisions get undone.</li>
+<li><strong>The customer promise.</strong> The customer is told it's an AI, reaches a person in one step, and knows how to appeal.</li>
+<li><strong>Vendor terms.</strong> Which failures your model vendor or integrator actually covers. Read the contract. Usually it's almost none.</li>
+<li><strong>A review date.</strong> Limits widen only after someone reads the audit trail. Never because "it's been fine so far".</li>
+</ol>
+<p>Each line is a decision. An unsigned sheet doesn't mean the decisions weren't made. It means they were made by default, by whoever wrote the prompt.</p>
+<p>👉 <strong>[IMAGE: B-day02-3-in-article-accountability-sheet.png]</strong><br>
+<em>Caption: The agent accountability sheet, filled in for an illustrative refunds agent. Screenshot it and put real names on it.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>A signed agent on a normal Tuesday: one refund inside the limit, one above it, one question it shouldn't answer.</p>
+<p>👉 <strong>[GIF: B-day02-4-in-article-a-tuesday.gif]</strong><br>
+<em>Caption: Three events, three different outcomes, every one of them on the record.</em></p>
+<p><strong>The hard parts</strong></p>
+<p>→ <strong>Nobody wants to sign.</strong> Owning an agent feels like career risk. The fix is to make the limits small enough that signing is safe, then widen them with evidence.<br>
+→ <strong>Humans in the loop become rubber stamps.</strong> After a hundred correct suggestions, the approver stops reading. Random audits of approvals are the only cure I know.<br>
+→ <strong>The audit trail is itself personal data.</strong> Logging every conversation creates a new DPDP problem. Mask and set retention rules from day one.<br>
+→ <strong>Vendor contracts exclude almost everything.</strong> Model providers typically cap liability at what you paid them, if that. Your leverage is with the integrator, so negotiate that contract harder.<br>
+→ <strong>Agents calling agents.</strong> When your agent talks to a supplier's agent, the chain of who-did-what gets murky. Honestly, nobody has solved this one yet.</p>
+<p><strong>The opportunity</strong></p>
+<p>Every company that gives an agent authority will need the sheet, the logs and the proof. That's a market, and it's mostly empty today:</p>
+<p>→ <strong>Agent audit-trail and approval platforms</strong>, sold to risk and compliance teams, not just engineers<br>
+→ <strong>AI accountability reviews</strong>, the way firms sell security audits today<br>
+→ <strong>Policy-as-code gateways</strong> that enforce the limits before the model acts, not after<br>
+→ <strong>Insurance</strong>, eventually. Insurers are starting to look at AI liability cover. It's early, I can't point to a mature product yet, and pricing it will need exactly the audit trail above.</p>
+<p>The agent that can show its record will be trusted. The firms that sell proof, not promises, will win this.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Would you put your own name on the sheet as the owner of an AI agent in your company? Yes or no.</strong></p>
+<p>Tag the person in your organisation who'd be the first one asked "who approved this?". They should read it before the question comes.</p>
+</div>
+<div class="tags"><span>#AgenticAI</span><span>#AIGovernance</span><span>#ResponsibleAI</span><span>#RiskManagement</span><span>#AIRegulation</span><span>#Leadership</span><span>#EnterpriseAI</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="prev" href="../b-day01-kirana-ondc/"><span>&#8592; Previous</span>Every Kirana Store Could Have an AI Agent. ONDC Is the Missing Plumbing.</a><a class="next" href="../b-day03-sme-guide/"><span>Next &#8594;</span>A Small Business Owner&#x27;s Honest Guide: What to Automate with AI This Year</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Monolith Doesn&#x27;t Need a Rewrite to Get AI</title>
+<meta name="description" content="The most expensive sentence in enterprise AI is: &quot;Let&#x27;s modernise the monolith first. Then we&#x27;ll add AI.&quot; That sentence has delayed more AI projects than any model limitation ever did. The migration…">
+<meta name="author" content="Muthukumar Subramanian">
+<link rel="canonical" href="https://muthu4all.github.io/writing/a-day01-monolith/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Architecture Atlas · Muthukumar Subramanian">
+<meta property="og:title" content="Your Monolith Doesn&#x27;t Need a Rewrite to Get AI">
+<meta property="og:description" content="The most expensive sentence in enterprise AI is: &quot;Let&#x27;s modernise the monolith first. Then we&#x27;ll add AI.&quot; That sentence has delayed more AI projects than any model limitation ever did. The migration…">
+<meta property="og:url" content="https://muthu4all.github.io/writing/a-day01-monolith/">
+<meta property="og:image" content="https://muthu4all.github.io/writing/a-day01-monolith/A-day01-1-cover-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="../../assets/writing.css">
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="../../">Architecture <span>Atlas</span></a>
+  <nav aria-label="Site"><ul>
+    <li><a class="link" href="../../#architectures">Architectures</a></li>
+    <li><a class="link" href="../../writing/" aria-current="page">Writing</a></li>
+    <li><a class="link" href="../../#about">About</a></li>
+    <li><a class="link" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">LinkedIn &#8599;</a></li>
+  </ul></nav>
+</header>
+<main class="article">
+<header>
+  <div class="eyebrow">Architecture of the Day · Day 1/50 · 27 Oct 2026</div>
+  <h1>Your Monolith Doesn&#x27;t Need a Rewrite to Get AI</h1>
+  <p class="credit">By <b>Muthukumar Subramanian</b> · Agentic AI Architect</p>
+  <div class="cover"><img src="A-day01-1-cover-poster.jpg" alt="Cover: Your Monolith Doesn&#x27;t Need a Rewrite to Get AI" width="1600" height="900"></div>
+</header>
+<div class="body">
+<p>The most expensive sentence in enterprise AI is:</p>
+<p><strong>"Let's modernise the monolith first. Then we'll add AI."</strong></p>
+<p>That sentence has delayed more AI projects than any model limitation ever did. The migration takes two years, the budget gets cut in year one, and the AI never arrives.</p>
+<p>Here's the uncomfortable truth: your 15-year-old monolith is not the problem. It's full of exactly what AI needs: real data, real rules, real history. You don't need to rewrite it. You need to put something beside it.</p>
+<p>This is Day 1 of <strong>Architecture of the Day</strong>, a 50-day series in which I take one architecture each day and show how AI and agents change it. We start with the one most companies actually run.</p>
+<p><strong>The architecture today</strong></p>
+<p>One big application. Customers, orders, billing, reports and admin, all in one codebase, on one core database. It's slow to change, scary to touch, and it still runs the business every single day.</p>
+<p><strong>Where AI plugs in now: the AI sidecar</strong></p>
+<p>Don't put AI <em>inside</em> the monolith. Put it <em>next to</em> it.</p>
+<p>The AI sidecar is a separate service that:<br>
+→ <strong>Reads</strong> from a read replica of the database, never the live core<br>
+→ <strong>Searches</strong> documents, tickets and records through a search and vector index<br>
+→ <strong>Calls</strong> the monolith's existing APIs as tools when it needs to act<br>
+→ <strong>Shows up</strong> as one small "Ask" panel in the existing UI</p>
+<p>The core code doesn't change on day one. Not one line.</p>
+<p>👉 <strong>[IMAGE: A-day01-2-in-article-architecture.png]</strong><br>
+<em>Caption: The AI sidecar pattern. Grey is what you already have. Amber is new.</em></p>
+<p><strong>The rollout that actually works: Read, then Assist, then Act</strong></p>
+<p><strong>Level 1, Read.</strong> The AI only answers questions. <em>"Why was invoice 4471 ₹500 higher?"</em> It reads the history and replies with the source. Risk: low.</p>
+<p><strong>Level 2, Assist.</strong> The AI drafts the reply, the refund form or the next action. A person reviews it and clicks send. Risk: medium.</p>
+<p><strong>Level 3, Act.</strong> The AI calls existing APIs to waive a fee or reschedule a delivery, within limits and with approvals and an audit trail. Risk: higher, so it comes last.</p>
+<p>Each level earns the trust for the next one. Skip straight to "Act" and the first mistake ends the project.</p>
+<p>👉 <strong>[IMAGE: A-day01-3-in-article-read-assist-act.png]</strong><br>
+<em>Caption: Read, then assist, then act. In that order.</em></p>
+<p><strong>Watch it work</strong></p>
+<p>Same question, three levels, core code untouched, and everything logged.</p>
+<p>👉 <strong>[GIF: A-day01-4-in-article-three-levels.gif]</strong><br>
+<em>Caption: AI in a monolith, three levels. Zero lines of core code changed.</em></p>
+<p><strong>Where it's heading with agents</strong></p>
+<p>Once the sidecar exists, something interesting happens. Each existing API becomes a <em>tool</em> that agents can use, exposed once through a standard like MCP. New features start getting built as agent workflows <em>on top of</em> the monolith instead of <em>inside</em> it.</p>
+<p>Over time the monolith quietly becomes the system of record, and the agents become the system of work. That's modernisation without the big-bang rewrite.</p>
+<p><strong>Pros</strong><br>
+→ Value in weeks, not after a two-year migration<br>
+→ No risk to the core: the sidecar can be switched off<br>
+→ Model-neutral: swap OpenAI, Claude, Gemini or an open model behind one gateway</p>
+<p><strong>Cons</strong><br>
+→ Read replicas and indexes add some infrastructure cost<br>
+→ The old APIs may be messy, so wrapping them cleanly takes effort<br>
+→ Without governance it becomes "shadow AI" with a nicer UI</p>
+<p><strong>The opportunity</strong></p>
+<p>There are millions of business applications nobody will ever rewrite: in banks, insurers, hospitals, manufacturers and government. Every one of them is a candidate for an AI sidecar.</p>
+<p>That's a huge services and product market: <strong>AI retrofits for systems that aren't going anywhere.</strong> The firms that learn to do this safely and repeatably will be very busy for the next five years.</p>
+<p><strong>Tools to try</strong><br>
+OpenAI API or Azure OpenAI · Claude API · Gemini · pgvector or Azure AI Search for the index · an MCP server to wrap existing APIs · Copilot Studio connectors for Microsoft-heavy shops.</p>
+<hr>
+<p><strong>Your turn 👇</strong><br>
+<strong>Rewrite the monolith first, or put the sidecar in now? Pick one and tell me why.</strong></p>
+<p>And if you know someone who keeps saying "after the migration", tag them. They need this more than anyone.</p>
+<p><em>Day 1 of 50. Follow me so you don't miss tomorrow's: Layered architecture, and the AI layer nobody planned for.</em></p>
+</div>
+<div class="tags"><span>#ArchitectureOfTheDay</span><span>#AgenticAI</span><span>#AIArchitecture</span><span>#LegacyModernization</span><span>#EnterpriseAI</span><span>#SoftwareArchitecture</span></div>
+<aside class="author" aria-label="About the author">
+  <div class="eyebrow">About the author</div>
+  <h2>Muthukumar Subramanian</h2>
+  <p>Agentic AI and GenAI architect. I&#x27;ve been in IT for 25 years, at Infosys and then as a consultant and fractional executive, across everything from legacy systems to agentic AI. I write about the architectures AI agents need, and I name and specify new ones on the <a href="../../">Architecture Atlas</a>.</p>
+  <div class="actions" style="margin-top:6px">
+    <a class="btn primary" href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">Follow on LinkedIn &#8599;</a>
+    <a class="btn" href="https://www.linkedin.com/in/muthu4all/recent-activity/articles/" target="_blank" rel="noopener">Join the discussion on LinkedIn &#8599;</a>
+  </div>
+</aside>
+<nav class="pager" aria-label="More in this series"><a class="next" href="../a-day02-layered/"><span>Next &#8594;</span>Your ERP Has Three Layers. The Fourth One Talks.</a></nav>
+</main>
+<footer class="site">
+  <div><b>Architecture Atlas</b> · Muthukumar Subramanian · Agentic AI Architect · <a href="https://www.linkedin.com/in/muthu4all" target="_blank" rel="noopener">linkedin.com/in/muthu4all</a></div>
+  <div>Articles first published on LinkedIn · text <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+</footer>
+</div>
+</body>
+</html>
